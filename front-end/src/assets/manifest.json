@@ -1,0 +1,21 @@
+{
+    "short_name": "Khanh PWA",
+    "name": "hello",
+    "icons": [
+        {
+            "src": "/img/icons-192.png",
+            "type": "image/png",
+            "sizes": "192x192"
+        },
+        {
+            "src": "/img/icons-512.png",
+            "type": "image/png",
+            "sizes": "512x512"
+        }
+    ],
+    "start_url": "/",
+    "display": "standalone",
+    "theme_color": "#63bf82",
+    "background_color": "#ffffff"
+    
+}

@@ -16,19 +16,10 @@ class Admin_Group_Seeder extends Seeder
     		DB::table('admin_group')->insert([
     			[
     			'name' => 'Super Admin',
-    			],
-    			[
-    			'name' => 'Editer With Delete',
-    			],
+    			],    			
     			[
     			'name' => 'Editer',
-    			],
-    			[
-    			'name' => 'Writer',
-    			],
-    			[
-    			'name' => 'Demo',
-    			],
+    			],    			
     		]);
     	}
     }

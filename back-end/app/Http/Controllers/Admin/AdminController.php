@@ -60,11 +60,11 @@ class AdminController extends MainAdminController
         switch ($type) {
             case 'insert':
                 //check if email is exists
-                $user = $this->model::where(['email' => $req->email])->first();
+                $user = $this->model::where(['username' => $req->username])->first();
                 if($user){
                     return [
                         'type' => 'error',
-                        'msg'  => 'Email đã tồn tại. Vui lòng sử dụng email khác'
+                        'msg'  => 'Tài khoản đã tồn tại. Vui lòng sử dụng tài khoản khác'
                     ];
                 }
                 //encode password
@@ -72,12 +72,12 @@ class AdminController extends MainAdminController
                 break;
             case 'update':
                 //check if email is exists
-                if($req->email !== $item->email){
-                    $user = $this->model::where(['email' => $req->email])->first();
+                if($req->username !== $item->username){
+                    $user = $this->model::where(['username' => $req->username])->first();
                     if($user){
                         return [
                             'type' => 'error',
-                            'msg'  => 'Email đã tồn tại'
+                            'msg'  => 'Tài khoản đã tồn tại'
                         ];
                     }
                 }                
@@ -85,12 +85,9 @@ class AdminController extends MainAdminController
             default:
                 break;
         }
-        $item->email      = $req->email;
-        $item->first_name = $req->first_name;
-        $item->last_name  = $req->last_name;
+        $item->username   = $req->username;
         $item->gad_id     = (int)$req->gad_id;        
         $item->status     = (int)$req->get('status',$this->status); 
-        $item->settings   = '';
 
         return ['type' => 'success'];
 
@@ -160,45 +157,48 @@ class AdminController extends MainAdminController
     	if($request->session()->has('user')){
             return redirect('/admin');
         }
-    	$email = $request->email;
+    	$username = $request->username;
     	$password = $request->password;
-    	if(empty($email) || empty($password)){
+    	if(empty($username) || empty($password)){
     		return view($this->view_folder.'login')
-    			->withMessage(['type' => 'error' , 'msg' => 'Email và mật khẩu không được để trống']);
+    			->withMessage(['type' => 'error' , 'msg' => 'Username và mật khẩu không được để trống']);
     	} else {
     		$result = Admin::where([                
-                'email' => $email , 
+                'username' => $username , 
                 'password' => encode_password($request->password)
             ])->first();
 
+
     		if(empty($result)){
     			return view($this->view_folder.'login')
-    			->withMessage(['type' => 'error' , 'msg' => 'Email hoặc mật khẩu chưa chính xác']);
+    			->withMessage(['type' => 'error' , 'msg' => 'Tài khoản hoặc mật khẩu chưa chính xác']);
     		} else if($result->status !== 1){
                 return view($this->view_folder.'login')
                 ->withMessage(['type' => 'error' , 'msg' => 'Tài khoản của bạn đã bị vô hiệu hóa. Vui lòng liên hệ với quản trị viên.']);
             } else {
 
-                $admin_model = new Admin();
-                $per_user = $admin_model->get_permission_user($result->gad_id);                
-                if($per_user){
-                    $request->session()->put('permission', $per_user);
-                }
+                // $admin_model = new Admin();
+                // $per_user = $admin_model->get_user($result->gad_id);  
+                // var_dump($result);
+                // die();              
+                // if($per_user){
+                //     $request->session()->put('user', $per_user);
+                // }
                 
     			$request->session()->put('user', $result);
-                $session_id = session()->getId();
-                if($session_id){
-                    $session = new Sessions();
-                    $session = $session->where('id' ,$session_id)->first();
+                // $session_id = session()->getId();
+                // if($session_id){
+                //     $session = new Sessions();
+                //     $session = $session->where('id' ,$session_id)->first();
                     
-                    if($session){
-                        $session->user_id = $result->id;
-                        $session->ip_address = getRealUserIp();
-                        $session->user_agent = $request->header('User-Agent');
-                        $session->save();
-                    }
-                }
-    			return redirect()->back();
+                //     if($session){
+                //         $session->user_id = $result->id;
+                //         $session->ip_address = getRealUserIp();
+                //         $session->user_agent = $request->header('User-Agent');
+                //         $session->save();
+                //     }
+                // }
+    			return redirect('/admin');
     		}
     	}
     }

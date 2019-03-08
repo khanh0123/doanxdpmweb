@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\DB;
-class CreateTableEpisode extends Migration
+class CreateTableMenu extends Migration
 {
     /**
      * Run the migrations.
@@ -13,19 +13,19 @@ class CreateTableEpisode extends Migration
      */
     public function up()
     {
-        Schema::create('episode', function (Blueprint $table) {
+        Schema::create('menu', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('mov_id')->unsigned()->index();
-            $table->string('slug');
-            $table->string('title');
-            $table->integer('episode');
-            $table->text('images');
-            $table->string('short_des');
-            $table->text('long_des');
+            $table->string('name');            
+            $table->integer('tag_id')->unsigned()->index();           
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
-            $table->foreign('mov_id', 'fk_episode_movie')->references('id')->on('movie')->onDelete('restrict');
-        });    }
+
+            $table->foreign('tag_id', 'fk_menu_tags')
+                ->references('id')
+                ->on('tags')
+                ->onDelete('cascade');
+        });
+    }
 
     /**
      * Reverse the migrations.
@@ -34,6 +34,6 @@ class CreateTableEpisode extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('episode');
+        Schema::dropIfExists('menu');
     }
 }

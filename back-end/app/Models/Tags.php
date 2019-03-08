@@ -5,9 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
-class Category extends Model
+class Tags extends Model
 {
-    protected $table = 'category';
+    protected $table = 'tags';
     public $timestamps = false;
 
     public function get_page($filter = [] , $req)

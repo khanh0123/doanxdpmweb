@@ -6,9 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Admin\MainAdminController;
 use App\Models\Menu;
 use Validator;
-use App\Models\Category; 
-use App\Models\Genre; 
-use App\Models\Country;
+use App\Models\Tags; 
 class MenuController extends MainAdminController
 {
 	protected $model;
@@ -17,20 +15,17 @@ class MenuController extends MainAdminController
     protected $rules = [
         'insert' => [
             'name'     => 'required',
-            'slug'     => 'required',
-            'sub_menu' => 'required'
+            'tag_id'     => 'required',
         ],
         'update' => [
             'name'     => 'required',
-            'slug'     => 'required',
-            'sub_menu' => 'required'
-            
-        ],
+            'tag_id'   =>   'required',          
+        ]
     ];
     protected $columns_filter = [
         // 'id'         =>    'menu.id',            
         'name'       =>    'menu.name',            
-        'slug'       =>    'menu.slug',        
+        'tag_id'       =>  'menu.tag_id',   
         'created_at' =>    'menu.created_at',
         'updated_at' =>    'menu.updated_at',
     ];
@@ -48,7 +43,9 @@ class MenuController extends MainAdminController
 
 
     public function setItem($type , $req , &$item){
-
+        // $data=$req->all();
+        // var_dump($data);
+        // die();
     	$validator = Validator::make($req->all(), $this->rules[$type]);
         if ($validator->fails()) {
         	return [
@@ -56,10 +53,28 @@ class MenuController extends MainAdminController
         		'msg' => 'Vui lòng kiểm tra lại các trường nhập'
         	];
         }
+        //var_dump($req->tag_id);
+        // die();
+        switch ($type) {
+            case 'insert':               
+                
+                if($req->name !== $item->name){
+                    if($this->model::where([
+                        ['name',$req->name]
+                    ])->first()){
+                        return [
+                            'type' => 'error',
+                            'msg'  => 'Menu này đã tồn tại'
+                        ];
+                    }
+                }        
+                break;
+            default:
+                break;
+        }
         
-        $item->name = $req->get("name");
-        $item->slug = create_slug($req->slug ? $req->slug : $req->name);
-        $item->sub_menu = implode(",", $req->sub_menu ? $req->sub_menu : []);
+        $item->name = $req->name;
+        $item->tag_id=$req->tag_id;
 
         
         return [
@@ -71,7 +86,7 @@ class MenuController extends MainAdminController
 
 
 
-    /*
+    /*  
      * Show detail item that belongs to passed id.
      */
     public function detail(Request $request,$id)
@@ -93,7 +108,7 @@ class MenuController extends MainAdminController
                 }
             }
         }
-        $data['info']->sub_menu = explode(",", $data['info']->sub_menu);
+        //$data['info']->sub_menu = explode(",", $data['info']->sub_menu);
         $data['more'] = $this->getDataNeed();
 
         return $this->template($this->view_folder."detail",$data);
@@ -106,29 +121,16 @@ class MenuController extends MainAdminController
     protected function getDataNeed(){
         $data = array();
 
-        $cat_model = new Category();
-        $gen_model = new Genre();
-        $cot_model = new Country();
+        $tag_model = new Tags();
 
-        $data_cat = $cat_model->getall();
-        $data_gen = $gen_model->getall();
-        $data_cot = $cot_model->getall();
+        $tag_model = $tag_model->getall();
 
-        if(count($data_cat) > 0) {
-            foreach ($data_cat as $value) {
+        if(count($tag_model) > 0) {
+            foreach ($tag_model as $value){
                 array_push($data, $value);
             }
         }
-        if(count($data_gen) > 0) {
-            foreach ($data_gen as $value) {
-                array_push($data, $value);
-            }
-        }
-        if(count($data_cot) > 0) {
-            foreach ($data_cot as $value) {
-                array_push($data, $value);
-            }
-        }
+        
         return $data;
     }
 

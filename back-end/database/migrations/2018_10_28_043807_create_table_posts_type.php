@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\DB;
-class CreateTableConfig extends Migration
+class CreateTablePostsType extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreateTableConfig extends Migration
      */
     public function up()
     {
-        Schema::create('config', function (Blueprint $table) {
+        Schema::create('posts_type', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('key',255);
-            $table->text('value');
+            $table->integer('name');            
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
         });
@@ -29,6 +28,6 @@ class CreateTableConfig extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('config');
+        Schema::dropIfExists('posts_type');
     }
 }

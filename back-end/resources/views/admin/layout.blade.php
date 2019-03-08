@@ -78,7 +78,7 @@
                         </a>
                     </li>
                     
-                    @if (Session::get('permission')->isAdmin)
+                   
                     <!-- <li>
                         <a data-toggle="collapse" href="{{ base_url('admin#permission') }}">
                             <i class="material-icons">pan_tool</i>
@@ -103,13 +103,7 @@
                             </p>
                         </a>
                         <div class="collapse" id="groupAdmin">
-                            <ul class="nav">
-                                <li class="group show">
-                                    <a href="{{ base_url('admin/group') }}">Danh sách nhóm</a>
-                                </li>
-                                <li class="group add">
-                                    <a href="{{ base_url('admin/group/add') }}">Thêm nhóm</a>
-                                </li>
+                            <ul class="nav">                                
                                 <li class="admin show">
                                     <a href="{{ base_url('admin/user') }}">Danh sách Admin</a>
                                 </li>
@@ -119,64 +113,50 @@
                             </ul>
                         </div>
                     </li>
-                    @endif
+                   
                     <li>
                         <a data-toggle="collapse" href="{{ base_url('admin#movie') }}">
                             <i class="material-icons">movie</i>
-                            <p>Quản Lý Phim
+                            <p>Quản Lý Bản Tin
                                 <b class="caret"></b>
                             </p>
                         </a>
                         <div class="collapse" id="movie">
                             <ul class="nav">
                                 <li class="show">
-                                    <a href="{{ base_url('admin/movie') }}">Danh sách phim</a>
+                                    <a href="{{ base_url('admin/movie') }}">Danh sách bản tin</a>
                                 </li>
-                                @if (Session::get('permission')->canWrite)
+                                
                                 <li class="add">
-                                    <a href="{{ base_url('admin/movie/add') }}">Thêm phim mới</a>
+                                    <a href="{{ base_url('admin/movie/add') }}">Thêm tin mới</a>
                                 </li>
-                                @endif
+                            
                             </ul>
                         </div>
                     </li>
                     <li>
                         <a data-toggle="collapse" href="{{ base_url('admin#catcotgen') }}">
                             <i class="material-icons">category</i>
-                            <p>Quản Lý DM QG TL
+                            <p>Quản Lý Tags
                                 <b class="caret"></b>
                             </p>
                         </a>
                         <div class="collapse" id="catcotgen">
                             <ul class="nav show">
-                                <li class="category">
-                                    <a href="{{ base_url('admin/category') }}">Danh sách danh mục</a>
-                                </li>
-                                <li class="country">
-                                    <a href="{{ base_url('admin/country') }}">Danh sách quốc gia</a>
-                                </li>
-                                <li class="genre">
-                                    <a href="{{ base_url('admin/genre') }}">Danh sách thể loại</a>
-                                </li>
-                                
+                                <li class="tags">
+                                    <a href="{{ base_url('admin/tags') }}">Danh sách tags</a>
+                                </li>                       
                             </ul>
-                            @if (Session::get('permission')->canWrite)
+                            
                             <ul class="nav add">
                                 
                                 
-                                <li class="category">
-                                    <a href="{{ base_url('admin/category/add') }}">Thêm danh mục</a>
-                                </li>
-
-                                <li class="country">
-                                    <a href="{{ base_url('admin/country/add') }}">Thêm quốc gia</a>
-                                </li>
-                                <li class="genre">
-                                    <a href="{{ base_url('admin/genre/add') }}">Thêm thể loại</a>
-                                </li>
+                                <li class="tags">
+                                    <a href="{{ base_url('admin/tags/add') }}">Thêm tags</a>
+                                </li>                               
                                 
                             </ul>
-                            @endif
+                           
                         </div>
                     </li>
                     <!-- <li>
@@ -202,11 +182,11 @@
                                 <li class="show">
                                     <a href="{{ base_url('admin/genre') }}">Danh sách thể loại</a>
                                 </li>
-                                @if (Session::get('permission')->canWrite)
+                               
                                 <li class="add">
                                     <a href="{{ base_url('admin/genre/add') }}">Thêm thể loại</a>
                                 </li>
-                                @endif
+                               
                             </ul>
                         </div>
                     </li> -->
@@ -222,11 +202,11 @@
                                 <li class="show">
                                     <a href="{{ base_url('admin/menu') }}">Danh sách menu</a>
                                 </li>
-                                @if (Session::get('permission')->canWrite)
+                               
                                 <li class="add">
                                     <a href="{{ base_url('admin/menu/add') }}">Thêm menu</a>
                                 </li>
-                                @endif
+                              
                             </ul>
                         </div>
                     </li>
@@ -242,11 +222,11 @@
                                 <li class="show">
                                     <a href="{{ base_url('admin/banner') }}">Danh sách banner</a>
                                 </li>
-                                @if (Session::get('permission')->canWrite)
+                                
                                 <li class="add">
                                     <a href="{{ base_url('admin/banner/add') }}">Thêm banner</a>
                                 </li>
-                                @endif
+                             
                             </ul>
                         </div>
                     </li>
@@ -262,11 +242,11 @@
                                 <li class="show">
                                     <a href="{{ base_url('admin/config') }}">Danh sách cấu hình</a>
                                 </li>
-                                @if (Session::get('permission')->canWrite)
+                               
                                 <li class="add">
                                     <a href="{{ base_url('admin/config/add') }}">Thêm cấu hình</a>
                                 </li>
-                                @endif
+                               
                             </ul>
                         </div>
                     </li>

@@ -74,6 +74,8 @@ class EpisodeController extends MainAdminController
 
         switch ($type) {
             case 'insert':
+                // var_dump($req->episode);
+                // die();
                 if((int)$req->episode !== (int)$item->episode){
                     if($this->model::where([
                         ['episode',$req->episode],

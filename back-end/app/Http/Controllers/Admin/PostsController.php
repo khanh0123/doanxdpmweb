@@ -65,7 +65,7 @@ class MovieController extends MainAdminController
 	
 
 	public function __construct(Request $request) {
-        $this->model = new Movie;
+        $this->model = new Posts;
         parent::__construct($request);
     }
     /*

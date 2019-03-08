@@ -27,7 +27,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
+                                <!-- <div class="row">
                                     <label class="col-sm-2 label-on-left">Slug</label>
                                     <div class="col-sm-10">
                                         <div class="form-group label-floating is-empty">
@@ -36,11 +36,11 @@
                                             <span class="material-input"></span>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="row">
-                                    <label class="col-sm-2 label-on-left">Chọn menu con</label>
+                                    <label class="col-sm-2 label-on-left">Chọn menu</label>
                                     <div class="col-sm-10">
-                                        <select data-container="body" class="selectpicker" data-live-search="true" data-size="10" multiple data-style="btn-success" name="sub_menu[]" >
+                                        <select data-container="body" class="selectpicker" data-live-search="true" data-size="10"  data-style="btn-success" name="tag_id" >
                                             @foreach($data['more'] as $key => $value)
                                             <?php 
                                                 $seleted = in_array($value->id,$data['info']->sub_menu) ? true : false;
@@ -67,16 +67,16 @@
                             </div>
                             <div class="card-content">
 
-                                @if (session()->get('permission')->canUpdate)
+                               
                                 <button type="submit" class="btn btn-info using-tooltip" data-toggle="tooltip" data-placement="top" title="Xác Nhận Thay Đổi"><i class="material-icons">check</i>Xác Nhận<div class="ripple-container"></div></button>
-                                @endif
+                              
 
                                 <a class="btn using-tooltip" href="{{base_url('admin/menu')}}" data-toggle="tooltip" data-placement="top" title="Hủy bỏ thao tác">Hủy bỏ<div class="ripple-container"></div></a>
 
-                                @if (session()->get('permission')->canDelete)
+                               
 
                                 <a class="btn btn-danger using-tooltip" href="{{base_url('admin/menu/del/'.$data['info']['id'])}}" data-toggle="tooltip" data-placement="top" title="Xóa phần tử này?"><i class="material-icons">close</i>Xóa<div class="ripple-container"></div></a>
-                                @endif
+                              
                             </div>
                         </div>
                     </div>
@@ -103,11 +103,15 @@
         $('#menu').parent('li').addClass('active');
         $('#menu').collapse();
 
-        $('input[name="name"]').on('keyup', function(event) {
-            event.preventDefault();
-            $('input[name="slug"]').val(create_slug($(this).val()));
-        });
+        // $('input[name="name"]').on('keyup', function(event) {
+        //     event.preventDefault();
+        //     $('input[name="slug"]').val(create_slug($(this).val()));
+        // });
 
+        $('select[name="tag_id"]').on('change', function(event) {
+            event.preventDefault();
+            $('input[name="name"]').val($(this).val());
+        });  
     });
 </script>
 @stop

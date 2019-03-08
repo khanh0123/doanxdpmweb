@@ -18,7 +18,7 @@
                     <form class="form-inline" method="GET" action="">
                         <!-- <div class="row"> -->
                             <div class="col-sm-12">
-                                <div style="margin: 5px;width: 13%;display: inline-block">
+                                <div style="margin: 5px;width: 20%;display: inline-block">
                                     <span>Hiển thị</span>
                                     <select class="selectpicker col-4" data-style="btn btn-primary btn-round"  data-size="7" name="limit">
                                         <option value="10" {{ @$data['info']['filter']['limit'] == 10 ? 'selected' : ''}}>10</option>
@@ -28,20 +28,22 @@
                                     </select>
                                     <!-- <span>Kết quả</span> -->
                                 </div>
-                                <div style="margin: 5px;width: 30%;display: inline-block">
+                                <div style="margin: 5px;width: 25%;display: inline-block">
                                     <span>Sắp xếp</span>
                                     <select class="selectpicker col-4" data-style="btn btn-primary btn-round"  data-size="7" style="width: 20% !important" name="sort">                                
                                         <option value="desc" {{ @$data['info']['filter']['sort'] == 'desc' ? 'selected' : ''}}>Giảm dần</option>
                                         <option value="asc" {{ @$data['info']['filter']['sort'] == 'asc' ? 'selected' : ''}}>Tăng dần</option>                     
-                                    </select>
-                                    <span>theo</span>
-                                    <select class="selectpicker col-4" data-style="btn btn-primary btn-round"  data-size="7" style="width: 20% !important" name="orderBy">                                
-                                        <option value="id" {{ @$data['info']['filter']['orderBy'] == 'id' ? 'selected' : ''}}>ID</option>
-                                        <option value="email" {{ @$data['info']['filter']['orderBy'] == 'email' ? 'selected' : ''}}>Email</option>
-                                        <option value="created_at" {{ @$data['info']['filter']['orderBy'] == 'created_at' ? 'selected' : ''}}>Ngày tạo</option>
-                                        <!-- <option value="asc" {{ @$data['info']['filter']['orderBy'] == 'asc' ? 'selected' : ''}}>Tăng dần</option>                      -->
-                                    </select>
+                                    </select>                                    
                                 </div>
+                                <div style="margin: 5px;width: 20%;display: inline-block">
+                                    <span>Theo</span>
+                                        <select class="selectpicker col-4" data-style="btn btn-primary btn-round"  data-size="7" style="width: 20% !important" name="orderBy">                                
+                                            <option value="id" {{ @$data['info']['filter']['orderBy'] == 'id' ? 'selected' : ''}}>ID</option>
+                                           <!--  <option value="email" {{ @$data['info']['filter']['orderBy'] == 'email' ? 'selected' : ''}}>Email</option> -->
+                                            <option value="created_at" {{ @$data['info']['filter']['orderBy'] == 'created_at' ? 'selected' : ''}}>Ngày tạo</option>
+                                            <!-- <option value="asc" {{ @$data['info']['filter']['orderBy'] == 'asc' ? 'selected' : ''}}>Tăng dần</option>                      -->
+                                        </select>
+                                    </div>
                                 <button class="btn btn-success btn-round" type="submit">Lọc<div class="ripple-container"></div></button>
                             </div>
 
@@ -54,7 +56,7 @@
                             <thead>
                                 <tr>
                                     <th>Tên Menu</th>
-                                    <th>Slug</th>
+                                   <!--  <th>Slug</th> -->
                                     <th>Ngày tạo</th>
                                     <th>Lần cập nhật cuối</th>
                                     <th class="text-right">Hành động</th>
@@ -63,7 +65,7 @@
                             <tfoot>
                                 <tr>
                                     <th>Tên Menu</th>
-                                    <th>Slug</th>
+                                    <!-- <th>Slug</th> -->
                                     <th>Ngày tạo</th>
                                     <th>Lần cập nhật cuối</th>
                                     <th class="text-right">Hành động</th>
@@ -73,14 +75,11 @@
                                 @foreach ($data['info'] as $value)
                                 <tr>
                                     <td>{{ $value->name }}</td>
-                                    <td>{{ $value->slug }}</td>
                                     <td>{{ $value->created_at }}</td>
                                     <td>{{ $value->updated_at }}</td>
                                     <td class="text-right">
-                                        <a href="{{base_url('admin/menu/detail/'.$value->id) }}" class="btn btn-simple btn-warning btn-icon edit">Chi tiết</a>
-                                        @if (session()->get('permission')->canDelete)
-                                        <a href="{{base_url('admin/menu/del/'.$value->id) }}" class="btn btn-simple btn-danger btn-icon remove">Xóa</a>
-                                        @endif
+                                        <a href="{{base_url('admin/menu/detail/'.$value->id) }}" class="btn btn-simple btn-warning btn-icon edit">Chi tiết</a>                                    
+                                        <a href="{{base_url('admin/menu/del/'.$value->id) }}" class="btn btn-simple btn-danger btn-icon remove">Xóa</a>                                        
                                     </td>
                                 </tr>
                                 @endforeach

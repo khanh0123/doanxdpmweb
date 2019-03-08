@@ -7,7 +7,7 @@ use DB;
 
 class Movie extends Model
 {
-    protected $table = 'movie';
+    protected $table = 'posts';
 
     public function get_page($filter = [] , $req)
     {
@@ -58,7 +58,7 @@ class Movie extends Model
     public function search(Array $data,$field_get = [])
     {
         $data = DB::table($this->table)
-                    ->select("movie.*","category.name as cat_name")
+                    ->select("posts.*","tags.name as tag_name")
                     ->join("category" , "category.id" , "=" , "movie.cat_id")
                     ->orderBy('movie.id', "desc")
                     ->where([$data])

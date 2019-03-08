@@ -1,9 +1,9 @@
 @extends('admin/layout' , ['message' => !empty($message) ? $message : []])
-@section('title', 'Thêm phim mới')
+@section('title', 'Thêm tin mới')
 @section('main')
 <div class="container-fluid">
     <div class="alert alert-light" role="alert">
-        <strong class="">Thêm phim mới</strong>
+        <strong class="">Thêm tin mới</strong>
     </div>
     <form action="" method="post" enctype="multipart/form-data">
         {{ csrf_field()}}
@@ -16,13 +16,13 @@
                         <!--        You can switch " data-color="purple" "  with one of the next bright colors: "green", "orange", "red", "blue"       -->
                         <div class="wizard-header">
                             <h3 class="wizard-title">
-                                Thêm thông tin phim
+                                Thêm thông tin bản tin
                             </h3>
                         </div>
                         <div class="wizard-navigation">
                             <ul>
                                 <li class="wizard-menu-top">
-                                    <a href="/admin/movie#info" data-toggle="tab">Thông tin phim</a>
+                                    <a href="/admin/movie#info" data-toggle="tab">Thông tin bản tin</a>
                                 </li>
                                 <li class="wizard-menu-top">
                                     <a href="/admin/movie#more" data-toggle="tab">Ảnh và loại</a>
@@ -38,7 +38,7 @@
                                     <div class="row">
                                         <div class="col-sm-6">
                                             <div class="row">
-                                                <label class="col-sm-4 label-on-left">Tên phim <small style="color:red">*</small></label>
+                                                <label class="col-sm-4 label-on-left">Tên bản tin <small style="color:red">*</small></label>
                                                 <div class="col-sm-8">
                                                     <div class="form-group label-floating is-empty">
                                                         <label class="control-label"></label>
@@ -61,7 +61,7 @@
                                         </div>
                                         <!-- end col 6 -->
                                         <div class="col-sm-6">
-                                            <div class="row">
+                                            <!-- <div class="row">
                                                 <label class="col-sm-4 label-on-left">Số tập <small style="color:red">*</small></label>
                                                 <div class="col-sm-2">
                                                     <div class="form-group label-floating is-empty">
@@ -70,7 +70,7 @@
                                                         <span class="material-input"></span>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> -->
                                             <div class="row">
                                                 <label class="col-sm-4 label-on-left">Thời gian (phút )<small style="color:red">*</small></label>
                                                 <div class="col-sm-2">
@@ -128,8 +128,8 @@
                                             <div class="row">
                                                 <label class="col-sm-3 label-on-left">Chọn danh mục</label>
                                                 <div class="col-sm-5">
-                                                    <select data-container="body" class="selectpicker" data-live-search="true" data-size="10" data-style="btn-info" name="cat_id" required data-name="Danh mục">
-                                                        @foreach($data['more']['category'] as $key => $value)
+                                                    <select data-container="body" class="selectpicker" data-live-search="true" data-size="10" data-style="btn-info" name="tag_id" required data-name="Tags">
+                                                        @foreach($data['more']['tags'] as $key => $value)
                                                         <option data-tokens="{{$value->name}}" value="{{$value->id}}">{{$value->name}}</option>
                                                         @endforeach
                                                     </select>
@@ -137,29 +137,6 @@
                                                 </div>
                                             </div>
                                             <!-- end row -->
-                                            <div class="row">
-                                                <label class="col-sm-3 label-on-left">Chọn thể loại</label>
-                                                <div class="col-sm-5">
-                                                    <select data-container="body" class="selectpicker" data-live-search="true" data-size="10" multiple data-style="btn-danger" name="genre[]" required data-name="Thể loại">
-                                                        @foreach($data['more']['genre'] as $key => $value)
-                                                        <option data-tokens="{{$value->name}}" value="{{$value->id}}">{{$value->name}}</option>
-                                                        @endforeach
-                                                    </select>
-
-                                                </div>
-                                            </div>
-                                            <!-- end row -->
-                                            <div class="row">
-                                                <label class="col-sm-3 label-on-left">Chọn quốc gia</label>
-                                                <div class="col-sm-5">
-                                                    <select data-container="body" class="selectpicker" data-live-search="true" data-size="10" multiple data-style="btn-secondary" name="country[]" required data-name="Quốc gia">
-                                                        @foreach($data['more']['country'] as $key => $value)
-                                                        <option data-tokens="{{$value->name}}" value="{{$value->id}}">{{$value->name}}</option>
-                                                        @endforeach
-                                                    </select>
-
-                                                </div>
-                                            </div>
                                         </div>
                                         <div class="col-md-4 col-sm-4">
                                             <div class="fileinput fileinput-new text-center" data-provides="fileinput">
@@ -252,24 +229,24 @@
     $(document).ready(function() {
         $('.using-tooltip').tooltip({animation:true});
         $('.menu-left-custom >li.active').removeClass('active');
-        $('#movie').parent('li').addClass('active');
-        $('#movie .add').addClass('active');
-        $('#movie').collapse();
+        $('#posts').parent('li').addClass('active');
+        $('#posts .add').addClass('active');
+        $('#posts').collapse();
 
         $('input[name="name"]').on('keyup', function(event) {
             event.preventDefault();
             $('input[name="slug"]').val(create_slug($(this).val()));
         });
 
-        $('input[name="is_hot"],input[name="is_new"],input[name="is_banner"]').on('change', function(event) {
-            event.preventDefault();
-            if($(this).is(':checked')){
-                $(this).val(1);
-            } else {
-                $(this).val(0);
-            }
-        });
-        demo.initMaterialWizard();
+        // $('input[name="is_hot"],input[name="is_new"],input[name="is_banner"]').on('change', function(event) {
+        //     event.preventDefault();
+        //     if($(this).is(':checked')){
+        //         $(this).val(1);
+        //     } else {
+        //         $(this).val(0);
+        //     }
+        // });
+        // demo.initMaterialWizard();
 
 
     });

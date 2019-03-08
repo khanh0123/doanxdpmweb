@@ -1,9 +1,9 @@
 @extends('admin/layout' , ['message' => !empty($message) ? $message : []])
-@section('title', 'Chi tiết danh mục')
+@section('title', 'Thêm tags')
 @section('main')
 <div class="container-fluid">
     <div class="alert alert-light" role="alert">
-        <strong class="">Chi tiết danh mục</strong>
+        <strong class="">Thêm tags mới</strong>
     </div>
     <form action="" method="post">
         {{ csrf_field()}}
@@ -18,11 +18,11 @@
 
                             <div class="card-content form-horizontal">
                                 <div class="row">
-                                    <label class="col-sm-2 label-on-left">Tên danh mục</label>
+                                    <label class="col-sm-2 label-on-left">Tên tags <small>*</small></label>
                                     <div class="col-sm-10">
                                         <div class="form-group label-floating is-empty">
                                             <label class="control-label"></label>
-                                            <input type="text" class="form-control" name="name" value="{{ $data['info']['name'] }}" required="required">
+                                            <input type="text" class="form-control" name="name" value="" required>
                                             <span class="material-input"></span>
                                         </div>
                                     </div>
@@ -32,17 +32,17 @@
                                     <div class="col-sm-10">
                                         <div class="form-group label-floating is-empty">
                                             <label class="control-label"></label>
-                                            <input type="text" class="form-control" name="slug" value="{{ $data['info']['slug'] }}" required>
+                                            <input type="text" class="form-control" name="slug" value="" >
                                             <span class="material-input"></span>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
+                                <!-- <div class="row">
                                     <label class="col-sm-2 label-on-left">Tiêu đề seo</label>
                                     <div class="col-sm-10">
                                         <div class="form-group label-floating is-empty">
                                             <label class="control-label"></label>
-                                            <input type="text" class="form-control" name="seo_title" value="{{ $data['info']['seo_title'] }}" >
+                                            <input type="text" class="form-control" name="seo_title" value="" >
                                             <span class="material-input"></span>
                                         </div>
                                     </div>
@@ -52,11 +52,11 @@
                                     <div class="col-sm-10">
                                         <div class="form-group label-floating is-empty">
                                             <label class="control-label"></label>
-                                            <input type="text" class="form-control" name="seo_des" value="{{ $data['info']['seo_des'] }}" >
+                                            <input type="text" class="form-control" name="seo_des" value="" >
                                             <span class="material-input"></span>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
@@ -72,13 +72,9 @@
                             </div>
                             <div class="card-content">
 
-                                <button type="submit" class="btn btn-info using-tooltip" data-toggle="tooltip" data-placement="top" title="Xác Nhận Thay Đổi"><i class="material-icons">check</i>Xác Nhận<div class="ripple-container"></div></button>
+                                <button type="submit" class="btn btn-info using-tooltip" data-toggle="tooltip" data-placement="top" title="Xác Nhận Thêm"><i class="material-icons">check</i>Xác Nhận<div class="ripple-container"></div></button>
 
-                                <a class="btn using-tooltip" href="{{base_url('admin/category')}}" data-toggle="tooltip" data-placement="top" title="Hủy bỏ thao tác">Hủy bỏ<div class="ripple-container"></div></a>
-                                
-                                @if (session()->get('permission')->canDelete)
-                                <a class="btn btn-danger using-tooltip" href="{{base_url('admin/category/del/'.$data['info']['id'])}}" data-toggle="tooltip" data-placement="top" title="Xóa phần tử này?"><i class="material-icons">close</i>Xóa<div class="ripple-container"></div></a>
-                                @endif
+                                <button type="reset" class="btn btn-danger using-tooltip"  data-toggle="tooltip" data-placement="top" title="Làm mới form này"><i class="material-icons">close</i>Làm mới<div class="ripple-container"></div></button>
                             </div>
                         </div>
                     </div>
@@ -96,14 +92,19 @@
     @stop
 
     @section('js')
+
     <!--  DataTables.net Plugin    -->
 <!-- <script src="/assets/js/jquery.datatables.js"></script>
---><script type="text/javascript">
+-->
+<script type="text/javascript">
     $(document).ready(function() {
         $('.using-tooltip').tooltip({animation:true});
+
         $('.menu-left-custom >li.active').removeClass('active');
         $('#catcotgen').parent('li').addClass('active');
         $('#catcotgen').collapse();
+        $('.add .category').addClass('active');
+        
 
         $('input[name="name"]').on('keyup', function(event) {
             event.preventDefault();

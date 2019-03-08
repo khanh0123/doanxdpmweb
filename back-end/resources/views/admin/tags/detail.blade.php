@@ -1,9 +1,9 @@
 @extends('admin/layout' , ['message' => !empty($message) ? $message : []])
-@section('title', 'Thêm danh mục')
+@section('title', 'Chi tiết danh mục')
 @section('main')
 <div class="container-fluid">
     <div class="alert alert-light" role="alert">
-        <strong class="">Thêm danh mục mới</strong>
+        <strong class="">Chi tiết danh mục</strong>
     </div>
     <form action="" method="post">
         {{ csrf_field()}}
@@ -18,11 +18,11 @@
 
                             <div class="card-content form-horizontal">
                                 <div class="row">
-                                    <label class="col-sm-2 label-on-left">Tên danh mục <small>*</small></label>
+                                    <label class="col-sm-2 label-on-left">Tên tags</label>
                                     <div class="col-sm-10">
                                         <div class="form-group label-floating is-empty">
                                             <label class="control-label"></label>
-                                            <input type="text" class="form-control" name="name" value="" required>
+                                            <input type="text" class="form-control" name="name" value="{{ $data['info']['name'] }}" required="required">
                                             <span class="material-input"></span>
                                         </div>
                                     </div>
@@ -32,17 +32,17 @@
                                     <div class="col-sm-10">
                                         <div class="form-group label-floating is-empty">
                                             <label class="control-label"></label>
-                                            <input type="text" class="form-control" name="slug" value="" >
+                                            <input type="text" class="form-control" name="slug" value="{{ $data['info']['slug'] }}" required>
                                             <span class="material-input"></span>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
+                                <!-- <div class="row">
                                     <label class="col-sm-2 label-on-left">Tiêu đề seo</label>
                                     <div class="col-sm-10">
                                         <div class="form-group label-floating is-empty">
                                             <label class="control-label"></label>
-                                            <input type="text" class="form-control" name="seo_title" value="" >
+                                            <input type="text" class="form-control" name="seo_title" value="{{ $data['info']['seo_title'] }}" >
                                             <span class="material-input"></span>
                                         </div>
                                     </div>
@@ -52,11 +52,11 @@
                                     <div class="col-sm-10">
                                         <div class="form-group label-floating is-empty">
                                             <label class="control-label"></label>
-                                            <input type="text" class="form-control" name="seo_des" value="" >
+                                            <input type="text" class="form-control" name="seo_des" value="{{ $data['info']['seo_des'] }}" >
                                             <span class="material-input"></span>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
@@ -72,9 +72,13 @@
                             </div>
                             <div class="card-content">
 
-                                <button type="submit" class="btn btn-info using-tooltip" data-toggle="tooltip" data-placement="top" title="Xác Nhận Thêm"><i class="material-icons">check</i>Xác Nhận<div class="ripple-container"></div></button>
+                                <button type="submit" class="btn btn-info using-tooltip" data-toggle="tooltip" data-placement="top" title="Xác Nhận Thay Đổi"><i class="material-icons">check</i>Xác Nhận<div class="ripple-container"></div></button>
 
-                                <button type="reset" class="btn btn-danger using-tooltip"  data-toggle="tooltip" data-placement="top" title="Làm mới form này"><i class="material-icons">close</i>Làm mới<div class="ripple-container"></div></button>
+                                <a class="btn using-tooltip" href="{{base_url('admin/category')}}" data-toggle="tooltip" data-placement="top" title="Hủy bỏ thao tác">Hủy bỏ<div class="ripple-container"></div></a>
+                                
+                                
+                                <!-- <a class="btn btn-danger using-tooltip" href="{{base_url('admin/category/del/'.$data['info']['id'])}}" data-toggle="tooltip" data-placement="top" title="Xóa phần tử này?"><i class="material-icons">close</i>Xóa<div class="ripple-container"></div></a> -->
+                                
                             </div>
                         </div>
                     </div>
@@ -92,19 +96,14 @@
     @stop
 
     @section('js')
-
     <!--  DataTables.net Plugin    -->
 <!-- <script src="/assets/js/jquery.datatables.js"></script>
--->
-<script type="text/javascript">
+--><script type="text/javascript">
     $(document).ready(function() {
         $('.using-tooltip').tooltip({animation:true});
-
         $('.menu-left-custom >li.active').removeClass('active');
         $('#catcotgen').parent('li').addClass('active');
         $('#catcotgen').collapse();
-        $('.add .category').addClass('active');
-        
 
         $('input[name="name"]').on('keyup', function(event) {
             event.preventDefault();

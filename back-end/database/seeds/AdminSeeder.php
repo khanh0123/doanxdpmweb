@@ -15,12 +15,9 @@ class AdminSeeder extends Seeder
     	if(count($result) == 0){
     		DB::table('admin')->insert([
     			'gad_id' => DB::table('admin_group')->where('name','Super Admin')->get()[0]->id,
-    			'email' => 'admin@gmail.com',
     			'password' => hash("sha256", md5('123123')),
-    			'first_name' => 'Admin',
-    			'last_name' => 'Admin',
+    			'username' => 'Admin',
     			'status' => 1,
-    			'settings' => '',
     			]);
     	}
     }

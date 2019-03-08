@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\DB;
-class CreateTableMenu extends Migration
+class CreateTableTags extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,17 @@ class CreateTableMenu extends Migration
      */
     public function up()
     {
-        Schema::create('menu', function (Blueprint $table) {
+        Schema::create('tags', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->string('slug');
-            $table->text('sub_menu');
+            $table->string('name',255);
+            $table->string('slug',255);
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
+
+            // $table->foreign('gad_id', 'fk_admin_group_admin_group_permisson')
+            //     ->references('id')
+            //     ->on('admin_group')
+            //     ->onDelete('cascade');            
         });
     }
 
@@ -30,6 +34,6 @@ class CreateTableMenu extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('menu');
+        Schema::dropIfExists('tags');
     }
 }

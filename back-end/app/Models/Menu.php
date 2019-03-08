@@ -12,7 +12,8 @@ class Menu extends Model
     public function get_page($filter = [] , $req)
     {
     	$data = DB::table($this->table)
-    				->select('id','name','slug','created_at','updated_at')
+    				->select('id','name','tag_id','created_at','updated_at')
+                    //->join('tags','tag.id','=','menu.tag_id')
     				->orderBy($filter['orderBy'], $filter['sort']);
         $data = addConditionsToQuery($filter['conditions'],$data);
         $data = $data->paginate($filter['limit']);

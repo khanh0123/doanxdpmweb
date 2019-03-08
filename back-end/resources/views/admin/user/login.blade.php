@@ -81,8 +81,8 @@
                                                 <i class="material-icons">email</i>
                                             </span>
                                             <div class="form-group label-floating">
-                                                <label class="control-label">Địa chỉ email</label>
-                                                <input type="email" class="form-control" name="email">
+                                                <label class="control-label">Username</label>
+                                                <input type="text" class="form-control" name="username">
                                             </div>
                                         </div>
                                         <div class="input-group">

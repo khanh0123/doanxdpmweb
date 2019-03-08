@@ -12,17 +12,16 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
-        	PermissionSeeder::class,
-        	Admin_Group_Seeder::class,
-        	Admin_Group_Permission_Seeder::class,
+        	//PermissionSeeder::class,
+        	Admin_Group_Seeder::class,        	
             AdminSeeder::class,
-            CategorySeeder::class,
-            CountriesSeeder::class,
-            GenresSeeder::class,
-            ConfigSeeder::class,
-            MovieSeeder::class,
-        	JsonTableSeeder::class,
-            MenuSeeder::class,
+            //CategorySeeder::class,
+            //CountriesSeeder::class,
+            //GenresSeeder::class,
+            //ConfigSeeder::class,
+            //MovieSeeder::class,
+        	//JsonTableSeeder::class,
+            //MenuSeeder::class,
         ]);
     }
 }

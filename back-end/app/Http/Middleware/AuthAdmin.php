@@ -15,7 +15,7 @@ class AuthAdmin
      */
     public function handle($request, Closure $next)
     {
-        if (!session()->has('user') || !session()->has('permission') || !session()->get('permission')->canRead) {
+        if (!session()->has('user')) {
             if ($request->ajax()) {
                 return response('Unauthorized.', 401);
             }

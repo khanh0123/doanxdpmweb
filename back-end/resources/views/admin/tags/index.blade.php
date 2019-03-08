@@ -1,5 +1,5 @@
 @extends('admin/layout' , ['message' => !empty($message) ? $message : []])
-@section('title', 'Danh sách danh mục')
+@section('title', 'Danh sách tags')
 @section('main')
 <div class="container-fluid">
 
@@ -10,7 +10,7 @@
                     <i class="material-icons">assignment</i>
                 </div>
                 <div class="card-content">
-                    <h4 class="card-title">Danh sách danh mục</h4>
+                    <h4 class="card-title">Danh sách tags</h4>
                     <div class="toolbar">
                         <!--        Here you can write extra buttons/actions for the toolbar              -->
                     </div>
@@ -25,10 +25,10 @@
                                     </button>
                                     <ul class="dropdown-menu dropdown-menu-left">
                                         <li class="dropdown-header"></li>
-                                        <li><a href="{{base_url('admin/category?limit=10')}}">10</a></li>
-                                        <li><a href="{{base_url('admin/category?limit=20')}}">20</a></li>
-                                        <li><a href="{{base_url('admin/category?limit=30')}}">30</a></li>
-                                        <li><a href="{{base_url('admin/category?limit=40')}}">40</a></li>
+                                        <li><a href="{{base_url('admin/tags?limit=10')}}">10</a></li>
+                                        <li><a href="{{base_url('admin/tags?limit=20')}}">20</a></li>
+                                        <li><a href="{{base_url('admin/tags?limit=30')}}">30</a></li>
+                                        <li><a href="{{base_url('admin/tags?limit=40')}}">40</a></li>
                                     </ul>
                                 </div>
                                 <span>Kết quả</span>
@@ -40,14 +40,14 @@
                         <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                             <thead>
                                 <tr>
-                                    <th>Tên danh mục</th>
+                                    <th>Tên tags</th>
                                     <th>Slug</th>
                                     <th class="text-right">Hành động</th>
                                 </tr>
                             </thead>
                             <tfoot>
                                 <tr>
-                                    <th>Tên danh mục</th>
+                                    <th>Tên tags</th>
                                     <th>Slug</th>
                                     <th class="text-right">Hành động</th>
                                 </tr>
@@ -58,10 +58,8 @@
                                     <td>{{ $value->name }}</td>
                                     <td>{{ $value->slug }}</td>
                                     <td class="text-right">
-                                        <a href="{{base_url('admin/category/detail/'.$value->id) }}" class="btn btn-simple btn-warning btn-icon edit">Chi tiết</a>
-                                        @if (session()->get('permission')->canDelete)
-                                        <a href="{{base_url('admin/category/del/'.$value->id) }}" class="btn btn-simple btn-danger btn-icon remove">Xóa</a>
-                                        @endif
+                                        <a href="{{base_url('admin/tags/detail/'.$value->id) }}" class="btn btn-simple btn-warning btn-icon edit">Chi tiết</a>
+                                        <a href="{{base_url('admin/tags/del/'.$value->id) }}" class="btn btn-simple btn-danger btn-icon remove">Xóa</a>
                                     </td>
                                 </tr>
                                 @endforeach

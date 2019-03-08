@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\DB;
-class CreateTablePermission extends Migration
+class CreateTableUsers extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,14 @@ class CreateTablePermission extends Migration
      */
     public function up()
     {
-        Schema::create('permission', function (Blueprint $table) {
+        Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('email',255);
             $table->string('name',255);
-            $table->tinyInteger('canRead')->default('0');
-            $table->tinyInteger('canWrite')->default('0');
-            $table->tinyInteger('canUpdate')->default('0');
-            $table->tinyInteger('canDelete')->default('0');
-            $table->tinyInteger('isAdmin')->default('0');
+            $table->string('avatar',255);
+            $table->string('fb_id',255);
             $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('last_login')->nullable();
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
         });
     }
@@ -33,6 +32,6 @@ class CreateTablePermission extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('permission');
+        Schema::dropIfExists('users');
     }
 }

@@ -52,20 +52,16 @@
                     <div class="material-datatables">
                         <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                             <thead>
-                                <tr>
-                                    <th>Email</th>
-                                    <th>Họ</th>
-                                    <th>Tên</th>
+                                <tr>                                
+                                    <th>Username</th>
                                     <th>Trạng thái</th>
                                     <th>Ngày tạo</th>
                                     <th>Hành Động</th>
                                 </tr>
                             </thead>
                             <tfoot>
-                                <tr>
-                                    <th>Email</th>
-                                    <th>Họ</th>
-                                    <th>Tên</th>
+                                <tr>                                    
+                                    <th>Username</th>
                                     <th>Trạng thái</th>
                                     <th>Ngày tạo</th>
                                     <th>Hành Động</th>
@@ -73,10 +69,8 @@
                             </tfoot>
                             <tbody>
                                 @foreach ($data['info'] as $value)
-                                <tr>
-                                    <td>{{ $value->email }}</td>
-                                    <td>{{ $value->first_name }}</td>
-                                    <td>{{ $value->last_name }}</td>
+                                <tr>  
+                                    <td>{{ $value->username }}</td>
                                     <td>{{ $value->status === 1 ? 'Kích hoạt' : 'Vô hiệu hóa' }}</td>
                                     <td>{{ $value->created_at }}</td>
                                     <td >

@@ -22,13 +22,13 @@
                         <div class="wizard-navigation">
                             <ul>
                                 <li class="wizard-menu-top">
-                                    <a href="/admin/movie#info" data-toggle="tab">Thông tin bản tin</a>
+                                    <a href="/admin/posts#info" data-toggle="tab">Thông tin bản tin</a>
                                 </li>
                                 <li class="wizard-menu-top">
-                                    <a href="/admin/movie#more" data-toggle="tab">Ảnh và loại</a>
+                                    <a href="/admin/posts#more" data-toggle="tab">Ảnh và loại</a>
                                 </li>
                                 <li class="wizard-menu-top">
-                                    <a href="/admin/movie#seoinfo" data-toggle="tab">Thông tin SEO</a>
+                                    <a href="/admin/posts#seoinfo" data-toggle="tab">Thông tin SEO</a>
                                 </li>
                             </ul>
                         </div>
@@ -72,24 +72,35 @@
                                                 </div>
                                             </div> -->
                                             <div class="row">
-                                                <label class="col-sm-4 label-on-left">Thời gian (phút )<small style="color:red">*</small></label>
+                                                <label class="col-sm-4 label-on-left">Tiêu đề<small style="color:red">*</small></label>
                                                 <div class="col-sm-2">
                                                     <div class="form-group label-floating is-empty">
                                                         <label class="control-label"></label>
-                                                        <input type="number" class="form-control" name="runtime" value="45" required data-name="Thời gian">
+                                                        <input type="text" class="form-control" name="title" value="" required data-name="Thời gian">
                                                         <span class="material-input"></span>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <label class="col-sm-4 label-on-left">Ngày phát hành <small></small></label>
+                                                <label class="col-sm-4 label-on-left">Ngày đăng <small></small></label>
                                                 <div class="col-sm-8">
                                                     <div class="form-group">
                                                         <input type="date" class="form-control" value="{{date('Y-m-d')}}" name="release_date">
                                                     </div>
                                                 </div>
                                             </div>
-
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="row">
+                                                <label class="col-sm-4 label-on-left">Nội dung<small style="color:red">*</small></label>
+                                                <div class="col-sm-2">
+                                                    <div class="form-group label-floating is-empty">
+                                                        <label class="control-label"></label>
+                                                        <input type="text" class="form-control" name="content" value="" required data-name="Thời gian">
+                                                        <span class="material-input"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -98,7 +109,7 @@
                                 <div class="card-content form-horizontal">
                                     <div class="row">
                                         <div class="col-md-8">
-                                            <div class="row">
+                                            <!-- <div class="row">
                                                 <label class="col-sm-3 label-on-left">Chọn mục</label>
                                                 <div class="form-group label-floating is-empty">
                                                     <div class="col-sm-3">
@@ -123,12 +134,12 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> -->
                                             <!-- end row -->
                                             <div class="row">
-                                                <label class="col-sm-3 label-on-left">Chọn danh mục</label>
+                                                <label class="col-sm-3 label-on-left">Chọn tags</label>
                                                 <div class="col-sm-5">
-                                                    <select data-container="body" class="selectpicker" data-live-search="true" data-size="10" data-style="btn-info" name="tag_id" required data-name="Tags">
+                                                    <select data-container="body" class="selectpicker" data-live-search="true" data-size="10" data-style="btn-info"  multiple name="tag_id[]" required data-name="Tags">
                                                         @foreach($data['more']['tags'] as $key => $value)
                                                         <option data-tokens="{{$value->name}}" value="{{$value->id}}">{{$value->name}}</option>
                                                         @endforeach

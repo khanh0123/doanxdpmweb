@@ -18,29 +18,30 @@ class AdminController extends MainAdminController
 	protected $view_folder = 'admin/user/';
 	protected $rules = [
         'insert' => [
-            'email'      => 'required|email',
-            'first_name' => 'required',
-            'last_name'  => 'required',
-            'gad_id'     => 'required|exists:admin_group,id',
-            'password'   => 'required|min:6'
+            //'email'      => 'required|email',
+            //'last_name'  => 'required',
+            'username' => 'required', 
+            'password'   => 'required|min:6',           
+            'gad_id'     => 'required|exists:admin_group,id'           
         ],
         'update' => [
-            'email'      => 'required|email',
-            'first_name' => 'required',
-            'last_name'  => 'required',
-            'gad_id'     => 'required|exists:admin_group,id',
+            //'email'      => 'required|email',
+            //'last_name'  => 'required',
+            'username' => 'required', 
+            //'password'   => 'required|min:6',       
+            'gad_id'     => 'required|exists:admin_group,id'
         ],
 	];
-    protected $columns_filter = [
-        'id'         =>    'admin.id',            
-        'gad_id'     =>    'admin.gad_id',            
-        'first_name' =>    'admin.first_name',
-        'last_name'  =>    'admin.last_name',
-        'email'      =>    'admin.email',
-        'status'     =>    'admin.status',
-        'created_at' =>    'admin.created_at',
-        'updated_at' =>    'admin.updated_at',
-    ];
+    // protected $columns_filter = [
+    //     'id'         =>    'admin.id',            
+    //     'gad_id'     =>    'admin.gad_id',            
+    //     'first_name' =>    'admin.first_name',
+    //     'last_name'  =>    'admin.last_name',
+    //     'email'      =>    'admin.email',
+    //     'status'     =>    'admin.status',
+    //     'created_at' =>    'admin.created_at',
+    //     'updated_at' =>    'admin.updated_at',
+    // ];
     protected $columns_search = [];
 
 	public function __construct(Request $request) {
@@ -49,6 +50,8 @@ class AdminController extends MainAdminController
 	}
 
 	public function setItem($type , $req , &$item){
+        // var_dump($req->all());
+        // die();
         $validator = Validator::make($req->all(), $this->rules[$type]);
         if ($validator->fails()) {
 

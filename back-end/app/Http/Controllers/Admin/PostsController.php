@@ -5,31 +5,31 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use App\Http\Controllers\Admin\MainAdminController;
-use App\Models\Movie;
-use App\Models\Category; 
-use App\Models\Genre; 
-use App\Models\Country;
-use App\Models\Movie_genre;
-use App\Models\Movie_country;
+use App\Models\Posts;
+use App\Models\Tags;
+// use App\Models\Category; 
+// use App\Models\Genre; 
+// use App\Models\Country;
+// use App\Models\Movie_genre;
+// use App\Models\Movie_country;
 use Validator;
 use Image;
 
-class MovieController extends MainAdminController
+class PostsController extends MainAdminController
 {
 	protected $model;
 	protected $limit = 20;
-	protected $view_folder = 'admin/movie/';
+	protected $view_folder = 'admin/posts/';
 
     protected $rules = [
         'insert' => [
-            'name'      => 'required',
-            'runtime'   => 'required',
-            'epi_num'   => 'required',
-            'cat_id'    => 'required|exists:category,id',
-            'genre'     => 'required|array',
-            'genre.*'   => 'required|exists:genre,id',
-            'country'   => 'required|array',
-            'country.*' => 'required|exists:country,id',
+            'title'      => 'required',
+            'content'   => 'required',
+            'slug'   => 'required',            
+            'tag_id'     => 'required|array',
+            // 'genre.*'   => 'required|exists:genre,id',
+            // 'country'   => 'required|array',
+            // 'country.*' => 'required|exists:country,id',
             'image'     => 'required|image|mimes:jpeg,jpg,bmp,png|max:10000',
         ],
         'update' => [
@@ -90,6 +90,8 @@ class MovieController extends MainAdminController
     	
         
     	$validator = Validator::make($req->all(), $this->rules[$type]);
+        var_dump($req->all());
+        die();
         if ($validator->fails()) {
         	return [
         		'type' => 'error',
@@ -398,17 +400,11 @@ class MovieController extends MainAdminController
 
     }
     private function getDataNeed(){
-        $cat_model = new Category();
-        $gen_model = new Genre();
-        $cot_model = new Country();
+        $tag_model = new Tags();      
 
-        $data_cat = $cat_model->getall();
-        $data_gen = $gen_model->getall();
-        $data_cot = $cot_model->getall();
+        $tag_model = $tag_model->getall();       
         return [
-        	'category' => $data_cat,
-        	'genre' => $data_gen,
-        	'country' => $data_cot,
+        	'tags' => $tag_model
         ];
     }
 

@@ -80,16 +80,16 @@
                     
                    
                     <!-- <li>
-                        <a data-toggle="collapse" href="{{ base_url('admin#permission') }}">
+                        <a data-toggle="collapse" href="{{ base_url('admin#user') }}">
                             <i class="material-icons">pan_tool</i>
-                            <p>Quản Lý Quyền
+                            <p>Quản Lý User
                                 <b class="caret"></b>
                             </p>
                         </a>
-                        <div class="collapse" id="permission">
+                        <div class="collapse" id="user">
                             <ul class="nav">
                                 <li class="show">
-                                    <a href="{{ base_url('admin/permission') }}">Danh sách quyền</a>
+                                    <a href="{{ base_url('admin/user') }}">Danh sách User</a>
                                 </li>
                             </ul>
                         </div>
@@ -115,20 +115,20 @@
                     </li>
                    
                     <li>
-                        <a data-toggle="collapse" href="{{ base_url('admin#movie') }}">
+                        <a data-toggle="collapse" href="{{ base_url('admin#posts') }}">
                             <i class="material-icons">movie</i>
                             <p>Quản Lý Bản Tin
                                 <b class="caret"></b>
                             </p>
                         </a>
-                        <div class="collapse" id="movie">
+                        <div class="collapse" id="posts">
                             <ul class="nav">
                                 <li class="show">
-                                    <a href="{{ base_url('admin/movie') }}">Danh sách bản tin</a>
+                                    <a href="{{ base_url('admin/posts') }}">Danh sách bản tin</a>
                                 </li>
                                 
                                 <li class="add">
-                                    <a href="{{ base_url('admin/movie/add') }}">Thêm tin mới</a>
+                                    <a href="{{ base_url('admin/posts/add') }}">Thêm tin mới</a>
                                 </li>
                             
                             </ul>
@@ -210,7 +210,7 @@
                             </ul>
                         </div>
                     </li>
-                    <li>
+                    <!-- <li>
                         <a data-toggle="collapse" href="{{ base_url('admin#banner') }}">
                             <i class="material-icons">swap_horizontal_circle</i>
                             <p>Quản Lý Banner
@@ -229,8 +229,8 @@
                              
                             </ul>
                         </div>
-                    </li>
-                    <li>
+                    </li> -->
+                    <!-- <li>
                         <a data-toggle="collapse" href="{{ base_url('admin#config') }}">
                             <i class="material-icons">build</i>
                             <p>Quản Lý Cấu hình
@@ -249,7 +249,7 @@
                                
                             </ul>
                         </div>
-                    </li>
+                    </li> -->
                     
                     
                 </ul>

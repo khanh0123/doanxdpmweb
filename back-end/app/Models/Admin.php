@@ -12,7 +12,7 @@ class Admin extends Model
     public function get_page($filter, $req)
     {
     	$data = DB::table($this->table)
-    				->select('id','username','gad_id','status','created_at','updated_at')
+    				->select('id','username','password','gad_id','status','created_at','updated_at')
     				->orderBy($filter['orderBy'], $filter['sort']);
         $data = addConditionsToQuery($filter['conditions'],$data);        
         $data = $data->paginate($filter['limit']);
@@ -29,13 +29,13 @@ class Admin extends Model
                     ->first();
     	return $data;
     }
-    public function getByEmail($email)
-    {
-        $data = DB::table($this->table)
-                    ->select('id','username','status','created_at','updated_at')
-                    ->where("username",$email)
-                    ->first();
-        return $data;
-    }
+    // public function getByEmail($email)
+    // {
+    //     $data = DB::table($this->table)
+    //                 ->select('id','username','status','created_at','updated_at')
+    //                 ->where("username",$email)
+    //                 ->first();
+    //     return $data;
+    // }
 
 }

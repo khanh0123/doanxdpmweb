@@ -16,7 +16,7 @@
                                 <h4 class="card-title">Chi tiết</h4>
                             </div>
                             <div class="card-content form-horizontal">
-                                <div class="row">
+                                <!-- <div class="row">
                                     <label class="col-sm-2 label-on-left">Họ <small>*</small></label>
                                     <div class="col-sm-10">
                                         <div class="form-group label-floating is-empty">
@@ -25,8 +25,8 @@
                                             <span class="material-input"></span>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
+                                </div> -->
+                                <!-- <div class="row">
                                     <label class="col-sm-2 label-on-left">Tên <small>*</small></label>
                                     <div class="col-sm-10">
                                         <div class="form-group label-floating is-empty">
@@ -35,13 +35,13 @@
                                             <span class="material-input"></span>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="row">
-                                    <label class="col-sm-2 label-on-left">Email <small>*</small></label>
+                                    <label class="col-sm-2 label-on-left">Username <small>*</small></label>
                                     <div class="col-sm-10">
                                         <div class="form-group label-floating is-empty">
                                             <label class="control-label"></label>
-                                            <input type="email" class="form-control" name="email" required value="{{ $data['info']['email'] }}" >
+                                            <input type="text" class="form-control" name="username" required value="{{ $data['info']['username'] }}" >
                                             <span class="material-input"></span>
                                         </div>
                                     </div>

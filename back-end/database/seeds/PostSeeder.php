@@ -45,9 +45,9 @@ public function getContent($string)
     		
     		foreach ($parse['returnValue'] as $key=>$value)
     		{
-    			$image = $this->_article_summary_WAR_article_summaryportlet_INSTANCE_Wcw5_parseImageURL($value['imgId']);
+    			$image = $value['imgId'];
     			$title = $value['title'];
-    			$content = $this->getContent('https://vnreview.vn'.$value['url']);
+    			$content =$value['url'];
     			$desc = $value['desc'];
     			DB::table('posts')->insert(
     				[

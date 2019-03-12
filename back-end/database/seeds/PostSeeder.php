@@ -42,34 +42,20 @@ public function getContent($string)
     	if(count($result) == 0){
     		$string = file_get_contents(storage_path() . "/jsons/datapost.json");
     		$parse = json_decode($string,true);
+    		
     		foreach ($parse['returnValue'] as $key=>$value)
     		{
-    			$c=$value['imgId'];
-    			$d="//vnreview.vn/image";
-		  		$a=strlen($c);
-		  		for($b=0;$b<$a;$b=$b+2){
-		   		 if(($b+2)<$a){
-		     	 $d=$d."/";
-		      	$d=$d.substr($c,$b,2);
-		    	}
-		  		}
-
-		  		$d=$d."/".$c.".jpg";
-    			$image = $d;
+    			$image = $this->_article_summary_WAR_article_summaryportlet_INSTANCE_Wcw5_parseImageURL($value['imgId']);
     			$title = $value['title'];
-    			$string='https://vnreview.vn'.$value['url'];
-    			$content = file_get_contents($string);
-				$pattern='/<div class="journal-content-article">(.*)<\/div>/imsU';
-				preg_match_all($pattern, $content, $arr);
-    			$content2 = $arr[1][0];
+    			$content = $this->getContent('https://vnreview.vn'.$value['url']);
     			$desc = $value['desc'];
     			DB::table('posts')->insert(
     				[
     					'title'=>$title,
     					'image'=>$image,
-    					'content'=>$content2,
+    					'content'=>$content,
     					'short_des'=>$desc,
-    					'ad_id'=>$key,
+    					'ad_id'=>'1',
     					'slug'=>create_slug($title),
     					'long_des'=>$desc
 

@@ -28,10 +28,10 @@ class CreateTablePosts extends Migration
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
 
-            $table->foreign('type_id', 'fk_posts_posts_type')
-                ->references('id')
-                ->on('posts_type')
-                ->onDelete('cascade');  
+            // $table->foreign('type_id', 'fk_posts_posts_type')
+            //     ->references('id')
+            //     ->on('posts_type')
+            //     ->onDelete('cascade');  
 
             $table->foreign('ad_id', 'fk_posts_admin')
                 ->references('id')

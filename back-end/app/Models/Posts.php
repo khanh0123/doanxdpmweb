@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use DB;
 
-class Movie extends Model
+class Posts extends Model
 {
     protected $table = 'posts';
 
@@ -17,7 +17,7 @@ class Movie extends Model
 
         $data = DB::table($this->table)
             ->select([
-                "movie.*",
+                "posts.*",
                 "category.name as cat_name",
                 "category.slug as cat_slug",
                 "movie_country.cou_id",                        

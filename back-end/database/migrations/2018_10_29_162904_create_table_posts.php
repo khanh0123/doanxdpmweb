@@ -23,7 +23,7 @@ class CreateTablePosts extends Migration
             $table->string('slug',255);
             $table->text('short_des');
             $table->text('long_des');
-            $table->integer('type_id')->unsigned()->index();
+            // $table->integer('type_id')->unsigned()->index();
             $table->integer('ad_id')->unsigned()->index();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));

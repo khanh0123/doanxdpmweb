@@ -21,8 +21,8 @@ class CreateTablePosts extends Migration
             $table->string('image',255);
             $table->text('content');
             $table->string('slug',255);
-            $table->string('short_des',255);
-            $table->string('long_des',255);
+            $table->text('short_des');
+            $table->text('long_des');
             $table->integer('type_id')->unsigned()->index();
             $table->integer('ad_id')->unsigned()->index();
             $table->timestamp('created_at')->useCurrent();

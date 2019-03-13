@@ -45,22 +45,39 @@ public function getContent($string)
     		
     		foreach ($parse['returnValue'] as $key=>$value)
     		{
-    			$image = $value['imgId'];
-    			$title = $value['title'];
-    			$content =$value['url'];
-    			$desc = $value['desc'];
-    			DB::table('posts')->insert(
+                $image    = $value['imgId'];
+                $title    = $value['title'];
+                $content  = $value['url'];
+                $desc     = $value['desc'];
+                $tag_name = $value['cateName'];
+    			$post_id = DB::table('posts')->insertGetId(
     				[
-    					'title'=>$title,
-    					'image'=>$image,
-    					'content'=>$content,
-    					'short_des'=>$desc,
-    					'ad_id'=>'1',
-    					'slug'=>create_slug($title),
-    					'long_des'=>$desc
+                        'title'     =>$title,
+                        'image'     =>$image,
+                        'content'   =>$content,
+                        'short_des' =>$desc,
+                        'ad_id'     =>'1',
+                        'slug'      =>create_slug($title),
+                        'long_des'  =>$desc
 
     				]
     			);
+                $info_tag = DB::table('tags')->where(['name' => $tag_name])->first();
+                if(empty($info_tag)){
+                    $tag_id = DB::table('tags')->insertGetId(
+                        [
+                            'name' => $tag_name,
+                            'slug' => create_slug($tag_name),
+                        ]
+                );
+                    
+                }
+                DB::table('posts_tags')->insert([
+                    'post_id' => $post_id,
+                    'tag_id' => $tag_id,
+                ]);
+
+
     		}
 
     	}

@@ -53,7 +53,7 @@ public function getContent($string)
     			$post_id = DB::table('posts')->insertGetId(
     				[
                         'title'     =>$title,
-                        'image'     =>$image,
+                        'images'     =>$image,
                         'content'   =>$content,
                         'short_des' =>$desc,
                         'ad_id'     =>'1',

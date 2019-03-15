@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
         	//PermissionSeeder::class,
         	Admin_Group_Seeder::class,        	
             AdminSeeder::class,
+            PostSeeder::class,
             //CategorySeeder::class,
             //CountriesSeeder::class,
             //GenresSeeder::class,
@@ -22,6 +23,7 @@ class DatabaseSeeder extends Seeder
             //MovieSeeder::class,
         	//JsonTableSeeder::class,
             //MenuSeeder::class,
+
         ]);
     }
 }

@@ -13,7 +13,10 @@
 
 // header("Access-Control-Allow-Origin:*");
 
-$router->get('/' , 'TestController@index');
+$router->get('/home' , 'Homepage\BusinessController@getIndex');
+// $router->get('/home' , function(){
+//     return view('Homepage/Home');
+// });
 // $router->get('/getlink' , 'Admin\VideoController@getLink');
 
 $router->group(['prefix' => 'api/v1','middleware' => 'cors' ], function() use($router) {

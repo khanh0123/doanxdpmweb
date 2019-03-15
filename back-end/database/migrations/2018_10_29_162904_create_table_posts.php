@@ -18,11 +18,11 @@ class CreateTablePosts extends Migration
             // $table->charset = 'utf8';
             $table->increments('id');
             $table->string('title',255);
-            $table->string('image',255);
+            $table->text('images');
             $table->text('content');
             $table->string('slug',255);
-            $table->string('short_des',255);
-            $table->string('long_des',255);
+            $table->text('short_des');
+            $table->text('long_des');
             $table->integer('ad_id')->unsigned()->index();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));

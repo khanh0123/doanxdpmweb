@@ -13,28 +13,20 @@ class Posts extends Model
     {
         //get list id movie 
         $result     = $this->getListId($filter , $req);
-        $list_mov_id = array_column($result->items(), "id");
+        $list_post_id = array_column($result->items(), "id");
 
         $data = DB::table($this->table)
             ->select([
                 "posts.*",
-                "category.name as cat_name",
-                "category.slug as cat_slug",
-                "movie_country.cou_id",                        
-                "country.name as cou_name",
-                "country.slug as cou_slug",
-                "movie_genre.gen_id",
-                "genre.name as gen_name",
-                "genre.slug as gen_slug",
+                "posts_tags.post_id",
+                "tags.name as tag_name",
+                "tags.slug as tag_slug",
 
             ])
-            ->leftJoin("category"       ,"category.id"          ,"=" , "movie.cat_id")
-            ->leftJoin("movie_country"  ,"movie_country.mov_id" ,"=" , "movie.id")
-            ->leftJoin("movie_genre"    ,"movie_genre.mov_id"   ,"=" , "movie.id")
-            ->leftJoin("country"        ,"country.id"           ,"=" , "movie_country.cou_id")
-            ->leftJoin("genre"          ,"genre.id"             ,"=" , "movie_genre.gen_id")
+            ->leftJoin("posts_tags"    ,"posts_tags.post_id"   ,"=" , "posts.id")
+            ->leftJoin("tags"          ,"tags.id"             ,"=" , "posts_tags.tag_id")
             ->orderBy($filter['orderBy'], $filter['sort'])
-            ->whereIn('movie.id',$list_mov_id);
+            ->whereIn('posts.id',$list_post_id);
         // $data = addConditionsToQuery($filter['conditions'],$data);
         $data = $data->get();
         $arr_keys = $result->keys();
@@ -58,9 +50,9 @@ class Posts extends Model
     public function search(Array $data,$field_get = [])
     {
         $data = DB::table($this->table)
-                    ->select("posts.*","tags.name as tag_name")
-                    ->join("category" , "category.id" , "=" , "movie.cat_id")
-                    ->orderBy('movie.id', "desc")
+                    ->select("posts.*")
+                    //->join("category" , "category.id" , "=" , "movie.cat_id")
+                    ->orderBy('posts.id', "desc")
                     ->where([$data])
                     ->first();              
         return $data;
@@ -68,13 +60,10 @@ class Posts extends Model
 
     private function getListId($filter , $req){
         $result = DB::table($this->table)
-        ->select('movie.id')
-        ->leftJoin("category"       ,"category.id"          ,"=" , "movie.cat_id")
-        ->leftJoin("movie_country"  ,"movie_country.mov_id" ,"=" , "movie.id")
-        ->leftJoin("movie_genre"    ,"movie_genre.mov_id"   ,"=" , "movie.id")
-        ->leftJoin("country"        ,"country.id"           ,"=" , "movie_country.cou_id")
-        ->leftJoin("genre"          ,"genre.id"             ,"=" , "movie_genre.gen_id")
-        ->groupBy('movie.id')
+        ->select('posts.id')
+        ->leftJoin("Posts_Tags"    ,"Posts_Tags.post_id"   ,"=" , "posts.id")
+        ->leftJoin("tags"          ,"tags.id"             ,"=" , "Posts_Tags.tag_id")
+        ->groupBy('posts.id')
         ->orderBy($filter['orderBy'], $filter['sort']);
         
         $result = addConditionsToQuery($filter['conditions'],$result);

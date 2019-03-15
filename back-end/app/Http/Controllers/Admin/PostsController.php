@@ -7,11 +7,7 @@ use Illuminate\Support\Facades\File;
 use App\Http\Controllers\Admin\MainAdminController;
 use App\Models\Posts;
 use App\Models\Tags;
-// use App\Models\Category; 
-// use App\Models\Genre; 
-// use App\Models\Country;
-// use App\Models\Movie_genre;
-// use App\Models\Movie_country;
+use App\Models\Posts_Tags;
 use Validator;
 use Image;
 
@@ -26,23 +22,19 @@ class PostsController extends MainAdminController
             'title'      => 'required',
             'content'   => 'required',
             'slug'   => 'required',            
+            'short_des'   => 'required',            
+            'long_des'   => 'required',            
             'tag_id'     => 'required|array',
-            // 'genre.*'   => 'required|exists:genre,id',
-            // 'country'   => 'required|array',
-            // 'country.*' => 'required|exists:country,id',
             'image'     => 'required|image|mimes:jpeg,jpg,bmp,png|max:10000',
         ],
         'update' => [
-            'name'             => 'required',
-            'runtime'          => 'required',
-            'epi_num'          => 'required',
-            'cat_id'           => 'required|exists:category,id',
-            'genre'            => 'required|array',
-            'genre.*'          => 'required|exists:genre,id',
-            'country'          => 'required|array',
-            'country.*'        => 'required|exists:country,id',
-            'listidimages_old' => 'array',
-            'image'            => 'image|mimes:jpeg,jpg,bmp,png|max:10000',
+            'title'      => 'required',
+            'content'   => 'required',
+            'slug'   => 'required',            
+            'short_des'   => 'required',            
+            'long_des'   => 'required',            
+            'tag_id'     => 'required|array',
+            'image'     => 'required|image|mimes:jpeg,jpg,bmp,png|max:10000',
         ]
     ];
     protected $columns_filter = [
@@ -81,34 +73,35 @@ class PostsController extends MainAdminController
                 }else {
                     $this->rules[$type]['image'] = $this->rules[$type]['image']."|nullable";
                 }
-            case 'insert':
-                $item->total_rate = 0;
-                $item->avg_rate   = 0;
                 break;
-            
+            case 'insert':
+                if($this->model::where([
+                        ['title',$req->title]
+                    ])->first()){
+                        return [
+                            'type' => 'error',
+                            'msg'  => 'Bản tin này đã tồn tại'
+                        ];
+                    }
+                    break;
         }
     	
         
     	$validator = Validator::make($req->all(), $this->rules[$type]);
-        var_dump($req->all());
-        die();
+        // var_dump($req->all());
+        // die();
         if ($validator->fails()) {
         	return [
         		'type' => 'error',
         		'msg' => $validator->errors()->has('images') ? 'Hãy chọn ít nhất 1 ảnh' : 'Vui lòng kiểm tra lại các trường nhập'
         	];
-        }
-        $item->name         = $req->name;
-        $item->slug         = $req->slug;        
-        $item->is_hot       = (int)$req->input('is_hot', 0);
-        $item->is_new       = (int)$req->input('is_new', 0);
-        $item->runtime      = (int)$req->input('runtime', 0);
-        $item->epi_num      = (int)$req->input('epi_num', 1);
+        }            
+        $item->title        = $req->title;        
+        $item->content      = $req->content;
+        $item->slug         = $req->slug;           
         $item->short_des    = $req->input('short_des', '');
         $item->long_des     = $req->input('long_des', '');
-        $item->release_date = strtotime($req->input('release_date',date("Y-m-d")));
         $item->ad_id        = $req->authUser->id;
-        $item->cat_id       = $req->input('cat_id');
         
         
 
@@ -130,11 +123,11 @@ class PostsController extends MainAdminController
                 'id' => $id,
                 'path' => '/uploaded/' . $name
             ];
-            Image::make(public_path().'/uploaded/' . $name)->resize(600, 390)->save(public_path('/uploaded/thumbnail/' . $name));
-            $images['thumbnail'] = [
-                'id' => $id,
-                'path' => '/uploaded/thumbnail/' . $name
-            ];
+            // Image::make(public_path().'\uploaded\\' . $name)->resize(600, 390)->save(public_path('\uploaded\thumbnail\\' . $name));
+            // $images['thumbnail'] = [
+            //     'id' => $id,
+            //     'path' => '/uploaded/thumbnail/' . $name
+            // ];
         }
         
         if($type == 'update'){
@@ -174,9 +167,11 @@ class PostsController extends MainAdminController
     {
         $filter         = $this->getFilter($request);
         $data['info']   = $this->model->get_page($filter , $request);
+
+        // echo json_encode($data['info']);
+        // die();
         $data['info']   = formatResult($data['info'],[
-            'genre'         => ['gen_id','gen_name','gen_slug'] ,
-            'country'       => ['cou_id' , 'cou_name' , 'cou_slug']
+            'tags'         => ['tag_name','tag_slug'] ,
             ],'get');
 
         foreach ($data['info'] as $key => $value) {
@@ -197,42 +192,25 @@ class PostsController extends MainAdminController
                 if($item->save()){
 
 
-                //add data genre and country
-                    $arr_gen = array();
-                    $arr_cot = array();
+                //add data tags
+                    $arr_tag = array();                    
 
-                //check exists genre
-                    for ($i = 0; $i < count($request->genre); $i++) {
-                        $gen_id = $request->genre[$i];
+                //check exists tags
+                    for ($i = 0; $i < count($request->tag_id); $i++) {
+                        $tag_id = $request->tag_id[$i];
 
-                        if(Genre::find($gen_id)){
-                            $arr_gen[] = [
-                                'gen_id' => $gen_id,
-                                'mov_id' => $item->id
+                        if(Tags::find($tag_id)){
+                            $arr_tag[] = [
+                                'tag_id' => $tag_id,
+                                'post_id' =>$item->id
                             ];
                         }
-                    }
-                //check exists country
-                    for ($i = 0; $i < count($request->country); $i++) {
-                        $cou_id = $request->country[$i];
+                    }         
 
-                        if(Country::find($cou_id)){
-                            $arr_cot[] = [
-                                'cou_id' => $cou_id,
-                                'mov_id' => $item->id
-                            ];
-                        }
-                    }               
-
-                //insert genre
-                    if(!empty($arr_gen)){
-                        Movie_genre::insert($arr_gen);
+                //insert tags
+                    if(!empty($arr_tag)){
+                        Posts_Tags::insert($arr_tag);
                     }
-                //insert country
-                    if(!empty($arr_cot)){
-                        Movie_country::insert($arr_cot);
-                    }
-
                     $result['msg'] = 'Thêm dữ liệu thành công';
                 } else {
                     $result['msg'] = 'Thêm dữ liệu thất bại';
@@ -265,64 +243,39 @@ class PostsController extends MainAdminController
             $result = $this->setItem('update',$request, $item);
             if($result['type'] == 'success'){
                 if($item->save()){
-                //add data genre and country
-                    $arr_gen = array();
-                    $arr_cot = array();
+                //add data tags
+                    $arr_tag = array();
 
-                //check exists genre
-                    for ($i = 0; $i < count($request->genre); $i++) {
-                        $gen_id = $request->genre[$i];
+                //check exists tags
+                    for ($i = 0; $i < count($request->tag_id); $i++) {
+                        $tag_id = $request->tag_id[$i];
 
-                        if(Genre::find($gen_id)){
-                            $arr_gen[] = [
-                                'gen_id' => $gen_id,
-                                'mov_id' => $item->id
+                        if(Tags::find($tag_id)){
+                            $arr_tag[] = [
+                                'tag_id' => $tag_id,
                             ];
                         }
-                    }
-                //check exists country
-                    for ($i = 0; $i < count($request->country); $i++) {
-                        $cou_id = $request->country[$i];
+                    }   
 
-                        if(Country::find($cou_id)){
-                            $arr_cot[] = [
-                                'cou_id' => $cou_id,
-                                'mov_id' => $item->id
-                            ];
-                        }
-                    }         
+                    $data_post_tag = Posts_Tags::where(['post_id' => $item->id])->get();  
+                    // var_dump($data_post_tag);
+                    // die();                 
 
-                    $data_mov_gen = Movie_genre::where(['mov_id' => $item->id])->get();
-                    $data_mov_cot = Movie_country::where(['mov_id' => $item->id])->get();
-
-                    for ($i = 0; $i < count($data_mov_gen); $i++) {
-                        if(!in_array($data_mov_gen[$i], $arr_gen)){
-                            Movie_genre::where(
-                                ['mov_id'=> $data_mov_gen[$i]->mov_id],
-                                ['gen_id' => $data_mov_gen[$i]->gen_id]
+                    for ($i = 0; $i < count($data_post_tag); $i++) {
+                        if(!in_array($data_post_tag[$i], $arr_tag)){
+                            Posts_Tags::where(
+                                ['tag_id' => $data_post_tag[$i]->tag_id]
                             )->delete();
                         } else {
-                            array_push($arr_gen, $data_mov_gen[$i]);
-                        }
-                    }
-                    for ($i = 0; $i < count($data_mov_cot); $i++) {
-                        if(!in_array($data_mov_cot[$i], $arr_cot)){
-                            Movie_country::where(['mov_id'=> $data_mov_cot[$i]->mov_id],['cou_id' => $data_mov_cot[$i]->cou_id])->delete();
-                        } else {
-                            array_push($arr_cot, $data_mov_cot[$i]);
+                            array_push($arr_tag, $data_post_tag[$i]);
                         }
                     }
 
-                //insert genre
-                    if(!empty($arr_gen)){
-                        Movie_genre::insert($arr_gen);
+                //insert tags
+                    if(!empty($arr_tag)){
+                        Posts_Tags::insert($arr_tag);
                     }
-                //insert country
-                    if(!empty($arr_cot)){
-                        Movie_country::insert($arr_cot);
-                    }
-                    $item->genre = $arr_gen;
-                    $item->country = $arr_cot;
+                    $item->tags = $arr_tag;
                     $result['msg'] = 'Cập nhật dữ liệu thành công';
                 } else {
                     $result['msg'] = 'Cập nhật dữ liệu thất bại';
@@ -330,28 +283,27 @@ class PostsController extends MainAdminController
             }
 
 
-            if(!isset($item->genre) || !isset($item->country)){
-                $dataMovGen = Movie_genre::where('mov_id',$item->id)->get();
-                $dataMovCot = Movie_country::where('mov_id',$item->id)->get();
-                $item->genre = $dataMovGen->toArray();
-                $item->country = $dataMovCot->toArray();
+            if(!isset($item->tags)){
+                $dataPost_Tag = Posts_Tags::where('post_id',$item->id)->select('post_id','tag_id')->get();                
+                $item->tags = $dataPost_Tag->toArray();
             }
         } else {
-            $dataMovGen = Movie_genre::where('mov_id',$item->id)->get();
-            $dataMovCot = Movie_country::where('mov_id',$item->id)->get();
-            $item->genre = $dataMovGen->toArray();
-            $item->country = $dataMovCot->toArray();
+            $dataPost_Tag = Posts_Tags::where('post_id',$item->id)->select('post_id','tag_id')->get();           
+            $item->tags = $dataPost_Tag->toArray();
             $result = '';
         }
 
         
-
+        // var_dump($item->images) ;
+        // die();
         $item->images = json_decode($item->images);
+        
         
         $data['info'] = $item;
         $data['more'] = $this->getDataNeed();
         
-        
+        // echo json_encode($dataPost_Tag);
+        // die();
         return $this->template($this->view_folder."detail",$data,$result);
 
     }
@@ -360,52 +312,55 @@ class PostsController extends MainAdminController
     public function search(Request $request)
     {
         $res = [];
-        $mov_name = $request->mov_name;
+        $post_title = $request->post_title;
         // $default_select = ['id','title','name'];
-        if(empty($mov_name)){
+        if(empty($post_title)){
             $res['error'] = true;
-            $res['msg'] = 'Tên phim không được để trống';
+            $res['msg'] = 'Tiêu đề không được để trống';
         } else {
-            $data = $this->model->search(['movie.name','like',"%$mov_name%"]);
+            $data = $this->model->search(['posts.title','like',"%$post_title%"]);
             $res['success'] = true;
             $res['data'] = $data;
         }
         return Response()->json($res,200);
     }
-    public function switch(Request $request)
-    {
-        $id = $request->id;
-        $this->model = $this->model::findOrFail($id);
+    // public function switch(Request $request)
+    // {
+    //     $id = $request->id;
+    //     $this->model = $this->model::findOrFail($id);
         
         
-        $is_banner = $request->is_banner;
-        if(is_numeric($request->is_hot)){
-            $is_hot = (int)$request->is_hot;
-            $this->model->is_hot = $is_hot;
-        }
-        if(is_numeric($request->is_new)){
-            $is_new = (int)$request->is_new;
-            $this->model->is_new = $is_new;
-        }
-        if(is_numeric($request->is_banner)){
-            $is_banner = (int)$request->is_banner;
-            $this->model->is_banner = $is_banner;
-        }
+    //     $is_banner = $request->is_banner;
+    //     if(is_numeric($request->is_hot)){
+    //         $is_hot = (int)$request->is_hot;
+    //         $this->model->is_hot = $is_hot;
+    //     }
+    //     if(is_numeric($request->is_new)){
+    //         $is_new = (int)$request->is_new;
+    //         $this->model->is_new = $is_new;
+    //     }
+    //     if(is_numeric($request->is_banner)){
+    //         $is_banner = (int)$request->is_banner;
+    //         $this->model->is_banner = $is_banner;
+    //     }
         
-        if($this->model->update()){
-            return Response()->json(['success' => true,'data' => $this->model]);
-        }
-        return Response()->json(['error' => true]);
+    //     if($this->model->update()){
+    //         return Response()->json(['success' => true,'data' => $this->model]);
+    //     }
+    //     return Response()->json(['error' => true]);
 
 
-    }
+    // }
     private function getDataNeed(){
-        $tag_model = new Tags();      
-
-        $tag_model = $tag_model->getall();       
-        return [
-        	'tags' => $tag_model
-        ];
+        $data = array();
+        $tag_model = new Tags();
+        $tag_model = $tag_model->getall();
+        if(count($tag_model) > 0) {
+            foreach ($tag_model as $value){
+                array_push($data, $value);
+            }
+        }
+        return $data;
     }
 
 }

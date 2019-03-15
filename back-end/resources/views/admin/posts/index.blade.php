@@ -38,14 +38,9 @@
                                     <span>theo</span>
                                         <select class="selectpicker col-4" data-style="btn btn-primary btn-round"  data-size="7" style="width: 20% !important" name="orderBy">                                
                                         <option value="id" {{ @$data['filter']['orderBy'] == 'id' ? 'selected' : ''}}>ID</option>
-                                        <option value="name" {{ @$data['filter']['orderBy'] == 'name' ? 'selected' : ''}}>Tên Phim</option>
-                                        <option value="epi_num" {{ @$data['filter']['orderBy'] == 'epi_num' ? 'selected' : ''}}>Số tập</option>
-                                        <option value="release_date" {{ @$data['filter']['orderBy'] == 'release_date' ? 'selected' : ''}}>Ngày ra rạp</option>
-                                        <option value="is_hot" {{ @$data['filter']['orderBy'] == 'is_hot' ? 'selected' : ''}}>Phim hot</option>
-                                        <option value="is_new" {{ @$data['filter']['orderBy'] == 'is_new' ? 'selected' : ''}}>Phim mới</option>
-                                        <option value="is_banner" {{ @$data['filter']['orderBy'] == 'is_banner' ? 'selected' : ''}}>Banner</option>
+                                        <option value="name" {{ @$data['filter']['orderBy'] == 'name' ? 'selected' : ''}}>Tiêu đề</option>                                     
                                         <option value="created_at" {{ @$data['filter']['orderBy'] == 'created_at' ? 'selected' : ''}}>Thời gian tạo</option>
-                                        <option value="updated_at" {{ @$data['filter']['orderBy'] == 'updated_at' ? 'selected' : ''}}>Thời gian cập nhật</option>                     
+                                                          
                                     </select>
                                 </div>
                                 <div style="margin: 5px;width: 30%;display: inline-block">
@@ -67,30 +62,20 @@
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Tên phim</th>
-                                    <th>Danh mục</th>
-                                    <th>Số tập</th>
-                                    <th>Ngày ra rạp</th>
-                                    <th>Phim hot</th>
-                                    <th>Phim mới</th>
-                                    <th>Banner</th>
-                                    <th>Lần cập nhật cuối</th>
-                                    <th class="text-center">Chọn làm banner</th>
+                                    <th>Tiêu đề</th>
+                                    <th>Nội dung</th>
+                                    <th>Slug
+                                    <th>Ngày đăng</th>
                                     <th class="text-right">Hành động</th>
                                 </tr>
                             </thead>
                             <tfoot>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Tên phim</th>
-                                    <th>Danh mục</th>
-                                    <th>Số tập</th>
-                                    <th>Ngày ra rạp</th>
-                                    <th>Phim hot</th>
-                                    <th>Phim mới</th>
-                                    <th>Banner</th>
-                                    <th>Lần cập nhật cuối</th>
-                                    <th class="text-center">Chọn làm banner</th>
+                                    <th>Tiêu đề</th>
+                                    <th>Nội dung</th>
+                                    <th>Slug
+                                    <th>Ngày đăng</th>
                                     <th class="text-right">Hành động</th>
                                 </tr>
                             </tfoot>
@@ -98,44 +83,12 @@
                                 @foreach ($data['info'] as $value)
                                 <tr>
                                     <td class="id_mov">{{ $value->id }}</td>
-                                    <td>{{ $value->name }}</td>
-                                    <td>{{ $value->cat_name }}</td>
-                                    <td>{{ $value->epi_num }}</td>
-                                    <td>{{ customDate($value->release_date) }}</td>
-                                    <td >
-
-                                        <div class="togglebutton">
-                                            <label>
-                                                <input type="checkbox" name="is_hot" value="{{$value->is_hot ? 1 : 0}}" {{$value->is_hot ? 'checked' : ''}}>
-                                            </label>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="togglebutton">
-                                            <label>
-                                                <input type="checkbox" name="is_new" value="{{$value->is_new ? 1 : 0}}" {{$value->is_new ? 'checked' : ''}}>
-                                            </label>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="togglebutton">
-                                            <label>
-                                                <input type="checkbox" name="is_banner" value="{{$value->is_banner ? 1 : 0}}" {{$value->is_banner ? 'checked' : ''}}>
-                                            </label>
-                                        </div>
-                                    </td>
-                                    <td>{{ customDate($value->updated_at , 'daytime') }}</td>
-                                    <td class="text-center">
-                                        <form method="post" action="{{base_url('admin/banner/add')}}" class="d-block">
-                                            {{ csrf_field() }}
-                                            <input type="hidden" value="{{$value->id}}" name="mov_id">
-                                            <button type="submit" class="btn btn-simple btn-info btn-icon edit">Chọn</button>
-                                        </form>
-                                    </td>
-                                    <td class="text-right">                                       
-                                        
-                                        <a href="{{ base_url('admin/movie/detail/'.$value->id) }}" class="btn btn-simple btn-warning btn-icon edit">Chi tiết</a>
-                                        <a href="{{ base_url('admin/movie/'.$value->id.'/episode') }}" class="btn btn-simple btn-success btn-icon">Quản Lý Tập</a>
+                                    <td>{{ $value->title }}</td>
+                                    <td>{{ $value->content }}</td>
+                                    <td>{{ $value->slug }}</td>
+                                    <td>{{ $value->created_at }}</td>
+                                    <td class="text-right">                                  
+                                        <a href="{{ base_url('admin/posts/detail/'.$value->id) }}" class="btn btn-simple btn-warning btn-icon edit">Chi tiết</a>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -231,51 +184,51 @@
             }
 
         });
-        $('.card .material-datatables label').addClass('form-group');
-        var url = '{{url("admin/movie/switch")}}';
-        $('body .togglebutton input').on('change',function(event) {
-            if($(this).is(':checked')){
-                $(this).val(1);
-            } else {
-                $(this).val(0);
-            }
-            var name = $(this).attr('name');
-            var value = $(this).val();
-            var id = $(this).parents("td").prevAll(".id_mov").html();
-            var data;
-            switch (name) {
-                case 'is_hot':
-                    data = {is_hot:value};
-                    break;
-                case 'is_new':
-                    data = {is_new:value};
-                    break;
-                case 'is_banner':
-                    data = {is_banner:value};
-                    break;
-                default:
-                    return false;
-            }
+        // $('.card .material-datatables label').addClass('form-group');
+        // //var url = '{{url("admin/movie/switch")}}';
+        // $('body .togglebutton input').on('change',function(event) {
+        //     if($(this).is(':checked')){
+        //         $(this).val(1);
+        //     } else {
+        //         $(this).val(0);
+        //     }
+        //     var name = $(this).attr('name');
+        //     var value = $(this).val();
+        //     var id = $(this).parents("td").prevAll(".id_mov").html();
+        //     var data;
+        //     switch (name) {
+        //         case 'is_hot':
+        //             data = {is_hot:value};
+        //             break;
+        //         case 'is_new':
+        //             data = {is_new:value};
+        //             break;
+        //         case 'is_banner':
+        //             data = {is_banner:value};
+        //             break;
+        //         default:
+        //             return false;
+        //     }
 
-            if(name && parseInt(id) > 0){
-                data.id = id;
-                data._token = $('input[name="_token"]').val();
-                $.ajax({
-                    url: `${url}`,
-                    type: 'POST',
-                    dataType: 'JSON',
-                    data: data,
-                })
-                .done(function(res) {
-                    console.log(res);
-                })
-                .fail(function(err) {
-                    console.log(err);
-                })
+        //     if(name && parseInt(id) > 0){
+        //         data.id = id;
+        //         data._token = $('input[name="_token"]').val();
+        //         $.ajax({
+        //             url: `${url}`,
+        //             type: 'POST',
+        //             dataType: 'JSON',
+        //             data: data,
+        //         })
+        //         .done(function(res) {
+        //             console.log(res);
+        //         })
+        //         .fail(function(err) {
+        //             console.log(err);
+        //         })
                 
-            }
+        //     }
             
-        });
+        // });
         
     });
 </script>

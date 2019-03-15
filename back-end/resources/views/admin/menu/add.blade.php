@@ -42,7 +42,7 @@
                                     <div class="col-sm-5">
                                         <select data-container="body" class="selectpicker" data-live-search="true" data-size="10" data-style="btn-success" name="tag_id">
                                             @foreach($data['more'] as $key => $value)
-                                            <option data-tokens="{{$value->name}}" value="{{$value->id}}">{{$value->name}}</option>
+                                                <option data-tokens="{{$value->name}}" value="{{$value->id}}">{{$value->name}}</option>
                                             @endforeach
                                       </select>
                                     </div>

@@ -1,9 +1,9 @@
 @extends('admin/layout' , ['message' => !empty($message) ? $message : []])
-@section('title', 'Thêm tin mới')
+@section('title', 'Thêm bản tin')
 @section('main')
 <div class="container-fluid">
     <div class="alert alert-light" role="alert">
-        <strong class="">Thêm tin mới</strong>
+        <strong class="">Thêm bản tin</strong>
     </div>
     <form action="" method="post" enctype="multipart/form-data">
         {{ csrf_field()}}
@@ -22,13 +22,13 @@
                         <div class="wizard-navigation">
                             <ul>
                                 <li class="wizard-menu-top">
-                                    <a href="/admin/posts#info" data-toggle="tab">Thông tin bản tin</a>
+                                    <a href="/admin/movie#info" data-toggle="tab">Thông tin bản tin</a>
                                 </li>
                                 <li class="wizard-menu-top">
-                                    <a href="/admin/posts#more" data-toggle="tab">Ảnh và loại</a>
+                                    <a href="/admin/movie#more" data-toggle="tab">Ảnh và tag</a>
                                 </li>
                                 <li class="wizard-menu-top">
-                                    <a href="/admin/posts#seoinfo" data-toggle="tab">Thông tin SEO</a>
+                                    <a href="/admin/movie#seoinfo" data-toggle="tab">Thông tin SEO</a>
                                 </li>
                             </ul>
                         </div>
@@ -36,13 +36,13 @@
                             <div class="tab-pane" id="info">
                                 <div class="card-content form-horizontal">
                                     <div class="row">
-                                        <div class="col-sm-6">
+                                        <div class="col-sm-10">
                                             <div class="row">
-                                                <label class="col-sm-4 label-on-left">Tên bản tin <small style="color:red">*</small></label>
+                                                <label class="col-sm-4 label-on-left">Tiêu đề <small style="color:red">*</small></label>
                                                 <div class="col-sm-8">
                                                     <div class="form-group label-floating is-empty">
                                                         <label class="control-label"></label>
-                                                        <input type="text" class="form-control" name="name" value="" required data-name="Tên phim">
+                                                        <input type="text" class="form-control" name="title" value="" required data-name="Tiêu đề ">
                                                         <span class="material-input"></span>
                                                     </div>
                                                 </div>
@@ -56,98 +56,39 @@
                                                         <span class="material-input"></span>
                                                     </div>
                                                 </div>
-                                            </div>                                            
+                                            </div>      
+                                            <div class="row">
+                                                <label class="col-sm-4 label-on-left">Nội dung</label>
+                                                <div class="col-sm-8">
+                                                    <div class="form-group label-floating is-empty">
+                                                        <label class="control-label"></label>
+                                                        <input type="text" class="form-control" name="content" value="">
+                                                        <span class="material-input"></span>
+                                                    </div>
+                                                </div>
+                                            </div>                                       
 
                                         </div>
                                         <!-- end col 6 -->
-                                        <div class="col-sm-6">
-                                            <!-- <div class="row">
-                                                <label class="col-sm-4 label-on-left">Số tập <small style="color:red">*</small></label>
-                                                <div class="col-sm-2">
-                                                    <div class="form-group label-floating is-empty">
-                                                        <label class="control-label"></label>
-                                                        <input type="number" class="form-control" name="epi_num" value="1" required data-name="Số tập">
-                                                        <span class="material-input"></span>
-                                                    </div>
-                                                </div>
-                                            </div> -->
-                                            <div class="row">
-                                                <label class="col-sm-4 label-on-left">Tiêu đề<small style="color:red">*</small></label>
-                                                <div class="col-sm-2">
-                                                    <div class="form-group label-floating is-empty">
-                                                        <label class="control-label"></label>
-                                                        <input type="text" class="form-control" name="title" value="" required data-name="Thời gian">
-                                                        <span class="material-input"></span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <label class="col-sm-4 label-on-left">Ngày đăng <small></small></label>
-                                                <div class="col-sm-8">
-                                                    <div class="form-group">
-                                                        <input type="date" class="form-control" value="{{date('Y-m-d')}}" name="release_date">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="row">
-                                                <label class="col-sm-4 label-on-left">Nội dung<small style="color:red">*</small></label>
-                                                <div class="col-sm-2">
-                                                    <div class="form-group label-floating is-empty">
-                                                        <label class="control-label"></label>
-                                                        <input type="text" class="form-control" name="content" value="" required data-name="Thời gian">
-                                                        <span class="material-input"></span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="tab-pane" id="more">
                                 <div class="card-content form-horizontal">
                                     <div class="row">
-                                        <div class="col-md-8">
-                                            <!-- <div class="row">
-                                                <label class="col-sm-3 label-on-left">Chọn mục</label>
-                                                <div class="form-group label-floating is-empty">
-                                                    <div class="col-sm-3">
-                                                        <div class="togglebutton">
-                                                            <label>
-                                                                <input type="checkbox" name="is_hot" value="0"> Phim Hot
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-3">
-                                                        <div class="togglebutton">
-                                                            <label>
-                                                                <input type="checkbox" name="is_new" value="0"> Phim Mới
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-3">
-                                                        <div class="togglebutton">
-                                                            <label>
-                                                                <input type="checkbox" name="is_banner" value="0"> Banner
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div> -->
-                                            <!-- end row -->
+                                        <div class="col-md-8">                                            
                                             <div class="row">
                                                 <label class="col-sm-3 label-on-left">Chọn tags</label>
                                                 <div class="col-sm-5">
-                                                    <select data-container="body" class="selectpicker" data-live-search="true" data-size="10" data-style="btn-info"  multiple name="tag_id[]" required data-name="Tags">
-                                                        @foreach($data['more']['tags'] as $key => $value)
+                                                    <select data-container="body" class="selectpicker" data-live-search="true" data-size="10" multiple data-style="btn-danger" name="tag_id[]" required data-name="Chọn tags">
+                                                        @foreach($data['more'] as $key => $value)
                                                         <option data-tokens="{{$value->name}}" value="{{$value->id}}">{{$value->name}}</option>
                                                         @endforeach
                                                     </select>
 
                                                 </div>
                                             </div>
-                                            <!-- end row -->
+                                            <!-- end row -->                                            
                                         </div>
                                         <div class="col-md-4 col-sm-4">
                                             <div class="fileinput fileinput-new text-center" data-provides="fileinput">
@@ -240,24 +181,17 @@
     $(document).ready(function() {
         $('.using-tooltip').tooltip({animation:true});
         $('.menu-left-custom >li.active').removeClass('active');
-        $('#posts').parent('li').addClass('active');
-        $('#posts .add').addClass('active');
-        $('#posts').collapse();
+        $('#movie').parent('li').addClass('active');
+        $('#movie .add').addClass('active');
+        $('#movie').collapse();
 
-        $('input[name="name"]').on('keyup', function(event) {
+        $('input[name="title"]').on('keyup', function(event) {
             event.preventDefault();
             $('input[name="slug"]').val(create_slug($(this).val()));
         });
 
-        // $('input[name="is_hot"],input[name="is_new"],input[name="is_banner"]').on('change', function(event) {
-        //     event.preventDefault();
-        //     if($(this).is(':checked')){
-        //         $(this).val(1);
-        //     } else {
-        //         $(this).val(0);
-        //     }
-        // });
-        // demo.initMaterialWizard();
+    
+        demo.initMaterialWizard();
 
 
     });

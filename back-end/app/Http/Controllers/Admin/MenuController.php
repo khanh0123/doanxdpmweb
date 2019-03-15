@@ -57,7 +57,6 @@ class MenuController extends MainAdminController
         // die();
         switch ($type) {
             case 'insert':               
-                
                 if($req->name !== $item->name){
                     if($this->model::where([
                         ['name',$req->name]

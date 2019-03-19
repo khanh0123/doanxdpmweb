@@ -18,6 +18,9 @@ class CreateTablePosts extends Migration
             // $table->charset = 'utf8';
             $table->increments('id');
             $table->string('title',255);
+            $table->integer('is_hot')->default(0);
+            $table->integer('is_new')->default(0);
+            $table->double('view')->default(0);
             $table->text('images')->nullable();
             $table->text('content')->nullable();
             $table->string('slug',255);

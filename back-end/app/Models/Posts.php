@@ -12,10 +12,10 @@ class Posts extends Model
     public function get_page($filter = [] , $req)
     {
         //get list id movie 
-        $result     = $this->getListId($filter , $req);
-        $list_post_id = array_column($result->items(), "id");
+        $data     = $this->getListId($filter , $req);
+        $list_post_id = array_column($data->items(), "id");
 
-        $data = DB::table($this->table)
+        $result = DB::table($this->table)
             ->select([
                 "posts.*",
                 "posts_tags.post_id",
@@ -28,35 +28,11 @@ class Posts extends Model
             ->orderBy($filter['orderBy'], $filter['sort'])
             ->whereIn('posts.id',$list_post_id);
         // $data = addConditionsToQuery($filter['conditions'],$data);
-        $data = $data->get();
-        $arr_keys = $result->keys();
-        for ($i = 0; $i < count($result); $i++) {
-            $result->forget($result[$i]);     
-        }
-        for ($i = 0; $i < count($data); $i++) {
-            $result->offsetSet($i,$data[$i]);     
-        }
-        
-        // echo "<pre>";
-        // var_dump($result);
-        // echo "</pre>";
-        // die();
-        
-        return $result;
+        $result = $result->get();
+        return new \Illuminate\Pagination\LengthAwarePaginator($result,$data->total(),$data->perPage(),$data->currentPage(),['path' => $req->url(), 'query' => $req->all()]);
     }
 
 
-
-    public function search(Array $data,$field_get = [])
-    {
-        $data = DB::table($this->table)
-                    ->select("posts.*")
-                    //->join("category" , "category.id" , "=" , "movie.cat_id")
-                    ->orderBy('posts.id', "desc")
-                    ->where([$data])
-                    ->first();              
-        return $data;
-    }
 
     private function getListId($filter , $req){
         $result = DB::table($this->table)

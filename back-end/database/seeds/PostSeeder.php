@@ -52,13 +52,18 @@ public function getContent($string)
                 $tag_name = $value['cateName'];
     			$post_id = DB::table('posts')->insertGetId(
     				[
-                        'title'     =>$title,
-                        'images'     =>$image,
+                        'title'     => preg_replace_callback('/\\\\u([0-9a-fA-F]{4})/', function ($match) {
+                            return mb_convert_encoding(pack('H*', $match[1]), 'UTF-8', 'UCS-2BE');
+                        }, $title),
+                        'images'    =>$image,
                         'content'   =>$content,
                         'short_des' =>$desc,
                         'ad_id'     =>'1',
                         'slug'      =>create_slug($title),
-                        'long_des'  =>$desc
+                        'long_des'  =>$desc,
+                        'is_hot'    => rand(0,1),
+                        'is_new'    => rand(0,1),
+                        'view'    => rand(100,9999),
 
     				]
     			);

@@ -13,7 +13,7 @@
 
 // header("Access-Control-Allow-Origin:*");
 
-$router->get('/home' , 'Homepage\BusinessController@getIndex');
+$router->get('/' , 'Frontend\Home@index');
 // $router->get('/home' , function(){
 //     return view('Homepage/Home');
 // });
@@ -22,7 +22,8 @@ $router->get('/home' , 'Homepage\BusinessController@getIndex');
 $router->group(['prefix' => 'api/v1','middleware' => 'cors' ], function() use($router) {
 
     $router->get('/menu' , ['as' => "Api.MenuController.index", 'uses' => 'Api\MenuController@index']);
-    $router->get('movies' , ['as' => "Api.MovieController.index", 'uses' => 'Api\MovieController@index']);
+    $router->get('posts' , ['as' => "Api.PostsController.index", 'uses' => 'Api\PostsController@index']);
+
     $router->get('movie/{id}' , ['as' => "Api.MovieController.detail", 'uses' => 'Api\MovieController@detail']);
     $router->get('movie/{mov_id}/link/{episode}' , ['as' => "Api.VideoController.detail", 'uses' => 'Api\VideoController@detail']);
 

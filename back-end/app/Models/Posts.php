@@ -21,7 +21,6 @@ class Posts extends Model
                 "posts_tags.post_id",
                 "tags.name as tag_name",
                 "tags.slug as tag_slug",
-
             ])
             ->leftJoin("posts_tags"    ,"posts_tags.post_id"   ,"=" , "posts.id")
             ->leftJoin("tags"          ,"tags.id"             ,"=" , "posts_tags.tag_id")
@@ -37,7 +36,7 @@ class Posts extends Model
     private function getListId($filter , $req){
         $result = DB::table($this->table)
         ->select('posts.id')
-        ->leftJoin("Posts_Tags"    ,"Posts_Tags.post_id"   ,"=" , "posts.id")
+        ->leftJoin("posts_tags"    ,"Posts_Tags.post_id"   ,"=" , "posts.id")
         ->leftJoin("tags"          ,"tags.id"             ,"=" , "Posts_Tags.tag_id")
         ->groupBy('posts.id')
         ->orderBy($filter['orderBy'], $filter['sort']);

@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Posts;
 use App\Models\Menu;
-use App\Models\Posts_Tags; 
+use App\Models\Posts_tags; 
 use DB;
 
 class Home extends Controller
@@ -21,7 +21,7 @@ class Home extends Controller
                     ->get();
 
         foreach ($data['menu'] as $key => $value) {
-            $count_post = Posts_Tags::where('tag_id',$value->tag_id)->count();
+            $count_post = Posts_tags::where('tag_id',$value->tag_id)->count();
             $data['menu'][$key]->num_post = $count_post;
             
         }

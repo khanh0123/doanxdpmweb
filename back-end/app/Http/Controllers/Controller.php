@@ -16,10 +16,18 @@ class Controller extends BaseController
 
         return Response()->json($data);
     }
-    protected function template_err($msg = ''){    
-
-
-        return Response()->json(['error' => true,'msg' => $msg]);
+    protected function template_fe($view = '',$data = []){    
+		//get menu
+        $data['menu'] = DB::table('menu')
+        ->select('menu.*','tags.name as tag_name','tags.slug as tag_slug')
+        ->join('tags','tags.id','=','menu.tag_id')
+        ->get();
+        foreach ($data['menu'] as $key => $value) {
+            $count_post = DB::table('posts_tags')->where('tag_id',$value->tag_id)->count();
+            $data['menu'][$key]->num_post = $count_post;
+            
+        }
+        return Response()->view($view,$data);
     }
 
     /*

@@ -28,7 +28,7 @@ class HotCategory extends React.Component {
                 <div className="category-widget">
                     <ul>
                         {menu && menu.map((m) => {
-                            return <li key={m.id}><Link to={`${m.tag_slug}`} className="cat-1">{m.tag_name}<span>{m.num_post}</span></Link></li>
+                            return <li key={m.id}><Link to={`/${m.tag_slug}`} className="cat-1">{m.tag_name}<span>{m.num_post}</span></Link></li>
                         })}
 
                     </ul>

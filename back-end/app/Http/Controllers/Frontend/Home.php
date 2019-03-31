@@ -63,8 +63,7 @@ class Home extends Controller
     }
 
     public function index_reactjs(Request $request)
-    {
-        // die;
+    {        
         $data = [];
         return $this->template_fe('frontend.index_reactjs',$data);
     }

@@ -17,6 +17,8 @@ class Menu extends Model
             'menu.tag_id',
             'tags.name as tag_name',
             'tags.slug as tag_slug',
+            'menu.created_at',
+            'menu.updated_at',
         ];
     	$data = DB::table($this->table)
     				->select($select)

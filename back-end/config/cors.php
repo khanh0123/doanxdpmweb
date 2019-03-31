@@ -21,7 +21,7 @@ return [
     // 'maxAge' => 86400,
 
     'supportsCredentials' => true,
-    'allowedOrigins' => ['http://localhost:3000'],// ex: ['abc.com', 'api.abc.com']
+    'allowedOrigins' => ['*'],// ex: ['abc.com', 'api.abc.com']
     'allowedHeaders' => ['*'],
     'allowedMethods' => ['GET', 'POST', 'PUT', 'DELETE'],// ex: ['GET', 'POST', 'PUT', 'DELETE']
     'exposedHeaders' => [],

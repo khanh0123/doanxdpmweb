@@ -168,14 +168,14 @@ class AdminController extends MainAdminController
     	} else {
     		$result = Admin::where([                
                 'username' => $username , 
-                'password' => encode_password($request->password)
+                'password' => encode_password($password)
             ])->first();
 
 
     		if(empty($result)){
     			return view($this->view_folder.'login')
     			->withMessage(['type' => 'error' , 'msg' => 'Tài khoản hoặc mật khẩu chưa chính xác']);
-    		} else if($result->status !== 1){
+    		} else if((int)$result->status !== 1){
                 return view($this->view_folder.'login')
                 ->withMessage(['type' => 'error' , 'msg' => 'Tài khoản của bạn đã bị vô hiệu hóa. Vui lòng liên hệ với quản trị viên.']);
             } else {

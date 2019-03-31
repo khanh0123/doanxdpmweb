@@ -1,4 +1,4 @@
-let domain_api = "http://localhost:8000/api/v1/";
+let domain_api = "//lvtn.tk/api/v1/";
 
 let config = {
     domain: {

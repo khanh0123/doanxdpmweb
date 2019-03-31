@@ -25,10 +25,10 @@
                                     </button>
                                     <ul class="dropdown-menu dropdown-menu-left">
                                         <li class="dropdown-header"></li>
-                                        <li><a href="{{base_url('admin/tags?limit=10')}}">10</a></li>
-                                        <li><a href="{{base_url('admin/tags?limit=20')}}">20</a></li>
-                                        <li><a href="{{base_url('admin/tags?limit=30')}}">30</a></li>
-                                        <li><a href="{{base_url('admin/tags?limit=40')}}">40</a></li>
+                                        <li><a href="{{url('admin/tags?limit=10')}}">10</a></li>
+                                        <li><a href="{{url('admin/tags?limit=20')}}">20</a></li>
+                                        <li><a href="{{url('admin/tags?limit=30')}}">30</a></li>
+                                        <li><a href="{{url('admin/tags?limit=40')}}">40</a></li>
                                     </ul>
                                 </div>
                                 <span>Kết quả</span>
@@ -58,8 +58,8 @@
                                     <td>{{ $value->name }}</td>
                                     <td>{{ $value->slug }}</td>
                                     <td class="text-right">
-                                        <a href="{{base_url('admin/tags/detail/'.$value->id) }}" class="btn btn-simple btn-warning btn-icon edit">Chi tiết</a>
-                                        <a href="{{base_url('admin/tags/del/'.$value->id) }}" class="btn btn-simple btn-danger btn-icon remove">Xóa</a>
+                                        <a href="{{url('admin/tags/detail/'.$value->id) }}" class="btn btn-simple btn-warning btn-icon edit">Chi tiết</a>
+                                        <a href="{{url('admin/tags/del/'.$value->id) }}" class="btn btn-simple btn-danger btn-icon remove">Xóa</a>
                                     </td>
                                 </tr>
                                 @endforeach

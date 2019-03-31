@@ -88,7 +88,7 @@
                                     <td>{{ $value->slug }}</td>
                                     <td>{{ $value->created_at }}</td>
                                     <td class="text-right">                                  
-                                        <a href="{{ base_url('admin/posts/detail/'.$value->id) }}" class="btn btn-simple btn-warning btn-icon edit">Chi tiết</a>
+                                        <a href="{{ url('admin/posts/detail/'.$value->id) }}" class="btn btn-simple btn-warning btn-icon edit">Chi tiết</a>
                                     </td>
                                 </tr>
                                 @endforeach

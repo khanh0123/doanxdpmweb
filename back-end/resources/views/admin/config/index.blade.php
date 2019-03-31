@@ -25,10 +25,10 @@
                                     </button>
                                     <ul class="dropdown-menu dropdown-menu-left">
                                         <li class="dropdown-header"></li>
-                                        <li><a href="{{base_url('admin/config?limit=10')}}">10</a></li>
-                                        <li><a href="{{base_url('admin/config?limit=20')}}">20</a></li>
-                                        <li><a href="{{base_url('admin/config?limit=30')}}">30</a></li>
-                                        <li><a href="{{base_url('admin/config?limit=40')}}">40</a></li>
+                                        <li><a href="{{url('admin/config?limit=10')}}">10</a></li>
+                                        <li><a href="{{url('admin/config?limit=20')}}">20</a></li>
+                                        <li><a href="{{url('admin/config?limit=30')}}">30</a></li>
+                                        <li><a href="{{url('admin/config?limit=40')}}">40</a></li>
                                     </ul>
                                 </div>
                                 <span>Kết quả</span>
@@ -64,9 +64,9 @@
                                     <td>{{ $value->created_at }}</td>
                                     <td>{{ $value->updated_at }}</td>
                                     <td class="text-right">
-                                        <a href="{{base_url('admin/config/detail/'.$value->id) }}" class="btn btn-simple btn-warning btn-icon edit">Chi tiết</a>
+                                        <a href="{{url('admin/config/detail/'.$value->id) }}" class="btn btn-simple btn-warning btn-icon edit">Chi tiết</a>
                                         @if (session()->get('permission')->canDelete)
-                                        <a href="{{base_url('admin/config/del/'.$value->id) }}" class="btn btn-simple btn-danger btn-icon remove">Xóa</a>
+                                        <a href="{{url('admin/config/del/'.$value->id) }}" class="btn btn-simple btn-danger btn-icon remove">Xóa</a>
                                         @endif
                                     </td>
                                 </tr>

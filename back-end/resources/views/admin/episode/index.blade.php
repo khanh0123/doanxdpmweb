@@ -14,7 +14,7 @@
                     <div class="toolbar">
                         <!-- Here you can write extra buttons/actions for the toolbar   -->
                         @if(session()->get('permission')->canWrite)
-                            <a href="{{ base_url("admin/movie/".$data['movie']->id."/episode/add")}}" class="btn btn-success btn-round">
+                            <a href="{{ url("admin/movie/".$data['movie']->id."/episode/add")}}" class="btn btn-success btn-round">
                                 <span class="btn-label">
                                     <i class="material-icons">check</i>
                                 </span>
@@ -110,9 +110,9 @@
                                     <td>{{ customDate($value->created_at , 'daytime') }}</td>
                                     <td>{{ customDate($value->updated_at , 'daytime') }}</td>
                                     <td class="text-right">
-                                        <a href="{{base_url("admin/movie/".$data['movie']->id."/episode/detail/$value->id") }}" class="btn btn-simple btn-warning btn-icon edit">Chi tiết</a>
+                                        <a href="{{url("admin/movie/".$data['movie']->id."/episode/detail/$value->id") }}" class="btn btn-simple btn-warning btn-icon edit">Chi tiết</a>
                                         @if (session()->get('permission')->canDelete)
-                                            <a href="{{base_url("admin/movie/".$data['movie']->id."/episode/del/$value->id") }}" class="btn btn-simple btn-danger btn-icon remove">Xóa</a>
+                                            <a href="{{url("admin/movie/".$data['movie']->id."/episode/del/$value->id") }}" class="btn btn-simple btn-danger btn-icon remove">Xóa</a>
                                         @endif
                                     </td>
                                 </tr>
@@ -168,7 +168,7 @@
     <!-- end row -->
     
     <div class="modal fade" id="modalCloneEpisode" tabindex="-1" role="dialog" aria-labelledby="modalCloneEpisodeLabel" aria-hidden="true">
-        <form action="{{base_url("admin/movie/".$data['movie']->id."/episode/clone")}}" method="POST">
+        <form action="{{url("admin/movie/".$data['movie']->id."/episode/clone")}}" method="POST">
             {{ csrf_field() }}
             <div class="modal-dialog">
                 <div class="modal-content">

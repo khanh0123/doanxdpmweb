@@ -56,10 +56,10 @@
                                 <button type="submit" class="btn btn-info using-tooltip" data-toggle="tooltip" data-placement="top" title="Xác Nhận Thay Đổi"><i class="material-icons">check</i>Xác Nhận<div class="ripple-container"></div></button>
                                 @endif
 
-                                <a class="btn using-tooltip" href="{{base_url('admin/category')}}" data-toggle="tooltip" data-placement="top" title="Hủy bỏ thao tác">Hủy bỏ<div class="ripple-container"></div></a>
+                                <a class="btn using-tooltip" href="{{url('admin/category')}}" data-toggle="tooltip" data-placement="top" title="Hủy bỏ thao tác">Hủy bỏ<div class="ripple-container"></div></a>
                                 
                                 @if (session()->get('permission')->canDelete)
-                                <a class="btn btn-danger using-tooltip" href="{{base_url('admin/category/del/'.$data['id'])}}" data-toggle="tooltip" data-placement="top" title="Xóa phần tử này?"><i class="material-icons">close</i>Xóa<div class="ripple-container"></div></a>
+                                <a class="btn btn-danger using-tooltip" href="{{url('admin/category/del/'.$data['id'])}}" data-toggle="tooltip" data-placement="top" title="Xóa phần tử này?"><i class="material-icons">close</i>Xóa<div class="ripple-container"></div></a>
                                 @endif
                             </div>
                         </div>

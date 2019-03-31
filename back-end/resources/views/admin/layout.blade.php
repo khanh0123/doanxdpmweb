@@ -54,7 +54,7 @@
                         <img src="/assets/img/faces/card-profile1-square.jpg" />
                     </div>
                     <div class="info">
-                        <a data-toggle="collapse" href="{{ base_url('admin#profile') }}" class="collapsed">
+                        <a data-toggle="collapse" href="{{ url('admin#profile') }}" class="collapsed">
                             {{ session()->get('user')->first_name }} {{ session()->get('user')->last_name }} 
                             <b class="caret"></b>
                         </a>
@@ -72,7 +72,7 @@
                 </div>
                 <ul class="nav menu-left-custom">
                     <li class="active">
-                        <a href="{{ base_url('admin') }}">
+                        <a href="{{ url('admin') }}">
                             <i class="material-icons">dashboard</i>
                             <p>Trang chính</p>
                         </a>
@@ -80,7 +80,7 @@
                     
                    
                     <!-- <li>
-                        <a data-toggle="collapse" href="{{ base_url('admin#user') }}">
+                        <a data-toggle="collapse" href="{{ url('admin#user') }}">
                             <i class="material-icons">pan_tool</i>
                             <p>Quản Lý User
                                 <b class="caret"></b>
@@ -89,14 +89,14 @@
                         <div class="collapse" id="user">
                             <ul class="nav">
                                 <li class="show">
-                                    <a href="{{ base_url('admin/user') }}">Danh sách User</a>
+                                    <a href="{{ url('admin/user') }}">Danh sách User</a>
                                 </li>
                             </ul>
                         </div>
                     </li> -->
 
                     <li>
-                        <a data-toggle="collapse" href="{{ base_url('admin#groupAdmin') }}">
+                        <a data-toggle="collapse" href="{{ url('admin#groupAdmin') }}">
                             <i class="material-icons">group</i>
                             <p>Quản Lý Admin
                                 <b class="caret"></b>
@@ -105,17 +105,17 @@
                         <div class="collapse" id="groupAdmin">
                             <ul class="nav">                                
                                 <li class="admin show">
-                                    <a href="{{ base_url('admin/user') }}">Danh sách Admin</a>
+                                    <a href="{{ url('admin/user') }}">Danh sách Admin</a>
                                 </li>
                                 <li class="admin add">
-                                    <a href="{{ base_url('admin/user/add') }}">Thêm admin</a>
+                                    <a href="{{ url('admin/user/add') }}">Thêm admin</a>
                                 </li>
                             </ul>
                         </div>
                     </li>
                    
                     <li>
-                        <a data-toggle="collapse" href="{{ base_url('admin#posts') }}">
+                        <a data-toggle="collapse" href="{{ url('admin#posts') }}">
                             <i class="material-icons">movie</i>
                             <p>Quản Lý Bản Tin
                                 <b class="caret"></b>
@@ -124,18 +124,18 @@
                         <div class="collapse" id="posts">
                             <ul class="nav">
                                 <li class="show">
-                                    <a href="{{ base_url('admin/posts') }}">Danh sách bản tin</a>
+                                    <a href="{{ url('admin/posts') }}">Danh sách bản tin</a>
                                 </li>
                                 
                                 <li class="add">
-                                    <a href="{{ base_url('admin/posts/add') }}">Thêm tin mới</a>
+                                    <a href="{{ url('admin/posts/add') }}">Thêm tin mới</a>
                                 </li>
                             
                             </ul>
                         </div>
                     </li>
                     <li>
-                        <a data-toggle="collapse" href="{{ base_url('admin#catcotgen') }}">
+                        <a data-toggle="collapse" href="{{ url('admin#catcotgen') }}">
                             <i class="material-icons">category</i>
                             <p>Quản Lý Tags
                                 <b class="caret"></b>
@@ -144,7 +144,7 @@
                         <div class="collapse" id="catcotgen">
                             <ul class="nav show">
                                 <li class="tags">
-                                    <a href="{{ base_url('admin/tags') }}">Danh sách tags</a>
+                                    <a href="{{ url('admin/tags') }}">Danh sách tags</a>
                                 </li>                       
                             </ul>
                             
@@ -152,7 +152,7 @@
                                 
                                 
                                 <li class="tags">
-                                    <a href="{{ base_url('admin/tags/add') }}">Thêm tags</a>
+                                    <a href="{{ url('admin/tags/add') }}">Thêm tags</a>
                                 </li>                               
                                 
                             </ul>
@@ -160,7 +160,7 @@
                         </div>
                     </li>
                     <!-- <li>
-                        <a data-toggle="collapse" href="{{ base_url('admin#country') }}">
+                        <a data-toggle="collapse" href="{{ url('admin#country') }}">
                             <i class="material-icons">language</i>
                             <p>Quản Lý Quốc Gia
                                 <b class="caret"></b>
@@ -171,7 +171,7 @@
                         </div>
                     </li> -->
                     <!-- <li>
-                        <a data-toggle="collapse" href="{{ base_url('admin#genre') }}">
+                        <a data-toggle="collapse" href="{{ url('admin#genre') }}">
                             <i class="material-icons">album</i>
                             <p>Quản Lý Thể Loại
                                 <b class="caret"></b>
@@ -180,18 +180,18 @@
                         <div class="collapse" id="genre">
                             <ul class="nav">
                                 <li class="show">
-                                    <a href="{{ base_url('admin/genre') }}">Danh sách thể loại</a>
+                                    <a href="{{ url('admin/genre') }}">Danh sách thể loại</a>
                                 </li>
                                
                                 <li class="add">
-                                    <a href="{{ base_url('admin/genre/add') }}">Thêm thể loại</a>
+                                    <a href="{{ url('admin/genre/add') }}">Thêm thể loại</a>
                                 </li>
                                
                             </ul>
                         </div>
                     </li> -->
                     <li>
-                        <a data-toggle="collapse" href="{{ base_url('admin#menu') }}">
+                        <a data-toggle="collapse" href="{{ url('admin#menu') }}">
                             <i class="material-icons">menu</i>
                             <p>Quản Lý Menu
                                 <b class="caret"></b>
@@ -200,18 +200,18 @@
                         <div class="collapse" id="menu">
                             <ul class="nav">
                                 <li class="show">
-                                    <a href="{{ base_url('admin/menu') }}">Danh sách menu</a>
+                                    <a href="{{ url('admin/menu') }}">Danh sách menu</a>
                                 </li>
                                
                                 <li class="add">
-                                    <a href="{{ base_url('admin/menu/add') }}">Thêm menu</a>
+                                    <a href="{{ url('admin/menu/add') }}">Thêm menu</a>
                                 </li>
                               
                             </ul>
                         </div>
                     </li>
                     <!-- <li>
-                        <a data-toggle="collapse" href="{{ base_url('admin#banner') }}">
+                        <a data-toggle="collapse" href="{{ url('admin#banner') }}">
                             <i class="material-icons">swap_horizontal_circle</i>
                             <p>Quản Lý Banner
                                 <b class="caret"></b>
@@ -220,18 +220,18 @@
                         <div class="collapse" id="banner">
                             <ul class="nav">
                                 <li class="show">
-                                    <a href="{{ base_url('admin/banner') }}">Danh sách banner</a>
+                                    <a href="{{ url('admin/banner') }}">Danh sách banner</a>
                                 </li>
                                 
                                 <li class="add">
-                                    <a href="{{ base_url('admin/banner/add') }}">Thêm banner</a>
+                                    <a href="{{ url('admin/banner/add') }}">Thêm banner</a>
                                 </li>
                              
                             </ul>
                         </div>
                     </li> -->
                     <!-- <li>
-                        <a data-toggle="collapse" href="{{ base_url('admin#config') }}">
+                        <a data-toggle="collapse" href="{{ url('admin#config') }}">
                             <i class="material-icons">build</i>
                             <p>Quản Lý Cấu hình
                                 <b class="caret"></b>
@@ -240,11 +240,11 @@
                         <div class="collapse" id="config">
                             <ul class="nav">
                                 <li class="show">
-                                    <a href="{{ base_url('admin/config') }}">Danh sách cấu hình</a>
+                                    <a href="{{ url('admin/config') }}">Danh sách cấu hình</a>
                                 </li>
                                
                                 <li class="add">
-                                    <a href="{{ base_url('admin/config/add') }}">Thêm cấu hình</a>
+                                    <a href="{{ url('admin/config/add') }}">Thêm cấu hình</a>
                                 </li>
                                
                             </ul>
@@ -302,7 +302,7 @@
                                     </p>
                                 </a>
 
-                                <form method="POST" action="{{base_url('admin/logout')}}" id="formLogout">
+                                <form method="POST" action="{{url('admin/logout')}}" id="formLogout">
                                     @csrf
                                     <ul class="dropdown-menu">
                                         <li>
@@ -323,7 +323,7 @@
 
                                     </ul>
                                  </form>
-                                <!-- <form method="POST" action="{{base_url('admin/changepass')}}" id="formChangepass">
+                                <!-- <form method="POST" action="{{url('admin/changepass')}}" id="formChangepass">
                                     @csrf
                                     <ul class="dropdown-menu">
                                         <li>
@@ -489,7 +489,7 @@
 
     <!-- modal change pass -->
     <div class="modal fade" id="modalChangePass" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <form id="RegisterValidation" action="{{ base_url('admin/changepass')}}" method="POST" novalidate="novalidate">
+        <form id="RegisterValidation" action="{{ url('admin/changepass')}}" method="POST" novalidate="novalidate">
            {{ csrf_field() }}
            <div class="modal-dialog">
             <div class="modal-content">
@@ -584,7 +584,7 @@
 <script src="/assets/js/main.js"></script>
 @yield('js')
 <script>
-    var base_url = "{{ base_url("/")}}/";
+    var url = "{{ url("/")}}/";
     $(document).ready(function() {
         $('li.disabled>a,li.active>a').click(function(event) {
             event.preventDefault();

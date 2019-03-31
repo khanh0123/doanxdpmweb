@@ -25,10 +25,10 @@
                                     </button>
                                     <ul class="dropdown-menu dropdown-menu-left">
                                         <li class="dropdown-header"></li>
-                                        <li><a href="{{base_url('admin/genre?limit=10')}}">10</a></li>
-                                        <li><a href="{{base_url('admin/genre?limit=20')}}">20</a></li>
-                                        <li><a href="{{base_url('admin/genre?limit=30')}}">30</a></li>
-                                        <li><a href="{{base_url('admin/genre?limit=40')}}">40</a></li>
+                                        <li><a href="{{url('admin/genre?limit=10')}}">10</a></li>
+                                        <li><a href="{{url('admin/genre?limit=20')}}">20</a></li>
+                                        <li><a href="{{url('admin/genre?limit=30')}}">30</a></li>
+                                        <li><a href="{{url('admin/genre?limit=40')}}">40</a></li>
                                     </ul>
                                 </div>
                                 <span>Kết quả</span>
@@ -58,9 +58,9 @@
                                     <td>{{ $value->name }}</td>
                                     <td>{{ $value->slug }}</td>
                                     <td class="text-right">
-                                        <a href="{{base_url('admin/genre/detail/'.$value->id) }}" class="btn btn-simple btn-warning btn-icon edit">Chi tiết</a>
+                                        <a href="{{url('admin/genre/detail/'.$value->id) }}" class="btn btn-simple btn-warning btn-icon edit">Chi tiết</a>
                                         @if (session()->get('permission')->canDelete)
-                                        <a href="{{base_url('admin/genre/del/'.$value->id) }}" class="btn btn-simple btn-danger btn-icon remove">Xóa</a>
+                                        <a href="{{url('admin/genre/del/'.$value->id) }}" class="btn btn-simple btn-danger btn-icon remove">Xóa</a>
                                         @endif
                                     </td>
                                 </tr>

@@ -74,7 +74,7 @@
                                     <td>{{ $value->status === 1 ? 'Kích hoạt' : 'Vô hiệu hóa' }}</td>
                                     <td>{{ $value->created_at }}</td>
                                     <td >
-                                        <a href="{{base_url('admin/user/detail/'.$value->id) }}" class="btn btn-simple btn-warning btn-icon edit">Chi tiết</a>
+                                        <a href="{{url('admin/user/detail/'.$value->id) }}" class="btn btn-simple btn-warning btn-icon edit">Chi tiết</a>
                                     </td>
                                 </tr>
                                 @endforeach

@@ -82,7 +82,7 @@
                                 </div>
                             </form>
                             @else
-                            <form method="post" action="{{base_url().'/admin/confirmCodeChangePass'}}">
+                            <form method="post" action="{{url().'/admin/confirmCodeChangePass'}}">
                                 {{ csrf_field() }}
                                 <div class="card card-login card-hidden">
                                     <div class="card-header text-center" data-background-color="rose">

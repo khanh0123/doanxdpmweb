@@ -25,10 +25,10 @@
                                     </button>
                                     <ul class="dropdown-menu dropdown-menu-left">
                                         <li class="dropdown-header"></li>
-                                        <li><a href="{{base_url('admin/permission?limit=10')}}">10</a></li>
-                                        <li><a href="{{base_url('admin/permission?limit=20')}}">20</a></li>
-                                        <li><a href="{{base_url('admin/permission?limit=30')}}">30</a></li>
-                                        <li><a href="{{base_url('admin/permission?limit=40')}}">40</a></li>
+                                        <li><a href="{{url('admin/permission?limit=10')}}">10</a></li>
+                                        <li><a href="{{url('admin/permission?limit=20')}}">20</a></li>
+                                        <li><a href="{{url('admin/permission?limit=30')}}">30</a></li>
+                                        <li><a href="{{url('admin/permission?limit=40')}}">40</a></li>
                                     </ul>
                                 </div>
                                 <span>Kết quả</span>

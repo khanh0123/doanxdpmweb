@@ -201,11 +201,11 @@
                                 <button type="submit" class="btn btn-info using-tooltip" data-toggle="tooltip" data-placement="top" title="Xác Nhận Thay Đổi" onClick="return validateMovie();"><i class="material-icons">check</i>Xác Nhận<div class="ripple-container"></div></button>
                               
 
-                                <a class="btn using-tooltip" href="{{base_url('admin/posts')}}" data-toggle="tooltip" data-placement="top" title="Hủy bỏ thao tác">Hủy bỏ<div class="ripple-container"></div></a>
+                                <a class="btn using-tooltip" href="{{url('admin/posts')}}" data-toggle="tooltip" data-placement="top" title="Hủy bỏ thao tác">Hủy bỏ<div class="ripple-container"></div></a>
 
                                 
 
-                                <a class="btn btn-danger using-tooltip" href="{{ base_url('admin/posts/del/'.$data['info']->id) }}" data-toggle="tooltip" data-placement="top" title="Xóa phim này?"><i class="material-icons">close</i>Xóa<div class="ripple-container"></div></a>
+                                <a class="btn btn-danger using-tooltip" href="{{ url('admin/posts/del/'.$data['info']->id) }}" data-toggle="tooltip" data-placement="top" title="Xóa phim này?"><i class="material-icons">close</i>Xóa<div class="ripple-container"></div></a>
                             
 
                                 

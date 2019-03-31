@@ -17,7 +17,7 @@ $router->get('/' , 'Frontend\Home@index');
 $router->get('/chi-tiet' , 'Frontend\Home@index');
 
 $router->get('/chi-tiet/{slug}/{id}' , ['as' => "Frontend.Detail.index", 'uses' => 'Frontend\Detail@index']);
-$router->get('/{tag}' , 'Frontend\Filter@index');
+//$router->get('/{tag}' , 'Frontend\Filter@index');
 // $router->get('/home' , function(){
 //     return view('Homepage/Home');
 // });

@@ -78,8 +78,8 @@
                                     <td>{{ $value->created_at }}</td>
                                     <td>{{ $value->updated_at }}</td>
                                     <td class="text-right">
-                                        <a href="{{base_url('admin/menu/detail/'.$value->id) }}" class="btn btn-simple btn-warning btn-icon edit">Chi tiết</a>                                    
-                                        <a href="{{base_url('admin/menu/del/'.$value->id) }}" class="btn btn-simple btn-danger btn-icon remove">Xóa</a>                                        
+                                        <a href="{{url('admin/menu/detail/'.$value->id) }}" class="btn btn-simple btn-warning btn-icon edit">Chi tiết</a>                                    
+                                        <a href="{{url('admin/menu/del/'.$value->id) }}" class="btn btn-simple btn-danger btn-icon remove">Xóa</a>                                        
                                     </td>
                                 </tr>
                                 @endforeach

@@ -45,7 +45,7 @@
                                     <td>{{ customDate($value->updated_at , 'daytime') }}</td>
                                     <td class="text-right">                                        
                                         @if (session()->get('permission')->canDelete)
-                                            <a href="{{base_url("admin/banner/del/$value->id") }}" class="btn btn-simple btn-danger btn-icon remove">Xóa</a>
+                                            <a href="{{url("admin/banner/del/$value->id") }}" class="btn btn-simple btn-danger btn-icon remove">Xóa</a>
                                         @endif
                                     </td>
                                 </tr>

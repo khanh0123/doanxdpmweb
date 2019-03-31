@@ -170,7 +170,7 @@
                                 <button type="submit" class="btn btn-info using-tooltip" data-toggle="tooltip" data-placement="top" title="Xác Nhận Thêm" onClick="return validateEpisode();"><i class="material-icons">check</i>Xác Nhận<div class="ripple-container"></div></button>
 
                                 <button type="reset" class="btn btn-danger using-tooltip"  data-toggle="tooltip" data-placement="top" title="Làm mới form này"><i class="material-icons">close</i>Làm mới<div class="ripple-container"></div></button>
-                                <a href="{{ base_url("admin/movie/".$data['movie']->id."/episode") }}" class="btn btn-success using-tooltip" data-toggle="tooltip" data-placement="top" title="Quản Lý Tập Phim"><i class="material-icons">playlist_add</i>Quản Lý Tập<div class="ripple-container"></div></a>
+                                <a href="{{ url("admin/movie/".$data['movie']->id."/episode") }}" class="btn btn-success using-tooltip" data-toggle="tooltip" data-placement="top" title="Quản Lý Tập Phim"><i class="material-icons">playlist_add</i>Quản Lý Tập<div class="ripple-container"></div></a>
                             </div>
                         </div>
                     </div>
@@ -311,7 +311,7 @@
 
 
             $.ajax({
-                url: base_url+"admin/video/add",
+                url: url+"admin/video/add",
                 type: 'POST',
                 dataType: 'JSON',
                 data: {

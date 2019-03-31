@@ -213,11 +213,11 @@
                                 @endif
 
                                 @if(session()->get('permission')->canUpdate)
-                                    <a href="{{ base_url("admin/movie/$dataMovie->id/episode/del/$data->id") }}" class="btn btn-danger using-tooltip" data-toggle="tooltip" data-placement="top" title="Xóa tập này"><i class="material-icons">close</i>Xóa<div class="ripple-container"></div></a>
+                                    <a href="{{ url("admin/movie/$dataMovie->id/episode/del/$data->id") }}" class="btn btn-danger using-tooltip" data-toggle="tooltip" data-placement="top" title="Xóa tập này"><i class="material-icons">close</i>Xóa<div class="ripple-container"></div></a>
                                 @endif
                                 <button type="reset" class="btn btn-default using-tooltip"  data-toggle="tooltip" data-placement="top" title="Làm mới form này"><i class="material-icons">close</i>Làm mới<div class="ripple-container"></div></button>
 
-                                <a href="{{ base_url("admin/movie/$dataMovie->id/episode") }}" class="btn btn-success using-tooltip" data-toggle="tooltip" data-placement="top" title="Quản Lý Tập Phim"><i class="material-icons">playlist_add</i>Quản Lý Tập<div class="ripple-container"></div></a>
+                                <a href="{{ url("admin/movie/$dataMovie->id/episode") }}" class="btn btn-success using-tooltip" data-toggle="tooltip" data-placement="top" title="Quản Lý Tập Phim"><i class="material-icons">playlist_add</i>Quản Lý Tập<div class="ripple-container"></div></a>
                             </div>
                         </div>
                     </div>

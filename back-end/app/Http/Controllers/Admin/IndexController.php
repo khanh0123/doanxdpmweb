@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use Illuminate\Routing\Controller as BaseController;
 use View;
-class IndexController extends Controller
+class IndexController extends BaseController
 {
     public function index()
     {

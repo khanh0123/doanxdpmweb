@@ -12,7 +12,7 @@
                 <ul class="nav-menu nav navbar-nav">
 
                     @foreach(@$menu as $key => $value)
-                    <li><a href="{{ url('') }}">{{ $value->name }}</a></li>
+                    <li><a href="{{ url($value->tag_slug) }}">{{ $value->name }}</a></li>
                     @endforeach
                 </ul>
                 @endif
@@ -21,7 +21,10 @@
         <!-- /Main Nav -->
     </div>
     <!-- /Nav -->
-    @if(isset($post_info))
+   
+</header>
+ <header>
+     @if(!empty($post_info))
     <!-- Page Header -->
     <div id="post-header" class="page-header">
         <div class="background-img" style="background-image: url({{$post_info->images}});"></div>
@@ -39,4 +42,19 @@
     </div>
     <!-- /Page Header -->
     @endif
-</header>
+    @if(!empty($breadcrumb))
+    <div class="page-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10">
+                    <ul class="page-header-breadcrumb">
+                        <li><a href="/">Trang chủ</a></li>
+                        <li>{{$breadcrumb->tag_name}}</li>
+                    </ul>
+                    <h1>{{$breadcrumb->tag_name}}</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    @endif
+ </header>

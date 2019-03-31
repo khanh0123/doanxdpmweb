@@ -94,7 +94,7 @@
                                                 <input type="password" class="form-control" name="password">
                                             </div>
                                         </div>
-                                        <div class="text-right"><a href="{{base_url().'/admin/forgotpassword'}}">Quên mật khẩu?</a></div>
+                                        <div class="text-right"><a href="{{url('/admin/forgotpassword')}}">Quên mật khẩu?</a></div>
                                     </div>
 
                                     <div class="footer text-center">

@@ -100,7 +100,9 @@ if (!function_exists('addConditionsToQuery')) {
         return $result;
     }
 }
-
+function base_url($path = ''){
+    return url($path != '' ? $path : '/');
+}
 if (!function_exists('formatResult')) {
     function formatResult($results , $rules = [] , $type = ''){  
         

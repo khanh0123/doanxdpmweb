@@ -13,6 +13,10 @@ use Illuminate\Http\Request;
 |
 */
 
-// Route::middleware()->get('/user', function (Request $request) {
-//     return $request->user();
-// });
+$router->group(['prefix' => 'v1','middleware' => 'cors' ], function() use($router) {
+
+    $router->get('/menu' , ['as' => "Api.MenuController.index", 'uses' => 'Api\MenuController@index']);
+    $router->get('/posts' , ['as' => "Api.PostsController.index", 'uses' => 'Api\PostsController@index']);
+    $router->get('/posts/{id}' , ['as' => "Api.PostsController.detail", 'uses' => 'Api\PostsController@detail']);
+
+}); 

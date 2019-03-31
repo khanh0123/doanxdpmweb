@@ -13,23 +13,6 @@
 
 // header("Access-Control-Allow-Origin:*");
 
-$router->get('/' , 'Frontend\Home@index');
-$router->get('/chi-tiet' , 'Frontend\Home@index');
-
-$router->get('/chi-tiet/{slug}/{id}' , ['as' => "Frontend.Detail.index", 'uses' => 'Frontend\Detail@index']);
-$router->get('/{tag}' , 'Frontend\Filter@index');
-// $router->get('/home' , function(){
-//     return view('Homepage/Home');
-// });
-// $router->get('/getlink' , 'Admin\VideoController@getLink');
-
-$router->group(['prefix' => 'api/v1','middleware' => 'cors' ], function() use($router) {
-
-    $router->get('/menu' , ['as' => "Api.MenuController.index", 'uses' => 'Api\MenuController@index']);
-    $router->get('posts' , ['as' => "Api.PostsController.index", 'uses' => 'Api\PostsController@index']);
-
-}); 
-
 
 
 // $router->get("getdata" , 'Admin\MovieController@getdata');
@@ -79,6 +62,12 @@ $router->group(['prefix' => 'admin'], function() use($router) {
         
     });
 });
+
+$router->any('/{any}', 'Frontend\Home@index_reactjs')->where('any', '.*');
+// $router->get('/chi-tiet/{slug}/{id}' , ['as' => "Frontend.Detail.index", 'uses' => 'Frontend\Detail@index']);
+// $router->get('/{tag}' , 'Frontend\Filter@index');
+
+
 function resource_admin(&$router, $uri, $controller , $middleware = null) {
         $router->get($uri, [
             'as'   => "Admin.$uri.index", 

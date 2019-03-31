@@ -11,8 +11,15 @@ class Menu extends Model
 
     public function get_page($filter = [] , $req)
     {
+        $select = [
+            'menu.id',
+            'menu.name',
+            'menu.tag_id',
+            'tags.name as tag_name',
+            'tags.slug as tag_slug',
+        ];
     	$data = DB::table($this->table)
-    				->select('menu.id','menu.name','menu.tag_id','menu.created_at','menu.updated_at')
+    				->select($select)
                     ->join('tags','tags.id','=','menu.tag_id')
     				->orderBy($filter['orderBy'], $filter['sort']);
         $data = addConditionsToQuery($filter['conditions'],$data);

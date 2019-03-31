@@ -10,21 +10,23 @@ use DB;
 
 class Filter extends Controller
 {
+    public function __construct(Request $request)
+    {
+        parent::__construct($request);
+        
+    }
     public function index(Request $request,$tag_slug){
         //get info post
-    	$data['post_info'] = DB::table('posts')
+    	$data['filter'] = DB::table('posts')
     	->select('posts.*','tags.name as tag_name','tags.slug as tag_slug')
     	->join('posts_tags','posts_tags.post_id','=','posts.id')
     	->join('tags','tags.id','=','posts_tags.tag_id')
-    	->where('posts.id',$id)
-    	->get();
-    	if(empty($data['post_info'])) {
-    		abort(404);
-    	}
-        if($data['post_info']->slug !== $slug){
-        	return Redirect()->route('Frontend.Detail.index' , ['id' => $id,'slug' => $data['post_info']->slug]);
-        }
-        
+    	->where('tags.slug',$tag_slug)
+        ->orderBy('created_at','desc')
+    	->paginate(10);
+
+   
+    	
 
         //get hot posts
         $data['hot_posts'] = DB::table('posts')
@@ -46,6 +48,6 @@ class Filter extends Controller
                     ->get();
 
     	
-        return $this->template_fe('frontend.detail',$data);
+        return $this->template_fe('frontend.filter',$data);
     }
 }

@@ -11,6 +11,11 @@ use DB;
 
 class Detail extends Controller
 {
+    public function __construct(Request $request)
+    {
+        parent::__construct($request);
+        
+    }
     public function index(Request $request,$slug,$id){
         //get info post
     	$data['post_info'] = DB::table('posts')

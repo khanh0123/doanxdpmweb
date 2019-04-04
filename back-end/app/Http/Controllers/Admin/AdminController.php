@@ -16,6 +16,7 @@ class AdminController extends MainAdminController
 {	
 	protected $model;
 	protected $view_folder = 'admin/user/';
+    protected $model2;
 	protected $rules = [
         'insert' => [
             //'email'      => 'required|email',
@@ -46,8 +47,17 @@ class AdminController extends MainAdminController
 
 	public function __construct(Request $request) {
 		$this->model = new Admin;
+        $this->model2 = new Admin_group;
 		parent::__construct($request);
 	}
+    public function info()
+    {
+        $result = Admin_group::where([                
+                'id' => session('user')->gad_id
+            ])->first();
+        $data = array('info'=>$result);
+        return $this->template($this->view_folder."info",$data);
+    }
 
 	public function setItem($type , $req , &$item){
         // var_dump($req->all());
@@ -168,14 +178,14 @@ class AdminController extends MainAdminController
     	} else {
     		$result = Admin::where([                
                 'username' => $username , 
-                'password' => encode_password($request->password)
+                'password' => encode_password($password)
             ])->first();
 
 
     		if(empty($result)){
     			return view($this->view_folder.'login')
     			->withMessage(['type' => 'error' , 'msg' => 'Tài khoản hoặc mật khẩu chưa chính xác']);
-    		} else if($result->status !== 1){
+    		} else if((int)$result->status !== 1){
                 return view($this->view_folder.'login')
                 ->withMessage(['type' => 'error' , 'msg' => 'Tài khoản của bạn đã bị vô hiệu hóa. Vui lòng liên hệ với quản trị viên.']);
             } else {
@@ -292,7 +302,8 @@ class AdminController extends MainAdminController
     {
         $user = $this->model->find($id);
         if(empty($user)){
-            abort(404);
+            echo "loi";
+            die();
         }
         if((int)$request->authUser->id === (int)$id){
             return Redirect("/admin/user/detail/$id")
@@ -301,7 +312,7 @@ class AdminController extends MainAdminController
         
         $user->status = 0;
         $user->save();
-        Sessions::where('user_id',$id)->delete();
+        //Sessions::where('user_id',$id)->delete();
         return Redirect("/admin/user/detail/$id")
                 ->withMessage(['type' => 'success','msg' => 'Khóa tài khoản thành công']);
 

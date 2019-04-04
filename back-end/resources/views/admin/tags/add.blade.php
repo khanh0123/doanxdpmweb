@@ -101,9 +101,9 @@
         $('.using-tooltip').tooltip({animation:true});
 
         $('.menu-left-custom >li.active').removeClass('active');
-        $('#catcotgen').parent('li').addClass('active');
-        $('#catcotgen').collapse();
-        $('.add .category').addClass('active');
+        $('#tags').parent('li').addClass('active');
+        $('#tags').collapse();
+        $('.add .tags').addClass('active');
         
 
         $('input[name="name"]').on('keyup', function(event) {

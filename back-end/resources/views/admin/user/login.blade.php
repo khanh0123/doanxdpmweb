@@ -41,7 +41,7 @@
                     </li> -->
                     <li class=" active ">
                         <a href="login.html">
-                            <i class="material-icons">fingerprint</i> Đăng Nhập
+                            <i class="material-icons"></i> Đăng Nhập
                         </a>
                     </li>
                 </ul>
@@ -78,7 +78,7 @@
                                     <div class="card-content">
                                         <div class="input-group">
                                             <span class="input-group-addon">
-                                                <i class="material-icons">email</i>
+                                                <i class="material-icons"></i>
                                             </span>
                                             <div class="form-group label-floating">
                                                 <label class="control-label">Username</label>
@@ -87,14 +87,17 @@
                                         </div>
                                         <div class="input-group">
                                             <span class="input-group-addon">
-                                                <i class="material-icons">lock_outline</i>
+                                                <i class="material-icons"></i>
                                             </span>
                                             <div class="form-group label-floating">
                                                 <label class="control-label">Mật khẩu</label>
                                                 <input type="password" class="form-control" name="password">
                                             </div>
                                         </div>
-                                        <div class="text-right"><a href="/admin/forgotpassword">Quên mật khẩu?</a></div>
+
+                                        
+                                        <div class="text-right"><a href="{{url('/admin/forgotpassword')}}">Quên mật khẩu?</a></div>
+
                                     </div>
 
                                     <div class="footer text-center">

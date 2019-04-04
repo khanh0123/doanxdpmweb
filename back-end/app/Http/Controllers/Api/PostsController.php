@@ -15,9 +15,9 @@ class PostsController extends Controller
         'is_hot'     => 'posts.is_hot',
         'is_new'     => 'posts.is_new',
         'slug'       => 'posts.slug',
-        'tag_id'     => 'posts_tags.tag_id',
-        'tag_name'   => 'posts_tags.tag_name',
-        'tag_slug'   => 'posts_tags.tag_slug',
+        'tag_id'     => 'tags.id',
+        'tag_name'   => 'tags.name',
+        'tag_slug'   => 'tags.slug',
         'created_at' => 'posts.created_at',
         'updated_at' => 'posts.updated_at',
        
@@ -38,8 +38,10 @@ class PostsController extends Controller
     public function index(Request $request )
     {
         $filter         = $this->getFilter($request);
+
         $data['info']   = $this->model->get_page($filter , $request);
         $data['info']   = formatResult($data['info'],[],'get');          
+        $data['info']   = $this->model->get_page($filter , $request);                        
         return $this->template_api($data);
     }
 

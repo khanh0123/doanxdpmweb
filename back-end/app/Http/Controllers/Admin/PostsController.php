@@ -301,6 +301,8 @@ class PostsController extends MainAdminController
         
         $data['info'] = $item;
         $data['more'] = $this->getDataNeed();
+        //echo "<pre>";
+        //print_r($data);
         
         // echo json_encode($dataPost_Tag);
         // die();

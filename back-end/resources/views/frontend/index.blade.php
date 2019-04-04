@@ -103,5 +103,4 @@
 	</div>
 </div>
 <!-- /row -->
-</div>
 @stop

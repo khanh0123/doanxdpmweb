@@ -11,6 +11,11 @@ use DB;
 
 class Home extends Controller
 {
+    public function __construct(Request $request)
+    {
+        parent::__construct($request);
+        
+    }
     public function index(){
 
         //get new posts
@@ -55,5 +60,11 @@ class Home extends Controller
 
         
         return $this->template_fe('frontend.index',$data);
+    }
+
+    public function index_reactjs(Request $request)
+    {        
+        $data = [];
+        return $this->template_fe('frontend.index_reactjs',$data);
     }
 }

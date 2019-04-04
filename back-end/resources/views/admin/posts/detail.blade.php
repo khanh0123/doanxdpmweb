@@ -1,9 +1,9 @@
 @extends('admin/layout' , ['message' => !empty($message) ? $message : []])
-@section('title', 'Chi tiết phim')
+@section('title', 'Chi tiết bài viết')
 @section('main')
 <div class="container-fluid">
     <div class="alert alert-light" role="alert">
-        <strong class="">Chi tiết phim</strong>
+        <strong class="">Chi tiết bài viết</strong>
     </div>
     <form action="" method="post" enctype="multipart/form-data">
         {{ csrf_field() }}
@@ -15,13 +15,13 @@
                         <!--        You can switch " data-color="purple" "  with one of the next bright colors: "green", "orange", "red", "blue"       -->
                         <div class="wizard-header">
                             <h3 class="wizard-title">
-                                Thông tin phim
+                                Thông tin bài viết
                             </h3>
                         </div>
                         <div class="wizard-navigation">
                             <ul>
                                 <li class="wizard-menu-top">
-                                    <a href="/admin/movie/detail/{{$data['info']->id}}#info" data-toggle="tab">Thông tin phim</a>
+                                    <a href="/admin/movie/detail/{{$data['info']->id}}#info" data-toggle="tab">Thông tin bài ciết</a>
                                 </li>
                                 <!-- <li class="wizard-menu-top">
                                     <a href="/admin/movie/detail/{{$data['info']->id}}# " data-toggle="tab">Tags</a>
@@ -125,12 +125,12 @@
                             <!-- end more -->
                             <div class="tab-pane" id="images">
                                 <div class="col-md-4 col-sm-4 div-image-old">
-                                    <input type="hidden" value="{{ $data['info']->images->poster->id }}" name="listidimages_old[]">
+                                    
                                     <div class="fileinput text-center fileinput-exists" data-provides="fileinput">
                                         <div class="fileinput-new thumbnail">
                                             <img src="/assets/img/image_placeholder.jpg" alt="Ảnh xem trước">
                                         </div>
-                                        <div class="fileinput-preview fileinput-exists thumbnail" style=""><img src="{{ !empty($data['info']->images->poster->url) ? $data['info']->images->poster->url : $data['info']->images->poster->path }}"></div>
+                                        <div class="fileinput-preview fileinput-exists thumbnail" style=""></div>
                                         <div>
                                             <a href="#" class="btn btn-danger btn-round fileinput-exists btn-delete-image" data-dismiss="fileinput">
                                                 <i class="fa fa-times"></i> Xóa ảnh này

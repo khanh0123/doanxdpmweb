@@ -1,34 +1,43 @@
-import React from "react";
-import {Link} from "react-router-dom";
+import React, { } from 'react';
+// import { Link } from 'react-router-dom';
+import Menu from './Menu';
+// import cookie from "react-cookies";
+// import LoginModal from "../popup/LoginModal";
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 
 class Header extends React.Component {
-
     constructor(props) {
-        super(props)
-        this.state = {
+        super(props);
+        this.state = {            
+
         };
     }
 
+    componentDidMount() {
+
+    }
+
+
     render() {
         return (
-            <header>
-                <div className="container-fluid position-relative no-side-padding">
-                    <Link to="/" className="logo"><img src="/images/logo.png" alt="Logo Image" /></Link>
-                    <div className="menu-nav-icon" data-nav-menu="#main-menu"><i className="ion-navicon" /></div>
-                    <ul className="main-menu visible-on-click" id="main-menu">
-                        <li><Link to="/">Trang chủ</Link></li>
-                    </ul>
-                    <div className="src-area">
-                        <form>
-                            <button className="src-btn" type="submit"><i className="ion-ios-search-strong" /></button>
-                            <input className="src-input" type="text" placeholder="Tìm kiếm" />
-                        </form>
-                    </div>
-                </div>
+            <header id="header">
+                <Menu />
             </header>
 
         )
     }
+    
 }
 
-export default Header;
+const mapStateToProps = ({ user_result }) => {
+    return Object.assign({}, user_result || {});
+}
+
+const mapDispatchToProps = (dispatch) => {
+    let actions = bindActionCreators({
+    }, dispatch);
+    return { ...actions, dispatch };
+}
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Header));

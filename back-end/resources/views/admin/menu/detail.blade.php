@@ -43,9 +43,9 @@
                                         <select data-container="body" class="selectpicker" data-live-search="true" data-size="10"  data-style="btn-success" name="tag_id" >
                                             @foreach($data['more'] as $key => $value)
                                             <?php 
-                                                $seleted = in_array($value->id,$data['info']->sub_menu) ? true : false;
+                                               // $seleted = in_array($value->id,$data['info']->sub_menu) ? true : false;
                                              ?>
-                                            <option data-tokens="{{$value->name}}" value="{{$value->id}}" {{$seleted ? 'selected' : ''}}>{{$value->name}}</option>
+                                            <option data-tokens="{{$value->name}}" value="{{$value->id}}">{{$value->name}}</option>
                                             @endforeach
                                       </select>
 

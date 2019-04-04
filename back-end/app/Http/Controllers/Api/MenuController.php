@@ -11,32 +11,36 @@ use DB;
 
 class MenuController extends Controller
 {
-    // public function index(Request $request ) {
-    // 	$data['info'] = Menu::all();
-    // 	foreach ($data['info'] as $key => $value) {
-    // 		$sub_menu = explode(",",$value->sub_menu);
-    // 		$data_submenu = [];
-    		
-    // 		if(count($sub_menu) > 0){
-    // 			for ($i = 0; $i < count($sub_menu); $i++) {
-    // 				$dt = DB::table(get_table_name($sub_menu[$i]))
-    // 						->where("id" ,'=', $sub_menu[$i])
-    // 						->first();
-    // 				if(!empty($dt)) $data_submenu[] = $dt;
-    // 			}
-    // 		}
-    // 		$data['info'][$key]->sub_menu = $data_submenu;
-    // 	}
-    //     return $this->template_api($data);
-    // }
+    public function __construct(Request $request)
+    {
+        parent::__construct($request);
+        $this->model = new Menu;
+    }
+    protected $model;
+    protected $limit = 20;
+    protected $columns_filter = [
+        'title'      => 'menu.title',
+        'is_hot'     => 'menu.is_hot',
+        'is_new'     => 'menu.is_new',
+        'slug'       => 'menu.slug',
+        'tag_id'     => 'menu.tag_id',
+        'tag_name'   => 'menu.tag_name',
+        'tag_slug'   => 'menu.tag_slug',
+        'created_at' => 'menu.created_at',
+        'updated_at' => 'menu.updated_at',
+       
 
+        
+    ];
     public function index(Request $request ) {
-        $data['info'] = DB::table('menu')
-            ->select("menu.*","tags.slug as tags_slug")
-            ->join("Tags",  "Tags.id" , "=" , "tag_id");
-
-            var_dump( $data);
-            die();
+        $filter         = $this->getFilter($request);
+        $menu   = $this->model->get_page($filter , $request);
+        
+        foreach ($menu as $key => $value) {
+            $count_post = DB::table('posts_tags')->where('tag_id',$value->tag_id)->count();
+            $menu[$key]->num_post = $count_post;
+        }
+        $data['info'] = $menu->getCollection();
         return $this->template_api($data);
     }
 }

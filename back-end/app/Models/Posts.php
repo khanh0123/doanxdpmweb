@@ -14,6 +14,8 @@ class Posts extends Model
         //get list id movie 
         $data     = $this->getListId($filter , $req);
         $list_post_id = array_column($data->items(), "id");
+        
+        
 
         $result = DB::table($this->table)
             ->select([
@@ -28,6 +30,7 @@ class Posts extends Model
             ->whereIn('posts.id',$list_post_id);
         // $data = addConditionsToQuery($filter['conditions'],$data);
         $result = $result->get();
+        
         return new \Illuminate\Pagination\LengthAwarePaginator($result,$data->total(),$data->perPage(),$data->currentPage(),['path' => $req->url(), 'query' => $req->all()]);
     }
 
@@ -36,8 +39,8 @@ class Posts extends Model
     private function getListId($filter , $req){
         $result = DB::table($this->table)
         ->select('posts.id')
-        ->leftJoin("posts_tags"    ,"Posts_Tags.post_id"   ,"=" , "posts.id")
-        ->leftJoin("tags"          ,"tags.id"             ,"=" , "Posts_Tags.tag_id")
+        ->leftJoin("posts_tags"    ,"posts_tags.post_id"   ,"=" , "posts.id")
+        ->leftJoin("tags"          ,"tags.id"             ,"=" , "posts_tags.tag_id")
         ->groupBy('posts.id')
         ->orderBy($filter['orderBy'], $filter['sort']);
         

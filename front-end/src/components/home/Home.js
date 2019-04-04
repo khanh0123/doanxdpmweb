@@ -1,133 +1,197 @@
 import React from "react";
+import { custom_date } from "../helpers";
 import { bindActionCreators } from 'redux';
-import { connect } from "react-redux";
-import { page_action, init_home_action } from "../../store/actions";
-import Item from "../card/item";
-// import { Link } from "react-router-dom";
-// import { build_link, shootGa } from "../../helpers/common";
-// import Banner from "../slider/Banner";
-// import Item from "../slider/Item";
-import create_helmet_tag from "../seo/Helmet";
-// import config from "../../config";
-
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
+import { PostAction, LoadingAction } from "../../actions";
+import MostView from "../others/MostView";
+import HotCategory from "../others/HotCategory";
+import { Link } from "react-router-dom";
 
 class Home extends React.Component {
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
-            data_home: [],
-            page: 1,
-            limit: 12,
-            is_loadMore: false,
-            is_loading: true,
-        }
-    }
+            new_posts: [],
+            anm_posts: [],
+            hot_posts: [],
+            most_read_posts: [],
+        };
 
-    _checkGetData() {
-
-    }
-    componentWillMount(){
-        // if (this.props[page_action.ACTION_GET_CONTENT_HOME]) {
-        //     let data = this.props[page_action.ACTION_GET_CONTENT_HOME];
-        //     this.setState({ data_home: data.data })
-        // }
     }
     componentDidMount() {
-        
-        let { page, limit } = this.state;
-        
+        Promise.all([
+            this._get_post('new_posts'),
+            this._get_post('anm_posts')
+        ]).then(() => {
+            this.props.set_loading(false);
+        }).catch(() => {
+            this.props.set_loading(false);
+        });
+        this._get_post('hot_posts')
+        this._get_post('most_read_posts')
+    }
+    _get_post = async (type) => {
+        switch (type) {
+            case 'new_posts':
+                let condition = {
+                    limit: 2,
+                    is_new: 1,
+                    is_hot: 0,
+                };
+                await this.props.get_posts(condition).then((res) => {
+                    let r = res.payload.data.data;
+                    this.setState({ new_posts: r });
+                });
+                break;
+            case 'anm_posts':
+                condition = {
+                    limit: 6,
+                    tag_slug: 'an-ninh-mang',
+                    orderBy: 'view',
+                };
+                await this.props.get_posts(condition).then((res) => {
+                    let r = res.payload.data.data;
+                    this.setState({ anm_posts: r });
+                });
+                break;
+            case 'hot_posts':
+                condition = {
+                    limit: 7,
+                    is_hot: 1,
+                };
+                await this.props.get_posts(condition).then((res) => {
+                    let r = res.payload.data.data;
+                    this.setState({ hot_posts: r });
+                });
+                break;
 
-        if (!this.props[page_action.ACTION_GET_CONTENT_HOME]) {
-            this.props.get_content_home({ page: page, limit: limit })
-                .then(res => res.payload.data)
-                .then(payload => this.setState({
-                    data_home: payload.success,
-                    is_loading:false,
-                    is_loadMore: (payload.success.length == 0 || payload.count < limit) ? false : true }))
-                .catch(err => console.log(err))
-        } else {
-            let data = this.props[page_action.ACTION_GET_CONTENT_HOME];            
-            this.setState({ 
-                data_home: data.success,
-                is_loading:false,
-                is_loadMore: (data.length == 0 || data.count < limit) ? false : true })
+            default:
+                break;
         }
     }
-    componentWillUnmount(){
-        this.props.dispatch({type:page_action.ACTION_GET_CONTENT_HOME,payload:{}});
-        this.setState({data_home:[]});
-            
-    }
+    componentWillReceiveProps(nextProps) {
 
-    loadMore() {
-        let { page, limit , data_home } = this.state;
-        
-        this.setState({is_loadMore:false,is_loading:true});
-        this.props.get_content_home({ page: page + 1, limit: limit })
-            .then(res => res.payload.data)
-            .then(data => this.setState({
-                        page:page+1,
-                        data_home: data_home.concat(data.success), 
-                        is_loading:false,
-                        is_loadMore: (data.success.length == 0 || data.count < limit) ? false : true })
-            )
-            .catch(err => console.log(err))
-    }
 
+    }
     render() {
-        let data_home = this.state.data_home.length > 0 ? this.state.data_home : (this.props[page_action.ACTION_GET_CONTENT_HOME] ? this.props[page_action.ACTION_GET_CONTENT_HOME]['success'] : []);
-        
+        let { new_posts, anm_posts, hot_posts } = this.state;
+
+
         return (
-            
             <React.Fragment>
-            {create_helmet_tag('home')}
-                {/* <div className="slider" /> */}
-                <section className="blog-area section">
+                <div className="section">
                     <div className="container">
                         <div className="row">
-                            {data_home.length > 0 && data_home.map((item, i) => {
-                                return (<div className="col-lg-4 col-md-6" key={i}>
-                                    <Item data={item} />
+                            {new_posts.map((post) => {
+                                return <div className="col-md-6" key={post.id}>
+                                    <div className="post post-thumb">
+                                        <Link className="post-img" to={`/chi-tiet/${post.slug}/${post.id}`}><img src={post.images} alt={post.title} /></Link>
+                                        <div className="post-body">
+                                            <div className="post-meta">
+                                                <Link className="post-category cat-2" to={`/${post.tag_slug}`}>{post.tag_name}</Link>
+                                                <span className="post-date">{custom_date(post.created_at)}</span>
+                                            </div>
+                                            <h3 className="post-title"><Link to={`/chi-tiet/${post.slug}/${post.id}`}>{post.title}</Link></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            })}
+                        </div>
+                        <div className="row">
+                            <div className="col-md-12">
+                                <div className="section-title">
+                                    <h2>Chủ đề HOT</h2>
+                                </div>
+                            </div>
+                            {anm_posts.map((post, i) => {
+
+                                let html = [];
+                                html.push(<div className="col-md-4" key={post.id}>
+                                    <div className="post">
+                                        <Link className="post-img" to={`/chi-tiet/${post.slug}/${post.id}`}><img src={post.images} alt={post.title} /></Link>
+                                        <div className="post-body">
+                                            <div className="post-meta">
+                                                <Link className="post-category cat-1" to={`/${post.tag_slug}`}>{post.tag_name}</Link>
+                                                <span className="post-date">{custom_date(post.created_at)}</span>
+                                            </div>
+                                            <h3 className="post-title"><Link to={`/chi-tiet/${post.slug}/${post.id}`}>{post.title}</Link></h3>
+                                        </div>
+                                    </div>
                                 </div>)
+                                if ((i + 1) % 3 == 0) html.push(<div className="clearfix visible-md visible-lg" key={i}></div>);
+                                return html;
                             })}
 
-                        </div>
-                        {this.state.is_loadMore &&
-                            <a className="load-more-btn" href="javascript:void(0)" onClick={this.loadMore.bind(this)}><b>Thêm tin</b></a>
-                        }
-                        {this.state.is_loading &&
-                            <div className="fa-3x">
-                                <i className="fas fa-spinner fa-pulse"></i>
-                            </div>
-                        }
-                    </div>
-                </section>
-            </React.Fragment>
 
+
+                        </div>
+                        <div className="row">
+                            <div className="col-md-8">
+                                <div className="row">
+                                    {hot_posts.length > 0 &&
+                                        <div className="col-md-12">
+                                            <div className="post post-thumb">
+                                                <Link className="post-img" to={`/chi-tiet/${hot_posts[0].slug}/${hot_posts[0].id}`}><img src={hot_posts[0].images} alt={hot_posts[0].title} /></Link>
+                                                <div className="post-body">
+                                                    <div className="post-meta">
+                                                        <Link className="post-category cat-2" to={`/${hot_posts[0].tag_slug}`}>{hot_posts[0].tag_name}</Link>
+                                                        <span className="post-date">{custom_date(hot_posts[0].created_at)}</span>
+                                                    </div>
+                                                    <h3 className="post-title"><Link to={`/chi-tiet/${hot_posts[0].slug}/${hot_posts[0].id}`}>{hot_posts[0].title}</Link></h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                    {hot_posts.map((post, i) => {
+                                        let html = [];
+                                        if (i == 0) return html;
+                                        html.push(<div className="col-md-6" key={post.id}>
+                                            <div className="post">
+                                                <Link className="post-img" to={`/chi-tiet/${post.slug}/${post.id}`}><img src={post.images} alt={post.title} /></Link>
+                                                <div className="post-body">
+                                                    <div className="post-meta">
+                                                        <Link className="post-category cat-4" to={`/${post.tag_slug}`}>{post.tag_name}</Link>
+                                                        <span className="post-date">{custom_date(post.created_at)}</span>
+                                                    </div>
+                                                    <h3 className="post-title"><Link to={`/chi-tiet/${post.slug}/${post.id}`}>{post.title}</Link></h3>
+                                                </div>
+                                            </div>
+                                        </div>);
+                                        if (i % 2 == 0) html.push(<div key={i} className="clearfix visible-md visible-lg" />);
+                                        return html;
+                                    })}
+
+
+                                </div>
+                            </div>
+                            <div className="col-md-4">
+                                <MostView />
+                                <HotCategory />
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </React.Fragment>
         )
     }
+
+
+
 }
-
-Home.serverFetch = init_home_action.init_home;
-
-const mapStateToProps = ({page_results}) => {
-
-    // return {
-    //     page_results: {
-    //         GET_CONTENT_HOME:state.page_results.GET_CONTENT_HOME
-    //     },
-    // }
-    return Object.assign({}, page_results || {});
+function mapStateToProps({ post_results, loading_results, menu_results }) {
+    return Object.assign({}, post_results, loading_results, menu_results || {});
 }
 
 function mapDispatchToProps(dispatch) {
+    let actions = bindActionCreators({
+        get_posts: PostAction.get_posts,
+        set_loading: LoadingAction.set_loading,
 
-    let actions = bindActionCreators(
-        Object.assign({},
-            page_action
-        ), dispatch);
-
+    }, dispatch);
     return { ...actions, dispatch };
 }
-
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Home));

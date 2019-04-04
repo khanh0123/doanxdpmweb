@@ -9,11 +9,13 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use DB;
 class Controller extends BaseController
 {
-    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+    protected $req;
+    public function __construct($request)
+    {
+        $this->req = $request;
+    }
 
-    protected function template_api($data = []){    
-
-
+    protected function template_api($data = []){
         return Response()->json($data);
     }
     protected function template_fe($view = '',$data = []){    
@@ -30,27 +32,6 @@ class Controller extends BaseController
         return Response()->view($view,$data);
     }
 
-    /*
-     * check exists slug on 3 table.
-     */
-    protected function check_exist_slug($slug)
-    {
-        $data = DB::table('genre')->where(['slug' => $slug ])->get();
-        if(count($data )> 0){
-            return true;
-        }
-        $data = DB::table('category')->where(['slug' => $slug ])->get();
-        if(count($data )> 0){
-            return true;
-        }
-        $data = DB::table('country')->where(['slug' => $slug ])->get();
-        if(count($data )> 0){
-            return true;
-        }
-        return false;
-    }
-
-    
 
     /*
      * get filter (sort , orderby , limit )
@@ -74,13 +55,7 @@ class Controller extends BaseController
         if(isset($this->columns_filter[$order_by]) && Schema::hasColumn($this->model->getTable(), $order_by)){
             return $this->columns_filter[$order_by];
         }
-        // if(Schema::hasColumn($this->model->getTable(), 'id') && isset($this->columns_filter['id'])){
-        //     return $this->columns_filter['id'];
-        // }
-        
-        //default orderby first field in table
-        $default = $this->model->getTable().".".DB::getSchemaBuilder()->getColumnListing($this->model->getTable())[0];
-        return $default;
+        return $this->model->getTable().".".DB::getSchemaBuilder()->getColumnListing($this->model->getTable())[0];
     }
 
     /*

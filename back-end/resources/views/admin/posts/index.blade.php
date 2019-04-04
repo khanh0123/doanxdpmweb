@@ -1,5 +1,5 @@
 @extends('admin/layout' , ['message' => !empty($message) ? $message : []])
-@section('title', 'Danh sách phim')
+@section('title', 'Danh sách tin')
 @section('main')
 <div class="container-fluid">
 
@@ -10,7 +10,7 @@
                     <i class="material-icons">assignment</i>
                 </div>
                 <div class="card-content">
-                    <h4 class="card-title">Danh sách phim</h4>
+                    <h4 class="card-title">Danh sách tin</h4>
                     <div class="toolbar">
                         <!--        Here you can write extra buttons/actions for the toolbar              -->
                     </div>
@@ -63,8 +63,6 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>Tiêu đề</th>
-                                    <th>Nội dung</th>
-                                    <th>Slug
                                     <th>Ngày đăng</th>
                                     <th class="text-right">Hành động</th>
                                 </tr>
@@ -73,8 +71,6 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>Tiêu đề</th>
-                                    <th>Nội dung</th>
-                                    <th>Slug
                                     <th>Ngày đăng</th>
                                     <th class="text-right">Hành động</th>
                                 </tr>
@@ -84,8 +80,6 @@
                                 <tr>
                                     <td class="id_mov">{{ $value->id }}</td>
                                     <td>{{ $value->title }}</td>
-                                    <td>{{ $value->content }}</td>
-                                    <td>{{ $value->slug }}</td>
                                     <td>{{ $value->created_at }}</td>
                                     <td class="text-right">                                  
                                         <a href="{{ url('admin/posts/detail/'.$value->id) }}" class="btn btn-simple btn-warning btn-icon edit">Chi tiết</a>
@@ -153,9 +147,9 @@
     $(document).ready(function() {
         
         $('.menu-left-custom >li.active').removeClass('active');
-        $('#movie').parent('li').addClass('active');
-        $('#movie .show').addClass('active');
-        $('#movie').collapse();
+        $('#posts').parent('li').addClass('active');
+        $('#posts .show').addClass('active');
+        $('#posts').collapse();
 
         $('#datatables').DataTable({
             paging: false,
@@ -184,51 +178,7 @@
             }
 
         });
-        // $('.card .material-datatables label').addClass('form-group');
-        // //var url = '{{url("admin/movie/switch")}}';
-        // $('body .togglebutton input').on('change',function(event) {
-        //     if($(this).is(':checked')){
-        //         $(this).val(1);
-        //     } else {
-        //         $(this).val(0);
-        //     }
-        //     var name = $(this).attr('name');
-        //     var value = $(this).val();
-        //     var id = $(this).parents("td").prevAll(".id_mov").html();
-        //     var data;
-        //     switch (name) {
-        //         case 'is_hot':
-        //             data = {is_hot:value};
-        //             break;
-        //         case 'is_new':
-        //             data = {is_new:value};
-        //             break;
-        //         case 'is_banner':
-        //             data = {is_banner:value};
-        //             break;
-        //         default:
-        //             return false;
-        //     }
-
-        //     if(name && parseInt(id) > 0){
-        //         data.id = id;
-        //         data._token = $('input[name="_token"]').val();
-        //         $.ajax({
-        //             url: `${url}`,
-        //             type: 'POST',
-        //             dataType: 'JSON',
-        //             data: data,
-        //         })
-        //         .done(function(res) {
-        //             console.log(res);
-        //         })
-        //         .fail(function(err) {
-        //             console.log(err);
-        //         })
-                
-        //     }
-            
-        // });
+        
         
     });
 </script>

@@ -223,42 +223,47 @@ class AdminController extends MainAdminController
     {
         $password_current = $request->password_old;
         $password_new = $request->password_new;
-        $user = $this->model::find($request->authUser->id);
+        $user = $this->model::find(session('user')->id);
         if(empty($password_current) || empty($password_new) ) {
             $message = [
                 'type' => 'error' , 
                 'msg' => 'Mật khẩu hiện tại và mật khẩu mới không được để trống'
             ];
+            echo "aaa";
               
         } else if(strlen($password_new) < 6){
             $message = [
                 'type' => 'error' , 
                 'msg' => 'Mật khẩu phải trên 6 kí tự'
             ];
+            echo "bbb";
 
         } else if($user->password !== encode_password($password_current)) {
             $message = [
                 'type' => 'error' , 
                 'msg' => 'Mật khẩu hiện tại chưa chính xác'
             ];
+            echo "ccc";
         } else {
-            $user->password = encode_password($password_current);
+            $user->password = encode_password($password_new);
 
             if($user->save()){
                 $message = [
                     'type' => 'success' , 
                     'msg' => 'Cập nhật mật khẩu thành công'
                 ];
+                echo "ddd";
             } else {
                 $message = [
                     'type' => 'error' , 
                     'msg' => 'Có lỗi! Cập nhật mật khẩu không thành công'
                 ];
+                echo "eee";
             }
             
         }
-        return Redirect::back()
-                ->withMessage($message);
+
+        return Redirect::Back()->withMessage($message);
     }
 
     public function forgot(Request $request)

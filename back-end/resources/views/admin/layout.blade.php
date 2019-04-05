@@ -505,7 +505,7 @@
 
     <!-- modal change pass -->
     <div class="modal fade" id="modalChangePass" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <form id="RegisterValidation" action="{{ url('admin/changepass')}}" method="POST" novalidate="novalidate">
+        <form id="RegisterValidation" action="{{ url('admin/changepass')}}" method="post" novalidate="novalidate">
            {{ csrf_field() }}
            <div class="modal-dialog">
             <div class="modal-content">

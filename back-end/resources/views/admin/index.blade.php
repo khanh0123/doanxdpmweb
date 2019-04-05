@@ -1,4 +1,4 @@
-@extends('admin/layout')
+@extends('admin/layout' , ['message' => !empty($message) ? $message : []])
 @section('title', '.:AdminCpannel:.')
 @section('main')
 <div class="container-fluid">
@@ -409,5 +409,11 @@
 
         demo.initVectorMap();
     });
+
+    @if(!empty($message))
+            var type = '{{ $message['type'] == 'success' ? 'success' : 'danger' }}';
+            var msg = '{{ $message['msg'] }}';
+            showNotification( type , msg , 4000);
+        @endif
 </script>
 @stop

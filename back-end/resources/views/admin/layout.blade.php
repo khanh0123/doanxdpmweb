@@ -3,8 +3,8 @@
 
 <head>
     <meta charset="utf-8" />
-    <link rel="apple-touch-icon" sizes="76x76" href="http://demos.creative-tim.com/material-dashboard-pro/assets/img/apple-icon.png" />
-    <link rel="icon" type="image/png" href="http://demos.creative-tim.com/material-dashboard-pro/assets/img/favicon.png" />
+    <link rel="apple-touch-icon" sizes="76x76" href="//demos.creative-tim.com/material-dashboard-pro/assets/img/apple-icon.png" />
+    <link rel="icon" type="image/png" href="//demos.creative-tim.com/material-dashboard-pro/assets/img/favicon.png" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <title>@yield('title')</title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
@@ -19,7 +19,7 @@
     
     <!--     Fonts and icons     -->
     <link href="{{asset('assets/css/font-awesome.min.css')}}" rel="stylesheet" />
-    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet"> -->
+    <!-- <link href="//maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet"> -->
     <!-- <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons" /> -->
     <link rel="stylesheet" type="text/css" href="{{asset('assets/css/font-roboto-material-icon.css')}}" />
     <style>
@@ -407,7 +407,7 @@
                         <script>
                             document.write(new Date().getFullYear())
                         </script>
-                        <a href="http://www.creative-tim.com">Creative Tim</a>, made with love for a better web
+                        <a href="//www.creative-tim.com">Creative Tim</a>, made with love for a better web
                     </p>
                 </div>
             </footer>
@@ -488,10 +488,10 @@
                 </li>
                 <li class="button-container">
                     <div class="">
-                        <a href="http://www.creative-tim.com/product/material-dashboard-pro" target="_blank" class="btn btn-rose btn-block">Buy Now</a>
+                        <a href="//www.creative-tim.com/product/material-dashboard-pro" target="_blank" class="btn btn-rose btn-block">Buy Now</a>
                     </div>
                     <div class="">
-                        <a href="http://www.creative-tim.com/product/material-dashboard" target="_blank" class="btn btn-info btn-block">Get Free Demo</a>
+                        <a href="//www.creative-tim.com/product/material-dashboard" target="_blank" class="btn btn-info btn-block">Get Free Demo</a>
                     </div>
                 </li>
                 <li class="header-title">Thank you for 95 shares!</li>
@@ -586,7 +586,7 @@
 
 <!-- Sweet Alert 2 plugin -->
 <!-- <script src="/assets/js/sweetalert2.js"></script> -->
-<!--	Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
+<!--	Plugin for Fileupload, full documentation here: //www.jasny.net/bootstrap/javascript/#fileinput -->
 <!-- <script src="/assets/js/jasny-bootstrap.min.js"></script> -->
 <!--  Full Calendar Plugin    -->
 <!-- <script src="/assets/js/fullcalendar.min.js"></script> -->

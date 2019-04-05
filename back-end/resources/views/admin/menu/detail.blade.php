@@ -39,7 +39,7 @@
                                 </div> -->
                                 <div class="row">
                                     <label class="col-sm-2 label-on-left">Chọn menu</label>
-                                    <div class="col-sm-10">
+                                    <div class="col-sm-5">
                                         <select data-container="body" class="selectpicker" data-live-search="true" data-size="10"  data-style="btn-success" name="tag_id" >
                                             @foreach($data['more'] as $key => $value)
                                             <?php 
@@ -110,8 +110,10 @@
 
         $('select[name="tag_id"]').on('change', function(event) {
             event.preventDefault();
-            $('input[name="name"]').val($(this).val());
+            // var name = $(this).children('option:selected')
+            $('input[name="name"]').val($('select[name="tag_id"] option:selected').data("tokens"));
         });  
+        $('input[name="name"]').val($('select[name="tag_id"] option:selected').data("tokens"));
     });
 </script>
 @stop

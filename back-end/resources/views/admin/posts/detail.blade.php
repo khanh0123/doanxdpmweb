@@ -125,12 +125,14 @@
                             <!-- end more -->
                             <div class="tab-pane" id="images">
                                 <div class="col-md-4 col-sm-4 div-image-old">
-                                    
+                                    <input type="hidden" value="{{ $data['info']->images }}" name="listidimages_old[]">
                                     <div class="fileinput text-center fileinput-exists" data-provides="fileinput">
                                         <div class="fileinput-new thumbnail">
                                             <img src="/assets/img/image_placeholder.jpg" alt="Ảnh xem trước">
                                         </div>
-                                        <div class="fileinput-preview fileinput-exists thumbnail" style=""></div>
+                                        <div class="fileinput-preview fileinput-exists thumbnail" style="">
+                                            <img src="{{$data['info']->images}}">
+                                        </div>
                                         <div>
                                             <a href="#" class="btn btn-danger btn-round fileinput-exists btn-delete-image" data-dismiss="fileinput">
                                                 <i class="fa fa-times"></i> Xóa ảnh này
@@ -247,7 +249,7 @@
             demo.initMaterialWizard();
 
             
-
+            
             
             $('body .btn-delete-image').on('click', function(event) {
                 event.preventDefault();

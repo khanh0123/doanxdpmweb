@@ -105,10 +105,10 @@ class PostsController extends MainAdminController
         
         
 
-        $images = [
-            'poster' => [],
-            'thumbnail' => []
-        ];
+        // $images = [
+        //     'poster' => [],
+        //     'thumbnail' => []
+        // ];
 
         //upload images and generate thumbnail
         if( $req->file('image') ){
@@ -116,13 +116,10 @@ class PostsController extends MainAdminController
             $filename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
             $extension = pathinfo($file->getClientOriginalName(), PATHINFO_EXTENSION);
             
-            $name = preg_replace("/\ /", '-', $filename).'-'.time().'.'.$extension;
+            $name = preg_replace("//", '-', $filename).'-'.time().'.'.$extension;
             $file->move('uploaded/',$name);
             $id = generate_id();
-            $images['poster'] = [
-                'id' => $id,
-                'path' => '/uploaded/' . $name
-            ];
+            $images = '/uploaded/'.$name;
             // Image::make(public_path().'\uploaded\\' . $name)->resize(600, 390)->save(public_path('\uploaded\thumbnail\\' . $name));
             // $images['thumbnail'] = [
             //     'id' => $id,
@@ -150,12 +147,14 @@ class PostsController extends MainAdminController
             }   
         }
 
-        if(empty($images['poster'])){
+        if(empty($images)){
             return [
                 'type' => 'error',
                 'msg' => 'Hãy chọn ảnh poster'
             ];
         }
+        // var_dump($images);
+        // die();
 		$item->images = json_encode($images);
         return [
         	'type' => 'success'
@@ -174,9 +173,6 @@ class PostsController extends MainAdminController
             'tags'         => ['tag_name','tag_slug'] ,
             ],'get');
 
-        foreach ($data['info'] as $key => $value) {
-            $data['info'][$key]->images = json_decode($data['info'][$key]->images);
-        }
         
         $data['filter'] = count($request->all()) > 0 ? $request->all() : $filter;        
         $data['more'] = $this->getDataNeed();
@@ -239,7 +235,8 @@ class PostsController extends MainAdminController
         }
 
         if($request->isMethod("post")){ //update
-            $item->images = json_decode($item->images);
+            // var_dump($item->images);
+            // die();
             $result = $this->setItem('update',$request, $item);
             if($result['type'] == 'success'){
                 if($item->save()){
@@ -296,7 +293,6 @@ class PostsController extends MainAdminController
         
         // var_dump($item->images) ;
         // die();
-        $item->images = json_decode($item->images);
         
         
         $data['info'] = $item;

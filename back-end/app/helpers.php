@@ -100,6 +100,26 @@ if (!function_exists('addConditionsToQuery')) {
         return $result;
     }
 }
+if (!function_exists('getUriFromUrl')) {
+
+    /**
+     * Global helpers get uri after admin/
+     * example : admin/config/... => config
+     * @return string if matched else @return false
+     */
+    function getUriFromUrl($url)
+    {
+        $reg = '/\/(admin)\/([a-zA-Z]+)(\S+)?/';
+        $matches = array();
+        $check = preg_match($reg,$url,$matches);
+        if($check){
+            return $matches[2];
+        }
+        return false;
+        
+    }
+
+}
 function base_url($path = ''){
     return url($path != '' ? $path : '/');
 }
@@ -209,6 +229,18 @@ if (!function_exists('formatResult')) {
             return $new_data;
         }
         return $results;
+    }
+}
+if (!function_exists('generate_id')) {
+    /**
+     * Global helpers auto create id
+     * 
+     * @return string
+     */
+    function generate_id($table_name = ''){
+        $id = substr($table_name, 0, 3).time().uniqid();
+        return $id;
+        
     }
 }
 

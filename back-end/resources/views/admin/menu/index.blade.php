@@ -21,26 +21,26 @@
                                 <div style="margin: 5px;width: 20%;display: inline-block">
                                     <span>Hiển thị</span>
                                     <select class="selectpicker col-4" data-style="btn btn-primary btn-round"  data-size="7" name="limit">
-                                        <option value="10" {{ @$data['info']['filter']['limit'] == 10 ? 'selected' : ''}}>10</option>
-                                        <option value="20" {{ @$data['info']['filter']['limit'] == 20 ? 'selected' : ''}}>20</option>
-                                        <option value="30" {{ @$data['info']['filter']['limit'] == 30 ? 'selected' : ''}}>30</option>
-                                        <option value="40" {{ @$data['info']['filter']['limit'] == 40 ? 'selected' : ''}}>40</option>
+                                        <option value="10" {{ @$data['filter']['limit'] == 10 ? 'selected' : ''}}>10</option>
+                                        <option value="20" {{ @$data['filter']['limit'] == 20 ? 'selected' : ''}}>20</option>
+                                        <option value="30" {{ @$data['filter']['limit'] == 30 ? 'selected' : ''}}>30</option>
+                                        <option value="40" {{ @$data['filter']['limit'] == 40 ? 'selected' : ''}}>40</option>
                                     </select>
                                     <!-- <span>Kết quả</span> -->
                                 </div>
                                 <div style="margin: 5px;width: 25%;display: inline-block">
                                     <span>Sắp xếp</span>
                                     <select class="selectpicker col-4" data-style="btn btn-primary btn-round"  data-size="7" style="width: 20% !important" name="sort">                                
-                                        <option value="desc" {{ @$data['info']['filter']['sort'] == 'desc' ? 'selected' : ''}}>Giảm dần</option>
-                                        <option value="asc" {{ @$data['info']['filter']['sort'] == 'asc' ? 'selected' : ''}}>Tăng dần</option>                     
+                                        <option value="desc" {{ @$data['filter']['sort'] == 'desc' ? 'selected' : ''}}>Giảm dần</option>
+                                        <option value="asc" {{ @$data['filter']['sort'] == 'asc' ? 'selected' : ''}}>Tăng dần</option>                     
                                     </select>                                    
                                 </div>
                                 <div style="margin: 5px;width: 20%;display: inline-block">
                                     <span>Theo</span>
                                         <select class="selectpicker col-4" data-style="btn btn-primary btn-round"  data-size="7" style="width: 20% !important" name="orderBy">                                
-                                            <option value="id" {{ @$data['info']['filter']['orderBy'] == 'id' ? 'selected' : ''}}>ID</option>
+                                            <option value="id" {{@$data['filter']['orderBy'] == 'id' ? 'selected' : ''}}>ID</option>
                                            <!--  <option value="email" {{ @$data['info']['filter']['orderBy'] == 'email' ? 'selected' : ''}}>Email</option> -->
-                                            <option value="created_at" {{ @$data['info']['filter']['orderBy'] == 'created_at' ? 'selected' : ''}}>Ngày tạo</option>
+                                            <option value="created_at" {{@$data['filter']['orderBy']== 'created_at' ? 'selected' : ''}}>Ngày tạo</option>
                                             <!-- <option value="asc" {{ @$data['info']['filter']['orderBy'] == 'asc' ? 'selected' : ''}}>Tăng dần</option>                      -->
                                         </select>
                                     </div>

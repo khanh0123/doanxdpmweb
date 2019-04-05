@@ -148,11 +148,7 @@
         }, 700)
 
 
-        @if(!empty($message))
-            var type = '{{$message['type'] == 'success' ? 'success' : 'danger'}}';
-            var message = '{{ $message['message'] }}';
-            showNotification( type , message , 5000);
-        @endif
+        
     });
 </script>
 

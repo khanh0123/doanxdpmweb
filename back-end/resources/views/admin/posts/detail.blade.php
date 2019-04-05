@@ -1,9 +1,9 @@
 @extends('admin/layout' , ['message' => !empty($message) ? $message : []])
-@section('title', 'Chi tiết phim')
+@section('title', 'Chi tiết bài viết')
 @section('main')
 <div class="container-fluid">
     <div class="alert alert-light" role="alert">
-        <strong class="">Chi tiết phim</strong>
+        <strong class="">Chi tiết bài viết</strong>
     </div>
     <form action="" method="post" enctype="multipart/form-data">
         {{ csrf_field() }}
@@ -15,13 +15,13 @@
                         <!--        You can switch " data-color="purple" "  with one of the next bright colors: "green", "orange", "red", "blue"       -->
                         <div class="wizard-header">
                             <h3 class="wizard-title">
-                                Thông tin phim
+                                Thông tin bài viết
                             </h3>
                         </div>
                         <div class="wizard-navigation">
                             <ul>
                                 <li class="wizard-menu-top">
-                                    <a href="/admin/movie/detail/{{$data['info']->id}}#info" data-toggle="tab">Thông tin phim</a>
+                                    <a href="/admin/movie/detail/{{$data['info']->id}}#info" data-toggle="tab">Thông tin bài viết</a>
                                 </li>
                                 <!-- <li class="wizard-menu-top">
                                     <a href="/admin/movie/detail/{{$data['info']->id}}# " data-toggle="tab">Tags</a>
@@ -38,11 +38,10 @@
                         <div class="tab-content">
                             <div class="tab-pane" id="info">
                                 <div class="card-content form-horizontal">
-                                    <div class="row">
-                                        <div class="col-sm-6">
+                                        <div class="col-sm-12">
                                             <div class="row">
-                                                <label class="col-sm-4 label-on-left">Tiêu đề <small style="color:red">*</small></label>
-                                                <div class="col-sm-8">
+                                                <label class="col-sm-2 label-on-right">Tiêu đề <small style="color:red">*</small></label>
+                                                <div class="col-sm-10">
                                                     <div class="form-group label-floating is-empty">
                                                         <label class="control-label"></label>
                                                         <input type="text" class="form-control" name="title" value="{{ $data['info']->title }}" required data-name="Tiêu đề">
@@ -51,8 +50,8 @@
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <label class="col-sm-4 label-on-left">Slug</label>
-                                                <div class="col-sm-8">
+                                                <label class="col-sm-2 label-on-right">Slug</label>
+                                                <div class="col-sm-10">
                                                     <div class="form-group label-floating is-empty">
                                                         <label class="control-label"></label>
                                                         <input type="text" class="form-control" name="slug" value="{{ $data['info']->slug }}">
@@ -60,23 +59,20 @@
                                                     </div>
                                                 </div>
                                             </div>
-
-                                        </div>
-                                        <!-- end col 6 -->
-                                        <div class="col-sm-6">                                            
                                             <div class="row">
-                                                <label class="col-sm-4 label-on-left">Ngày đăng <small></small></label>
-                                                <div class="col-sm-8">
+                                                <label class="col-sm-2 label-on-right">Nội dung</label>
+                                                <div class="col-sm-10">
                                                     <div class="form-group">
-                                                            <input type="text" class="form-control" value="{{$data['info']->created_at}}" name="created_at">
-                                                    </div>
+                                                        <textarea name="content" class="form-control" rows="10">{!! strip_tags($data['info']->content) !!}</textarea>
+                                                  </div>
                                                 </div>
                                             </div>
 
                                         </div>
-                                        <div class="col-sm-6">                                            
+                                        <!-- end col 6 -->
+                                        <div class="col-sm-12">                                            
                                             <div class="row">
-                                                <label class="col-sm-4 label-on-left">Tags <small></small></label>
+                                                <label class="col-sm-4 label-on-right">Tags <small></small></label>
                                                 <div class="col-sm-5  ">
                                                     <select data-container="body" class="selectpicker" data-live-search="true" data-size="10" multiple data-style="btn-danger" name="tag_id[]" required data-name="Chọn tags">
                                                         @foreach($data['more'] as $key => $value)
@@ -93,44 +89,20 @@
                                             </div>
 
                                         </div>
-                                    </div>
                                 </div>
                             </div>
                             <!-- end info -->
-                            <!-- <div class="tab-pane" id="more">
-                                <div class="card-content form-horizontal">
-                                    <div class="row">
-                                        <div class="col-md-8">
-                                            <div class="row ">
-                                                <label class="col-sm-3 label-on-left">Chọn tags</label>
-                                                <div class="col-sm-5  my-container">
-                                                    <select data-container="body" class="selectpicker" data-live-search="true" data-size="10" multiple data-style="btn-danger" name="tag_id[]" required data-name="Chọn tags">
-                                                        @foreach($data['more'] as $key => $value)
-                                                        <option data-tokens="{{$value->name}}" value="{{$value->id}}" {{ 
-                                                            in_array(
-                                                            [
-                                                            'post_id' => $data['info']->id,
-                                                            'tag_id' => $value->id
-                                                            ] , $data['info']->tags ) ? 'selected' : '' }} >{{$value->name}}
-                                                        </option>
-                                                        @endforeach
-                                                    </select>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> -->
-                            <!-- end more -->
+                            
                             <div class="tab-pane" id="images">
                                 <div class="col-md-4 col-sm-4 div-image-old">
-                                    <input type="hidden" value="{{ $data['info']->images->poster->id }}" name="listidimages_old[]">
+                                    <input type="hidden" value="{{ $data['info']->images }}" name="image_old">
                                     <div class="fileinput text-center fileinput-exists" data-provides="fileinput">
                                         <div class="fileinput-new thumbnail">
                                             <img src="/assets/img/image_placeholder.jpg" alt="Ảnh xem trước">
                                         </div>
-                                        <div class="fileinput-preview fileinput-exists thumbnail" style=""><img src="{{ !empty($data['info']->images->poster->url) ? $data['info']->images->poster->url : $data['info']->images->poster->path }}"></div>
+                                        <div class="fileinput-preview fileinput-exists thumbnail" style="">
+                                            <img src="{{$data['info']->images}}">
+                                        </div>
                                         <div>
                                             <a href="#" class="btn btn-danger btn-round fileinput-exists btn-delete-image" data-dismiss="fileinput">
                                                 <i class="fa fa-times"></i> Xóa ảnh này
@@ -201,11 +173,11 @@
                                 <button type="submit" class="btn btn-info using-tooltip" data-toggle="tooltip" data-placement="top" title="Xác Nhận Thay Đổi" onClick="return validateMovie();"><i class="material-icons">check</i>Xác Nhận<div class="ripple-container"></div></button>
                               
 
-                                <a class="btn using-tooltip" href="{{base_url('admin/posts')}}" data-toggle="tooltip" data-placement="top" title="Hủy bỏ thao tác">Hủy bỏ<div class="ripple-container"></div></a>
+                                <a class="btn using-tooltip" href="{{url('admin/posts')}}" data-toggle="tooltip" data-placement="top" title="Hủy bỏ thao tác">Hủy bỏ<div class="ripple-container"></div></a>
 
                                 
 
-                                <a class="btn btn-danger using-tooltip" href="{{ base_url('admin/posts/del/'.$data['info']->id) }}" data-toggle="tooltip" data-placement="top" title="Xóa phim này?"><i class="material-icons">close</i>Xóa<div class="ripple-container"></div></a>
+                                <a class="btn btn-danger using-tooltip" href="{{ url('admin/posts/del/'.$data['info']->id) }}" data-toggle="tooltip" data-placement="top" title="Xóa phim này?"><i class="material-icons">close</i>Xóa<div class="ripple-container"></div></a>
                             
 
                                 
@@ -247,7 +219,7 @@
             demo.initMaterialWizard();
 
             
-
+            
             
             $('body .btn-delete-image').on('click', function(event) {
                 event.preventDefault();

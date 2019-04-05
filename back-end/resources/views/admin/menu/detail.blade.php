@@ -39,13 +39,13 @@
                                 </div> -->
                                 <div class="row">
                                     <label class="col-sm-2 label-on-left">Chọn menu</label>
-                                    <div class="col-sm-10">
+                                    <div class="col-sm-5">
                                         <select data-container="body" class="selectpicker" data-live-search="true" data-size="10"  data-style="btn-success" name="tag_id" >
                                             @foreach($data['more'] as $key => $value)
                                             <?php 
-                                                $seleted = in_array($value->id,$data['info']->sub_menu) ? true : false;
+                                               // $seleted = in_array($value->id,$data['info']->sub_menu) ? true : false;
                                              ?>
-                                            <option data-tokens="{{$value->name}}" value="{{$value->id}}" {{$seleted ? 'selected' : ''}}>{{$value->name}}</option>
+                                            <option data-tokens="{{$value->name}}" value="{{$value->id}}">{{$value->name}}</option>
                                             @endforeach
                                       </select>
 
@@ -71,11 +71,11 @@
                                 <button type="submit" class="btn btn-info using-tooltip" data-toggle="tooltip" data-placement="top" title="Xác Nhận Thay Đổi"><i class="material-icons">check</i>Xác Nhận<div class="ripple-container"></div></button>
                               
 
-                                <a class="btn using-tooltip" href="{{base_url('admin/menu')}}" data-toggle="tooltip" data-placement="top" title="Hủy bỏ thao tác">Hủy bỏ<div class="ripple-container"></div></a>
+                                <a class="btn using-tooltip" href="{{url('admin/menu')}}" data-toggle="tooltip" data-placement="top" title="Hủy bỏ thao tác">Hủy bỏ<div class="ripple-container"></div></a>
 
                                
 
-                                <a class="btn btn-danger using-tooltip" href="{{base_url('admin/menu/del/'.$data['info']['id'])}}" data-toggle="tooltip" data-placement="top" title="Xóa phần tử này?"><i class="material-icons">close</i>Xóa<div class="ripple-container"></div></a>
+                                <a class="btn btn-danger using-tooltip" href="{{url('admin/menu/del/'.$data['info']['id'])}}" data-toggle="tooltip" data-placement="top" title="Xóa phần tử này?"><i class="material-icons">close</i>Xóa<div class="ripple-container"></div></a>
                               
                             </div>
                         </div>
@@ -110,8 +110,10 @@
 
         $('select[name="tag_id"]').on('change', function(event) {
             event.preventDefault();
-            $('input[name="name"]').val($(this).val());
+            // var name = $(this).children('option:selected')
+            $('input[name="name"]').val($('select[name="tag_id"] option:selected').data("tokens"));
         });  
+        $('input[name="name"]').val($('select[name="tag_id"] option:selected').data("tokens"));
     });
 </script>
 @stop

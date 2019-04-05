@@ -12,7 +12,7 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
-                            <div class="card-header card-header-text" data-background-color="rose">
+                            <div class="card-header card-header-text" data-urlckground-color="rose">
                                 <h4 class="card-title">Chi tiết</h4>
                             </div>
 
@@ -57,7 +57,7 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
-                            <div class="card-header card-header-text" data-background-color="rose">
+                            <div class="card-header card-header-text" data-urlckground-color="rose">
                                 <h4 class="card-title">Hành động</h4>
                             </div>
                             <div class="card-content">

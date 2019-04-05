@@ -68,9 +68,9 @@
                                     <td>{{ $value->name }}</td>
                                     <td>{{ $value->per_name ? $value->per_name : '' }}</td>
                                     <td class="text-right">
-                                        <a href="{{base_url('admin/group/detail/'.$value->id) }}" class="btn btn-simple btn-warning btn-icon edit">Chi tiết</a>
+                                        <a href="{{url('admin/group/detail/'.$value->id) }}" class="btn btn-simple btn-warning btn-icon edit">Chi tiết</a>
                                         @if (session()->get('permission')->canDelete)
-                                        <a href="{{base_url('admin/group/del/'.$value->id) }}" class="btn btn-simple btn-danger btn-icon remove">Xóa</a>
+                                        <a href="{{url('admin/group/del/'.$value->id) }}" class="btn btn-simple btn-danger btn-icon remove">Xóa</a>
                                         @endif
                                     </td>
                                 </tr>

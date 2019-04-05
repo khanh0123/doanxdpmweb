@@ -38,6 +38,9 @@ class PostsController extends Controller
     public function index(Request $request )
     {
         $filter         = $this->getFilter($request);
+
+        $data['info']   = $this->model->get_page($filter , $request);
+        $data['info']   = formatResult($data['info'],[],'get');          
         $data['info']   = $this->model->get_page($filter , $request);                        
         return $this->template_api($data);
     }
@@ -51,9 +54,7 @@ class PostsController extends Controller
         $filter         = $this->getFilter($request);
         $filter['conditions']['and'][] = ['posts.id','=',$id];
         $data['info']   = $this->model->get_page($filter , $request);
-        $data['info']   = formatResult($data['info'])[0];
-        
-                
+        $data['info']   = formatResult($data['info'])[0];     
         return $this->template_api($data);
     }
         

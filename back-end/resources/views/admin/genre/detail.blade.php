@@ -1,9 +1,9 @@
 @extends('admin/layout' , ['message' => !empty($message) ? $message : []])
-@section('title', 'Chi tiết danh mục')
+@section('title', 'Chi tiết thể loại')
 @section('main')
 <div class="container-fluid">
     <div class="alert alert-light" role="alert">
-        <strong class="">Chi tiết danh mục</strong>
+        <strong class="">Chi tiết thể loại</strong>
     </div>
     <form action="" method="post">
         {{ csrf_field()}}
@@ -18,11 +18,11 @@
 
                             <div class="card-content form-horizontal">
                                 <div class="row">
-                                    <label class="col-sm-2 label-on-left">Tên tags</label>
+                                    <label class="col-sm-2 label-on-left">Tên thể loại</label>
                                     <div class="col-sm-10">
                                         <div class="form-group label-floating is-empty">
                                             <label class="control-label"></label>
-                                            <input type="text" class="form-control" name="name" value="{{ $data['info']['name'] }}" required="required">
+                                            <input type="text" class="form-control" name="name" value="{{ $data['info']->name }}" required="required">
                                             <span class="material-input"></span>
                                         </div>
                                     </div>
@@ -32,12 +32,12 @@
                                     <div class="col-sm-10">
                                         <div class="form-group label-floating is-empty">
                                             <label class="control-label"></label>
-                                            <input type="text" class="form-control" name="slug" value="{{ $data['info']['slug'] }}" required>
+                                            <input type="text" class="form-control" name="slug" value="{{ $data['info']->slug }}" required>
                                             <span class="material-input"></span>
                                         </div>
                                     </div>
                                 </div>
-                                <!-- <div class="row">
+                                <div class="row">
                                     <label class="col-sm-2 label-on-left">Tiêu đề seo</label>
                                     <div class="col-sm-10">
                                         <div class="form-group label-floating is-empty">
@@ -56,7 +56,7 @@
                                             <span class="material-input"></span>
                                         </div>
                                     </div>
-                                </div> -->
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -72,13 +72,15 @@
                             </div>
                             <div class="card-content">
 
+                                @if (session()->get('permission')->canUpdate)
                                 <button type="submit" class="btn btn-info using-tooltip" data-toggle="tooltip" data-placement="top" title="Xác Nhận Thay Đổi"><i class="material-icons">check</i>Xác Nhận<div class="ripple-container"></div></button>
+                                @endif
 
-                                <a class="btn using-tooltip" href="{{url('admin/category')}}" data-toggle="tooltip" data-placement="top" title="Hủy bỏ thao tác">Hủy bỏ<div class="ripple-container"></div></a>
-                                
-                                
-                                <!-- <a class="btn btn-danger using-tooltip" href="{{url('admin/category/del/'.$data['info']['id'])}}" data-toggle="tooltip" data-placement="top" title="Xóa phần tử này?"><i class="material-icons">close</i>Xóa<div class="ripple-container"></div></a> -->
-                                
+                                <a class="btn using-tooltip" href="{{url('admin/genre')}}" data-toggle="tooltip" data-placement="top" title="Hủy bỏ thao tác">Hủy bỏ<div class="ripple-container"></div></a>
+                                @if (session()->get('permission')->canDelete)
+
+                                <a class="btn btn-danger using-tooltip" href="{{url('admin/genre/del/'.$data['info']['id'])}}" data-toggle="tooltip" data-placement="top" title="Xóa phần tử này?"><i class="material-icons">close</i>Xóa<div class="ripple-container"></div></a>
+                                @endif
                             </div>
                         </div>
                     </div>

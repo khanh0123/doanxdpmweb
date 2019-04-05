@@ -14,6 +14,24 @@
 // header("Access-Control-Allow-Origin:*");
 
 
+$router->get('/' , 'Frontend\Home@index');
+$router->get('/chi-tiet' , 'Frontend\Home@index');
+
+$router->get('/chi-tiet/{slug}/{id}' , ['as' => "Frontend.Detail.index", 'uses' => 'Frontend\Detail@index']);
+//$router->get('/admin/info' , ['as' => "Admin.info.index", 'uses' => 'AdminController\@info']);
+//$router->get('/{tag}' , 'Frontend\Filter@index');
+// $router->get('/home' , function(){
+//     return view('Homepage/Home');
+// });
+// $router->get('/getlink' , 'Admin\VideoController@getLink');
+
+$router->group(['prefix' => 'api/v1','middleware' => 'cors' ], function() use($router) {
+
+    $router->get('/menu' , ['as' => "Api.MenuController.index", 'uses' => 'Api\MenuController@index']);
+    $router->get('posts' , ['as' => "Api.PostsController.index", 'uses' => 'Api\PostsController@index']);
+
+}); 
+
 
 // $router->get("getdata" , 'Admin\MovieController@getdata');
 
@@ -41,12 +59,17 @@ $router->group(['prefix' => 'admin'], function() use($router) {
         $router->get('user/lock/{id}', [
             'as'         => "Admin.AdminController.lockuser", 
             'uses'       => 'Admin\AdminController@lockuser', 
-            'middleware' => 'auth.master'
+            'middleware' => 'auth.admin'
         ]);
         $router->get('user/unlock/{id}', [
             'as'         => "Admin.AdminController.unlockuser", 
             'uses'       => 'Admin\AdminController@unlockuser',
-            'middleware' => 'auth.master'
+            'middleware' => 'auth.admin'
+        ]);
+        $router->get('user/info', [
+            'as'         => "Admin.AdminController.info", 
+            'uses'       => 'Admin\AdminController@info',
+            'middleware' => 'auth.admin'
         ]);
         resource_admin($router, 'user', 'AdminController' , 'auth.master');
         resource_admin($router, 'group', 'AdminGroupController' , 'auth.master');
@@ -88,4 +111,6 @@ function resource_admin(&$router, $uri, $controller , $middleware = null) {
             'uses'       => "Admin\\$controller@delete",
             'middleware' => 'auth.admin'
         ]);
+        
+
 }

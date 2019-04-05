@@ -61,7 +61,7 @@
                         <div class="collapse" id="profile">
                             <ul class="nav">
                                 <li>
-                                    <a href="/admin/profile">Trang cá nhân</a>
+                                    <a href="/admin/user/info">Trang cá nhân</a>
                                 </li>
                                 <li>
                                     <a href="/admin/settings">Thiết lập</a>
@@ -124,18 +124,23 @@
                         <div class="collapse" id="posts">
                             <ul class="nav">
                                 <li class="show">
-                                    <a href="{{ url('admin/posts') }}">Danh sách tin</a>
+                                    <a href="{{ url('admin/posts') }}">Danh sách bản tin</a>
                                 </li>
                                 
                                 <li class="add">
-                                    <a href="{{ url('admin/posts/add') }}">Thêm tin</a>
+                                    <a href="{{ url('admin/posts/add') }}">Thêm tin mới</a>
+                                    
                                 </li>
-                            
+            
                             </ul>
                         </div>
                     </li>
                     <li>
+
+                        
+
                         <a data-toggle="collapse" href="{{ url('admin#tags') }}">
+
                             <i class="material-icons">category</i>
                             <p>Quản Lý Danh Mục
                                 <b class="caret"></b>
@@ -144,7 +149,10 @@
                         <div class="collapse" id="tags">
                             <ul class="nav show">
                                 <li class="tags">
+                                    
+
                                     <a href="{{ url('admin/tags') }}">Danh sách danh mục</a>
+
                                 </li>                       
                             </ul>
                             
@@ -152,14 +160,49 @@
                                 
                                 
                                 <li class="tags">
+
+                                    
+
                                     <a href="{{ url('admin/tags/add') }}">Thêm danh mục</a>
+
                                 </li>                               
                                 
                             </ul>
                            
                         </div>
                     </li>
-                    
+
+                    <!-- <li>
+                        <a data-toggle="collapse" href="{{ url('admin#country') }}">
+                            <i class="material-icons">language</i>
+                            <p>Quản Lý Quốc Gia
+                                <b class="caret"></b>
+                            </p>
+                        </a>
+                        <div class="collapse" id="country">
+                            
+                        </div>
+                    </li> -->
+                    <!-- <li>
+                        <a data-toggle="collapse" href="{{ url('admin#genre') }}">
+                            <i class="material-icons">album</i>
+                            <p>Quản Lý Thể Loại
+                                <b class="caret"></b>
+                            </p>
+                        </a>
+                        <div class="collapse" id="genre">
+                            <ul class="nav">
+                                <li class="show">
+                                    <a href="{{ url('admin/genre') }}">Danh sách thể loại</a>
+                                </li>
+                               
+                                <li class="add">
+                                    <a href="{{ url('admin/genre/add') }}">Thêm thể loại</a>
+                                </li>
+                               
+                            </ul>
+                        </div>
+                    </li> -->
                     <li>
                         <a data-toggle="collapse" href="{{ url('admin#menu') }}">
                             <i class="material-icons">menu</i>
@@ -179,7 +222,52 @@
                               
                             </ul>
                         </div>
+                    </li>
+                    <!-- <li>
+                        <a data-toggle="collapse" href="{{ url('admin#banner') }}">
+                            <i class="material-icons">swap_horizontal_circle</i>
+                            <p>Quản Lý Banner
+                                <b class="caret"></b>
+                            </p>
+                        </a>
+                        <div class="collapse" id="banner">
+                            <ul class="nav">
+                                <li class="show">
+                                    <a href="{{ url('admin/banner') }}">Danh sách banner</a>
+                                </li>
+                                
+                                <li class="add">
+                                    <a href="{{ url('admin/banner/add') }}">Thêm banner</a>
+                                </li>
+                             
+                            </ul>
+                        </div>
+                    </li> -->
+                    <!-- <li>
+                        <a data-toggle="collapse" href="{{ url('admin#config') }}">
+                            <i class="material-icons">build</i>
+                            <p>Quản Lý Cấu hình
+                                <b class="caret"></b>
+                            </p>
+                        </a>
+                        <div class="collapse" id="config">
+                            <ul class="nav">
+                                <li class="show">
+                                    <a href="{{ url('admin/config') }}">Danh sách cấu hình</a>
+                                </li>
+                               
+                                <li class="add">
+                                    <a href="{{ url('admin/config/add') }}">Thêm cấu hình</a>
+                                </li>
+                               
+                            </ul>
+                        </div>
+                    </li> -->
+                    
+                    
+
                     </li>        
+
                 </ul>
             </div>
         </div>
@@ -234,7 +322,7 @@
                                     @csrf
                                     <ul class="dropdown-menu">
                                         <li>
-                                            <a href="admin/profile">Trang cá nhân</a>
+                                            <a href="/admin/user/info">Trang cá nhân</a>
                                         </li>
                                         <li>
                                             <a  href="javascript:void(0)" data-toggle="modal" data-target="#modalChangePass">Đổi mật khẩu</a>

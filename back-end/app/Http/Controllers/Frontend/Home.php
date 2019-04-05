@@ -64,7 +64,7 @@ class Home extends Controller
 
     public function index_reactjs(Request $request)
     {        
-        $data = [];
+        $data = ['DOMAIN_API' => url('api/v1')."/"];
         return $this->template_fe('frontend.index_reactjs',$data);
     }
 }

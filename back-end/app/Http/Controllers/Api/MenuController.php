@@ -28,9 +28,6 @@ class MenuController extends Controller
         'tag_slug'   => 'menu.tag_slug',
         'created_at' => 'menu.created_at',
         'updated_at' => 'menu.updated_at',
-       
-
-        
     ];
     public function index(Request $request ) {
         $filter         = $this->getFilter($request);

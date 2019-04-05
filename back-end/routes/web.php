@@ -24,6 +24,8 @@ $router->get('/chi-tiet/{slug}/{id}' , ['as' => "Frontend.Detail.index", 'uses' 
 //     return view('Homepage/Home');
 // });
 // $router->get('/getlink' , 'Admin\VideoController@getLink');
+//$router->get('/admin/forgotpassword' , 'Admin\AdminController@');
+
 
 $router->group(['prefix' => 'api/v1','middleware' => 'cors' ], function() use($router) {
 
@@ -71,8 +73,8 @@ $router->group(['prefix' => 'admin'], function() use($router) {
             'uses'       => 'Admin\AdminController@info',
             'middleware' => 'auth.admin'
         ]);
-        resource_admin($router, 'user', 'AdminController' , 'auth.master');
-        resource_admin($router, 'group', 'AdminGroupController' , 'auth.master');
+        resource_admin($router, 'user', 'AdminController' , 'auth.admin');
+        resource_admin($router, 'group', 'AdminGroupController' , 'auth.admin');
         resource_admin($router, 'config', 'ConfigController');
         resource_admin($router, 'banner', 'BannerController');
         resource_admin($router, 'tags', 'TagsController');

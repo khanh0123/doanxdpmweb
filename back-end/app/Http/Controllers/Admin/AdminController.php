@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use App\Http\Controllers\Admin\MainAdminController;
@@ -11,6 +12,8 @@ use App\Models\Sessions;
 use Validator;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\DB;
+use App\Mail\FeedbackMail;
+
 
 class AdminController extends MainAdminController
 {	
@@ -266,36 +269,39 @@ class AdminController extends MainAdminController
     public function doForgot(Request $request)
     {
         $validator = Validator::make($request->all(), ['email' => 'required|email']);
-        if ($validator->fails()) {
+        // if ($validator->fails()) {
             
-            $message = [
-                'type' => 'error',
-                'msg'  => 'Email không hợp lệ'
-            ];
-            return $this->template($this->view_folder.'forgot','',$message);
-        } else {
-            $user = $this->model->getByEmail($request->email);
+        //     $message = [
+        //         'type' => 'error',
+        //         'msg'  => 'Email không hợp lệ'
+        //     ];
+        //     return $this->template($this->view_folder.'forgot','',$message);
+        // } else {
+            //$user = $this->model->getByEmail($request->email);
             
-            if(empty($user)){
-                $message = [
-                    'type' => 'error',
-                    'msg'  => 'Email không tồn tại. Vui lòng kiểm tra và thử lại.'
-                ];
-                return view($this->view_folder."forgot")
-                    ->withMessage($message);
+            // if(empty($user)){
+            //     $message = [
+            //         'type' => 'error',
+            //         'msg'  => 'Email không tồn tại. Vui lòng kiểm tra và thử lại.'
+            //     ];
+            //     return view($this->view_folder."forgot")
+            //         ->withMessage($message);
                 
-            } else {
+            // } else {
                 $message = [
                     'type' => 'success',
                     'msg'  => 'Một đường link lấy lại mật khẩu đã được gửi tới email của bạn. Vui lòng kiểm tra email và làm theo hướng dẫn'
                 ];
                 $data = ['requestCode' => true];
-                return $this->template($this->view_folder.'forgot',$data,$message);
-            }
+                $comment = 'Hi, This test feedback.';
+                $toEmail = "dtanphu2871997@gmail.com";
+               Mail::to($toEmail)->send(new FeedbackMail($comment));    
+                //return $this->template($this->view_folder.'forgot',$data,$message);
+           // }
 
             
 
-        }
+        //}
     }
 
     public function lockuser(Request $request,$id)

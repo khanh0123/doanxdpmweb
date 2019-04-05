@@ -110,8 +110,9 @@
 
         $('select[name="tag_id"]').on('change', function(event) {
             event.preventDefault();
-            $('input[name="name"]').val($(this).val());
+            $('input[name="name"]').val($('select[name="tag_id"] option:selected').data("tokens"))
         });  
+        $('input[name="name"]').val($('select[name="tag_id"] option:selected').data("tokens"));
     });
 </script>
 @stop

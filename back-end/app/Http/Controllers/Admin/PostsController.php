@@ -19,22 +19,22 @@ class PostsController extends MainAdminController
 
     protected $rules = [
         'insert' => [
-            'title'      => 'required',
+            'title'     => 'required',
             'content'   => 'required',
-            'slug'   => 'required',            
-            'short_des'   => 'required',            
-            'long_des'   => 'required',            
-            'tag_id'     => 'required|array',
+            'slug'      => 'required',            
+            'short_des' => '',            
+            'long_des'  => '',            
+            'tag_id'    => 'required|array|exists:tags,id',
             'image'     => 'required|image|mimes:jpeg,jpg,bmp,png|max:10000',
         ],
         'update' => [
-            'title'      => 'required',
+            'title'     => 'required',
             'content'   => 'required',
-            'slug'   => 'required',            
-            'short_des'   => 'required',            
-            'long_des'   => 'required',            
-            'tag_id'     => 'required|array',
-            'image'     => 'required|image|mimes:jpeg,jpg,bmp,png|max:10000',
+            'slug'      => 'required',            
+            'short_des' => '',            
+            'long_des'  => '',            
+            'tag_id'    => 'required|exists:tags,id',
+            'image'     => 'image|mimes:jpeg,jpg,bmp,png',
         ]
     ];
     protected $columns_filter = [
@@ -66,34 +66,27 @@ class PostsController extends MainAdminController
 
 
     public function setItem($type , $req , &$item){
+
     	switch ($type) {
-            case 'update':
-                if(empty($req->listidimages_old) || count($req->listidimages_old) == 0){
+            case 'update':            
+                if(empty($req->image_old)){
                     $this->rules[$type]['image'] = "required|".$this->rules[$type]['image'];
+
                 }else {
                     $this->rules[$type]['image'] = $this->rules[$type]['image']."|nullable";
                 }
                 break;
             case 'insert':
-                if($this->model::where([
-                        ['title',$req->title]
-                    ])->first()){
-                        return [
-                            'type' => 'error',
-                            'msg'  => 'Bản tin này đã tồn tại'
-                        ];
-                    }
-                    break;
+                break;
         }
     	
         
     	$validator = Validator::make($req->all(), $this->rules[$type]);
-        // var_dump($req->all());
-        // die();
         if ($validator->fails()) {
+            
         	return [
         		'type' => 'error',
-        		'msg' => $validator->errors()->has('images') ? 'Hãy chọn ít nhất 1 ảnh' : 'Vui lòng kiểm tra lại các trường nhập'
+        		'msg' => $validator->errors()->first()
         	];
         }            
         $item->title        = $req->title;        
@@ -103,12 +96,6 @@ class PostsController extends MainAdminController
         $item->long_des     = $req->input('long_des', '');
         $item->ad_id        = $req->authUser->id;
         
-        
-
-        // $images = [
-        //     'poster' => [],
-        //     'thumbnail' => []
-        // ];
 
         //upload images and generate thumbnail
         if( $req->file('image') ){
@@ -116,46 +103,27 @@ class PostsController extends MainAdminController
             $filename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
             $extension = pathinfo($file->getClientOriginalName(), PATHINFO_EXTENSION);
             
-            $name = preg_replace("//", '-', $filename).'-'.time().'.'.$extension;
+            $name = $filename.'-'.time().'.'.$extension;
+            
             $file->move('uploaded/',$name);
-            $id = generate_id();
-            $images = '/uploaded/'.$name;
-            // Image::make(public_path().'\uploaded\\' . $name)->resize(600, 390)->save(public_path('\uploaded\thumbnail\\' . $name));
-            // $images['thumbnail'] = [
-            //     'id' => $id,
-            //     'path' => '/uploaded/thumbnail/' . $name
-            // ];
+            $images = url('/uploaded/'.$name);
+            
         }
         
         if($type == 'update'){
-            $images_old = $req->input('listidimages_old' , []);
-            if(in_array($item->images->poster->id, $images_old) && empty($images['poster'])){
-                $images['poster'] = $item->images->poster;
-                $images['thumbnail'] = $item->images->thumbnail;
-
-            } else {
-                
-                if(!empty($item->images->poster->path)){
-                    $path = preg_replace("/^(\/)(.*)/", "$2",$item->images->poster->path );
-                    
-                    File::delete(public_path( $path ));
-                }
-                if(!empty($item->images->thumbnail->path)){
-                    $path = preg_replace("/^(\/)(.*)/", "$2",$item->images->thumbnail->path );
-                    File::delete(public_path($path));
-                }
-            }   
+            $images_old = $req->input('image_old');
+            if($images_old && empty($images)){
+                $images = $images_old;
+            } 
         }
 
         if(empty($images)){
             return [
                 'type' => 'error',
-                'msg' => 'Hãy chọn ảnh poster'
+                'msg' => 'Hãy chọn ảnh hiển thị'
             ];
         }
-        // var_dump($images);
-        // die();
-		$item->images = json_encode($images);
+		$item->images = $images;
         return [
         	'type' => 'success'
         ];
@@ -189,24 +157,21 @@ class PostsController extends MainAdminController
 
 
                 //add data tags
-                    $arr_tag = array();                    
+                $arr_tag = array();                    
 
                 //check exists tags
-                    for ($i = 0; $i < count($request->tag_id); $i++) {
-                        $tag_id = $request->tag_id[$i];
-
-                        if(Tags::find($tag_id)){
-                            $arr_tag[] = [
-                                'tag_id' => $tag_id,
-                                'post_id' =>$item->id
-                            ];
-                        }
-                    }         
-
+                for ($i = 0; $i < count($request->tag_id); $i++) {
+                    $tag_id = $request->tag_id[$i];
+                    $arr_tag[] = [
+                        'tag_id'  => $tag_id,
+                        'post_id' => $item->id
+                    ];
+                }         
+                
                 //insert tags
-                    if(!empty($arr_tag)){
-                        Posts_Tags::insert($arr_tag);
-                    }
+                if(!empty($arr_tag)){
+                    Posts_Tags::insert($arr_tag);
+                }
                     $result['msg'] = 'Thêm dữ liệu thành công';
                 } else {
                     $result['msg'] = 'Thêm dữ liệu thất bại';
@@ -246,33 +211,18 @@ class PostsController extends MainAdminController
                 //check exists tags
                     for ($i = 0; $i < count($request->tag_id); $i++) {
                         $tag_id = $request->tag_id[$i];
-
-                        if(Tags::find($tag_id)){
-                            $arr_tag[] = [
-                                'tag_id' => $tag_id,
-                            ];
-                        }
+                        $arr_tag[] = [
+                            'tag_id' => $tag_id,
+                            'post_id' => $item->id,
+                        ];
                     }   
 
-                    $data_post_tag = Posts_Tags::where(['post_id' => $item->id])->get();  
-                    // var_dump($data_post_tag);
-                    // die();                 
+                    Posts_Tags::where(['post_id' => $item->id])->delete();            
 
-                    for ($i = 0; $i < count($data_post_tag); $i++) {
-                        if(!in_array($data_post_tag[$i], $arr_tag)){
-                            Posts_Tags::where(
-                                ['tag_id' => $data_post_tag[$i]->tag_id]
-                            )->delete();
-                        } else {
-                            array_push($arr_tag, $data_post_tag[$i]);
-                        }
-                    }
-
-                //insert tags
+                    //insert tags
                     if(!empty($arr_tag)){
                         Posts_Tags::insert($arr_tag);
                     }
-                    $item->tags = $arr_tag;
                     $result['msg'] = 'Cập nhật dữ liệu thành công';
                 } else {
                     $result['msg'] = 'Cập nhật dữ liệu thất bại';
@@ -291,17 +241,9 @@ class PostsController extends MainAdminController
         }
 
         
-        // var_dump($item->images) ;
-        // die();
-        
         
         $data['info'] = $item;
         $data['more'] = $this->getDataNeed();
-        //echo "<pre>";
-        //print_r($data);
-        
-        // echo json_encode($dataPost_Tag);
-        // die();
         return $this->template($this->view_folder."detail",$data,$result);
 
     }
@@ -322,33 +264,7 @@ class PostsController extends MainAdminController
         }
         return Response()->json($res,200);
     }
-    // public function switch(Request $request)
-    // {
-    //     $id = $request->id;
-    //     $this->model = $this->model::findOrFail($id);
-        
-        
-    //     $is_banner = $request->is_banner;
-    //     if(is_numeric($request->is_hot)){
-    //         $is_hot = (int)$request->is_hot;
-    //         $this->model->is_hot = $is_hot;
-    //     }
-    //     if(is_numeric($request->is_new)){
-    //         $is_new = (int)$request->is_new;
-    //         $this->model->is_new = $is_new;
-    //     }
-    //     if(is_numeric($request->is_banner)){
-    //         $is_banner = (int)$request->is_banner;
-    //         $this->model->is_banner = $is_banner;
-    //     }
-        
-    //     if($this->model->update()){
-    //         return Response()->json(['success' => true,'data' => $this->model]);
-    //     }
-    //     return Response()->json(['error' => true]);
 
-
-    // }
     private function getDataNeed(){
         $data = array();
         $tag_model = new Tags();

@@ -36,10 +36,10 @@
                             <div class="tab-pane" id="info">
                                 <div class="card-content form-horizontal">
                                     <div class="row">
-                                        <div class="col-sm-10">
+                                        <div class="col-sm-12">
                                             <div class="row">
-                                                <label class="col-sm-4 label-on-left">Tiêu đề <small style="color:red">*</small></label>
-                                                <div class="col-sm-8">
+                                                <label class="col-sm-2 label-on-left">Tiêu đề <small style="color:red">*</small></label>
+                                                <div class="col-sm-10">
                                                     <div class="form-group label-floating is-empty">
                                                         <label class="control-label"></label>
                                                         <input type="text" class="form-control" name="title" value="" required data-name="Tiêu đề ">
@@ -48,25 +48,23 @@
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <label class="col-sm-4 label-on-left">Slug</label>
-                                                <div class="col-sm-8">
+                                                <label class="col-sm-2 label-on-left">Slug</label>
+                                                <div class="col-sm-10">
                                                     <div class="form-group label-floating is-empty">
                                                         <label class="control-label"></label>
                                                         <input type="text" class="form-control" name="slug" value="">
                                                         <span class="material-input"></span>
                                                     </div>
                                                 </div>
-                                            </div>      
+                                            </div>    
                                             <div class="row">
-                                                <label class="col-sm-4 label-on-left">Nội dung</label>
-                                                <div class="col-sm-8">
-                                                    <div class="form-group label-floating is-empty">
-                                                        <label class="control-label"></label>
-                                                        <input type="text" class="form-control" name="content" value="">
-                                                        <span class="material-input"></span>
-                                                    </div>
+                                                <label class="col-sm-2 label-on-left">Nội dung</label>
+                                                <div class="col-sm-10">
+                                                    <div class="form-group">
+                                                        <textarea name="content" class="form-control" rows="10"></textarea>
+                                                  </div>
                                                 </div>
-                                            </div>                                       
+                                            </div>                                          
 
                                         </div>
                                         <!-- end col 6 -->
